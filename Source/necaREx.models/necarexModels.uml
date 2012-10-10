@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_2E3cwBIZEeK-AYQSmGRfPA" name="NewModel">
+  <packagedElement xmi:type="uml:Class" xmi:id="_IlZ_wBIaEeK-AYQSmGRfPA" name="ChessField"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_FQ6JIBIaEeK-AYQSmGRfPA" name="ChessBoard"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_CP0hQBIbEeK-AYQSmGRfPA" name="contains" memberEnd="_CP0hQRIbEeK-AYQSmGRfPA _CP0hRBIbEeK-AYQSmGRfPA" navigableOwnedEnd="_CP0hRBIbEeK-AYQSmGRfPA">
+    <ownedEnd xmi:id="_CP0hQRIbEeK-AYQSmGRfPA" name="" type="_FQ6JIBIaEeK-AYQSmGRfPA" association="_CP0hQBIbEeK-AYQSmGRfPA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CP0hQxIbEeK-AYQSmGRfPA" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CP0hQhIbEeK-AYQSmGRfPA" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_CP0hRBIbEeK-AYQSmGRfPA" name="" type="_IlZ_wBIaEeK-AYQSmGRfPA" association="_CP0hQBIbEeK-AYQSmGRfPA">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CP0hRhIbEeK-AYQSmGRfPA" value="*"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CP0hRRIbEeK-AYQSmGRfPA"/>
+    </ownedEnd>
+  </packagedElement>
+</uml:Model>
