@@ -3,6 +3,9 @@
   <ownedComment xmi:id="_3ERUUBMWEeKcMO2HNOKCzw" annotatedElement="_JdZQUBIdEeK-AYQSmGRfPA">
     <body>Wie nennt man &quot;im Schach stehen&quot; auf englisch? -> Provisorisch als &quot;Check&quot; bezeichnet (abgeleitet von Checkmate)</body>
   </ownedComment>
+  <ownedComment xmi:id="_Md7C0BeTEeKRCIsbNizmOQ" annotatedElement="_JdZQUBIdEeK-AYQSmGRfPA">
+    <body>Einstieg für jeden Klick (View) über GameManager. Danacher beim ersten Klick an ChessBoardManager, zweiter RuleManager und PieceManager</body>
+  </ownedComment>
   <packageImport xmi:id="_lYtG8BMVEeKcMO2HNOKCzw">
     <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
   </packageImport>
@@ -22,8 +25,7 @@
     </ownedAttribute>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_hNYsIBMMEeKcMO2HNOKCzw" name="ChessBoard">
-    <ownedAttribute xmi:id="_yXKJIBMPEeKcMO2HNOKCzw" name="chessField" aggregation="composite">
-      <type xmi:type="uml:Class" href="necarexModels.uml#_IlZ_wBIaEeK-AYQSmGRfPA"/>
+    <ownedAttribute xmi:id="_yXKJIBMPEeKcMO2HNOKCzw" name="chessField" type="_i2cUoBMMEeKcMO2HNOKCzw" aggregation="composite">
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_yXKwMBMPEeKcMO2HNOKCzw" value="*"/>
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_yXKJIRMPEeKcMO2HNOKCzw"/>
     </ownedAttribute>
@@ -120,9 +122,7 @@
     <ownedOperation xmi:id="_-U6psBMREeKcMO2HNOKCzw" name="initializePieces"/>
     <ownedOperation xmi:id="_nDIWgBMXEeKcMO2HNOKCzw" name="movePiece">
       <ownedParameter xmi:id="_p0RBYBMXEeKcMO2HNOKCzw" name="p" type="_N-NJEBIdEeK-AYQSmGRfPA"/>
-      <ownedParameter xmi:id="_p0RBYRMXEeKcMO2HNOKCzw" name="f">
-        <type xmi:type="uml:Class" href="necarexModels.uml#_IlZ_wBIaEeK-AYQSmGRfPA"/>
-      </ownedParameter>
+      <ownedParameter xmi:id="_p0RBYRMXEeKcMO2HNOKCzw" name="f"/>
     </ownedOperation>
     <ownedOperation xmi:id="_s5clcBMeEeKcMO2HNOKCzw" name="killPiece">
       <ownedParameter xmi:id="_uZ_yMBMeEeKcMO2HNOKCzw" name="p" type="_N-NJEBIdEeK-AYQSmGRfPA"/>
@@ -141,9 +141,7 @@
   <packagedElement xmi:type="uml:Class" xmi:id="_OJUZwBMWEeKcMO2HNOKCzw" name="RuleManager">
     <ownedOperation xmi:id="_UYWu4BMWEeKcMO2HNOKCzw" name="RuleCheckResult check">
       <ownedParameter xmi:id="_YpPVQBMWEeKcMO2HNOKCzw" name="p" type="_N-NJEBIdEeK-AYQSmGRfPA"/>
-      <ownedParameter xmi:id="_YpPVQRMWEeKcMO2HNOKCzw" name="f">
-        <type xmi:type="uml:Class" href="necarexModels.uml#_IlZ_wBIaEeK-AYQSmGRfPA"/>
-      </ownedParameter>
+      <ownedParameter xmi:id="_YpPVQRMWEeKcMO2HNOKCzw" name="f"/>
     </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_dqBHgBMWEeKcMO2HNOKCzw" name="" memberEnd="_dqBHgRMWEeKcMO2HNOKCzw _dqBukRMWEeKcMO2HNOKCzw" navigableOwnedEnd="_dqBHgRMWEeKcMO2HNOKCzw _dqBukRMWEeKcMO2HNOKCzw">
@@ -205,9 +203,7 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_CSDUABMaEeKcMO2HNOKCzw" name="PieceMovementBL">
     <ownedOperation xmi:id="_FKh9ABMaEeKcMO2HNOKCzw" name="ChessField[*] calculateReachableFields">
-      <ownedParameter xmi:id="_L07_gBMaEeKcMO2HNOKCzw" name="b">
-        <type xmi:type="uml:Class" href="necarexModels.uml#_FQ6JIBIaEeK-AYQSmGRfPA"/>
-      </ownedParameter>
+      <ownedParameter xmi:id="_L07_gBMaEeKcMO2HNOKCzw" name="b"/>
       <ownedParameter xmi:id="_I4nYUBMaEeKcMO2HNOKCzw" name="p" type="_N-NJEBIdEeK-AYQSmGRfPA"/>
     </ownedOperation>
   </packagedElement>
@@ -223,6 +219,14 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_vR7ckBMaEeKcMO2HNOKCzw" name="GameManager">
     <ownedOperation xmi:id="_yKzuMBMaEeKcMO2HNOKCzw" name="initializeGame"/>
+    <ownedOperation xmi:id="_fUT6ABeTEeKRCIsbNizmOQ" name="doTurn">
+      <ownedParameter xmi:id="_iJYpsBeTEeKRCIsbNizmOQ" name="x">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_iJYpsReTEeKRCIsbNizmOQ" name="y">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </ownedParameter>
+    </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_w3tuoBMaEeKcMO2HNOKCzw" name="gameManagersToGames" memberEnd="_w3tuoRMaEeKcMO2HNOKCzw _w3uVshMaEeKcMO2HNOKCzw" navigableOwnedEnd="_w3tuoRMaEeKcMO2HNOKCzw _w3uVshMaEeKcMO2HNOKCzw">
     <ownedEnd xmi:id="_w3tuoRMaEeKcMO2HNOKCzw" name="gameManagers" type="_vR7ckBMaEeKcMO2HNOKCzw" association="_w3tuoBMaEeKcMO2HNOKCzw">
@@ -314,7 +318,17 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_SirQkxMfEeKcMO2HNOKCzw"/>
     </ownedEnd>
   </packagedElement>
-  <packagedElement xmi:type="uml:Package" xmi:id="_Wv1NgBMfEeKcMO2HNOKCzw" name="necarex.domainlayer.manager"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_Wv1NgBMfEeKcMO2HNOKCzw" name="necarex.domainlayer.manager">
+    <ownedComment xmi:id="_LdNzwBeTEeKRCIsbNizmOQ" annotatedElement="_Wv1NgBMfEeKcMO2HNOKCzw">
+      <body>Zug-Typ-Bestimmungslogik Klasse statt im GameManager? (Dann könnte Model Verbindung entfernt werden)</body>
+    </ownedComment>
+    <ownedComment xmi:id="_zZTSUBeTEeKRCIsbNizmOQ" annotatedElement="_Wv1NgBMfEeKcMO2HNOKCzw">
+      <body>Empty comment</body>
+    </ownedComment>
+    <packagedElement xmi:type="uml:Package" xmi:id="_0GioQBeSEeKRCIsbNizmOQ" name="necarex.domainlayer.manager.utils">
+      <packagedElement xmi:type="uml:Class" xmi:id="_2EVxsBeSEeKRCIsbNizmOQ" name="CoordinatesHelper"/>
+    </packagedElement>
+  </packagedElement>
   <packagedElement xmi:type="uml:Package" xmi:id="_gcWWIBMfEeKcMO2HNOKCzw" name="necarex.domainlayer.bl"/>
   <packagedElement xmi:type="uml:Association" xmi:id="_rIH8UBMfEeKcMO2HNOKCzw" name="ruleManagersToCheckmateBLs" memberEnd="_rIH8URMfEeKcMO2HNOKCzw _rIH8VBMfEeKcMO2HNOKCzw" navigableOwnedEnd="_rIH8URMfEeKcMO2HNOKCzw _rIH8VBMfEeKcMO2HNOKCzw">
     <ownedEnd xmi:id="_rIH8URMfEeKcMO2HNOKCzw" name="ruleManagers" type="_OJUZwBMWEeKcMO2HNOKCzw" association="_rIH8UBMfEeKcMO2HNOKCzw">
