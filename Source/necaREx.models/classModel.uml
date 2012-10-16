@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_JdZQUBIdEeK-AYQSmGRfPA" name="NewModel">
-  <ownedComment xmi:id="_3ERUUBMWEeKcMO2HNOKCzw" annotatedElement="_JdZQUBIdEeK-AYQSmGRfPA">
-    <body>Wie nennt man &quot;im Schach stehen&quot; auf englisch? -> Provisorisch als &quot;Check&quot; bezeichnet (abgeleitet von Checkmate)</body>
-  </ownedComment>
   <ownedComment xmi:id="_Md7C0BeTEeKRCIsbNizmOQ" annotatedElement="_JdZQUBIdEeK-AYQSmGRfPA">
     <body>Einstieg für jeden Klick (View) über GameManager. Danacher beim ersten Klick an ChessBoardManager, zweiter RuleManager und PieceManager</body>
   </ownedComment>
@@ -321,9 +318,6 @@
   <packagedElement xmi:type="uml:Package" xmi:id="_Wv1NgBMfEeKcMO2HNOKCzw" name="necarex.domainlayer.manager">
     <ownedComment xmi:id="_LdNzwBeTEeKRCIsbNizmOQ" annotatedElement="_Wv1NgBMfEeKcMO2HNOKCzw">
       <body>Zug-Typ-Bestimmungslogik Klasse statt im GameManager? (Dann könnte Model Verbindung entfernt werden)</body>
-    </ownedComment>
-    <ownedComment xmi:id="_zZTSUBeTEeKRCIsbNizmOQ" annotatedElement="_Wv1NgBMfEeKcMO2HNOKCzw">
-      <body>Empty comment</body>
     </ownedComment>
     <packagedElement xmi:type="uml:Package" xmi:id="_0GioQBeSEeKRCIsbNizmOQ" name="necarex.domainlayer.manager.utils">
       <packagedElement xmi:type="uml:Class" xmi:id="_2EVxsBeSEeKRCIsbNizmOQ" name="CoordinatesHelper"/>
