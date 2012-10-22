@@ -3,6 +3,6 @@
   <packagedElement xmi:type="uml:Package" xmi:id="_ccBkoBebEeKS_LKRGs9iEA" name="necarex.domainlayer.manager"/>
   <packagedElement xmi:type="uml:Package" xmi:id="_ccBkpBebEeKS_LKRGs9iEA" name="necarex.domainlayer.bl"/>
   <packagedElement xmi:type="uml:Package" xmi:id="_ccBkpRebEeKS_LKRGs9iEA" name="necarex.client.ui"/>
-  <packagedElement xmi:type="uml:Package" xmi:id="_ccBkqhebEeKS_LKRGs9iEA" name="necarex.common.dto"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_ccBkqhebEeKS_LKRGs9iEA" name="necarex.common"/>
   <packagedElement xmi:type="uml:Package" xmi:id="_3dhcEBebEeKS_LKRGs9iEA" name="libgdx"/>
 </uml:Model>
