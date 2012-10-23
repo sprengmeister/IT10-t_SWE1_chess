@@ -14,7 +14,7 @@
     </ownedAttribute>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_9f6EBxeVEeKRCIsbNizmOQ" name="Feld"/>
-  <packagedElement xmi:type="uml:Class" xmi:id="_9f6EEReVEeKRCIsbNizmOQ" name="Spieler">
+  <packagedElement xmi:type="uml:Class" xmi:id="_9f6EEReVEeKRCIsbNizmOQ" name="MenschlicherSpieler">
     <ownedAttribute xmi:id="_9f6EEheVEeKRCIsbNizmOQ" name="anzahlZuegeSeitLetztemKill">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9f6EExeVEeKRCIsbNizmOQ" value="1"/>
@@ -27,11 +27,7 @@
     </ownedAttribute>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_9f6EGReVEeKRCIsbNizmOQ" name="Schachspiel">
-    <ownedAttribute xmi:id="_9f6EGheVEeKRCIsbNizmOQ" name="spieler" type="_9f6EEReVEeKRCIsbNizmOQ">
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9f6EGxeVEeKRCIsbNizmOQ" value="2"/>
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9f6EHBeVEeKRCIsbNizmOQ" value="2"/>
-    </ownedAttribute>
-    <ownedAttribute xmi:id="_9f6EHReVEeKRCIsbNizmOQ" name="spielerAmZug" type="_9f6EEReVEeKRCIsbNizmOQ">
+    <ownedAttribute xmi:id="_9f6EHReVEeKRCIsbNizmOQ" name="spielerAmZug" type="_HJX3MBz9EeKAbYkvl-E4vQ">
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9f6EHheVEeKRCIsbNizmOQ" value="1"/>
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9f6EHxeVEeKRCIsbNizmOQ" value="1"/>
     </ownedAttribute>
@@ -96,6 +92,17 @@
     <ownedEnd xmi:id="_xkv0BBw_EeKSx-x6YQyhAw" name="" type="_9f6EGReVEeKRCIsbNizmOQ" association="_xkv0ABw_EeKSx-x6YQyhAw">
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xkv0Bhw_EeKSx-x6YQyhAw" value="1"/>
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xkv0BRw_EeKSx-x6YQyhAw" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_HJX3MBz9EeKAbYkvl-E4vQ" name="Spieler"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_K6L2YBz9EeKAbYkvl-E4vQ" name="steht neben" memberEnd="_K6L2YRz9EeKAbYkvl-E4vQ _K6L2ZBz9EeKAbYkvl-E4vQ" navigableOwnedEnd="_K6L2ZBz9EeKAbYkvl-E4vQ">
+    <ownedEnd xmi:id="_K6L2YRz9EeKAbYkvl-E4vQ" name="" type="_9f5c9xeVEeKRCIsbNizmOQ" association="_K6L2YBz9EeKAbYkvl-E4vQ">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_K6L2Yxz9EeKAbYkvl-E4vQ" value="*"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_K6L2Yhz9EeKAbYkvl-E4vQ"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_K6L2ZBz9EeKAbYkvl-E4vQ" name="" type="_9f414BeVEeKRCIsbNizmOQ" association="_K6L2YBz9EeKAbYkvl-E4vQ">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_K6L2Zhz9EeKAbYkvl-E4vQ" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_K6L2ZRz9EeKAbYkvl-E4vQ" value="1"/>
     </ownedEnd>
   </packagedElement>
 </uml:Model>
