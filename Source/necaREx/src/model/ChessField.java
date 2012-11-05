@@ -12,13 +12,17 @@ import model.pieces.*;
  */
 public class ChessField {
     private Piece piece;
+    private int col;
+    private int row;
 
     /**
      * Erstellt ein Schachfeld. 
      * @param initialPiece Figur in Grundaufstellung 
      */
-    public ChessField(Piece initialPiece){
+    public ChessField(Piece initialPiece, int col, int row){
         this.piece = initialPiece;
+        this.col = col;
+        this.row = row;
     }
     /**
      * 
@@ -36,6 +40,20 @@ public class ChessField {
      */
     public Piece getPiece() {
         return piece;
+    }
+
+    /**
+     * @return the col
+     */
+    public int getCol() {
+        return col;
+    }
+
+    /**
+     * @return the row
+     */
+    public int getRow() {
+        return row;
     }
     
 }

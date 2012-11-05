@@ -19,12 +19,10 @@ public class Pawn extends Piece {
     /**
      * Konstruktor: Erzeugt einen Bauern
      * @param player Referenz zum Spieler 
-     * @param col Referenz zur Spalte
-     * @param row Referenz zur Zeile
      * @param chessBoard Referenz zum Schachbrett 
      */
-    public Pawn(Player player, int col, int row, ChessBoard chessBoard){
-        super(player, col, row, chessBoard);
+    public Pawn(Player player, ChessBoard chessBoard){
+        super(player, chessBoard);
         this.setTurnDirectionByPlayer();     
     }
 
@@ -56,7 +54,7 @@ public class Pawn extends Piece {
      * Setzt die interne Variable direction aufgrund der Farbe. Weiss fährt von der Reihe 1 zu 7, Schwarz von 6 zu 0
      */
     private void setTurnDirectionByPlayer(){
-        if(this.owner.getColor() == PlayerColor.WHITE){
+        if(this.getOwner().getColor() == PlayerColor.WHITE){
             this.direction = 1;
         } else {
             this.direction = -1;
@@ -67,7 +65,7 @@ public class Pawn extends Piece {
      * Prüft, ob der Bauer ein Feld nach vorne fahren kann. 
      */
     private void checkPossiblePawnTurn(){
-        ChessField targetField =  this.chessBoard.getField(col, (row+(this.direction * 1 )));
+        ChessField targetField =  this.getChessBoard().getField(this.getChessField().getCol(), (this.getChessField().getRow()+(this.direction * 1 )));
         if(targetField.getPiece() == null){
             possibleFields.add(targetField);    
         }
@@ -77,14 +75,14 @@ public class Pawn extends Piece {
      */
     private void checkPossiblePawnCapture(){
         ChessField targetField = null;
-        if(this.getCol() != 0){
-            targetField = this.getChessBoard().getField((this.getCol()-1), (this.getRow()+direction * 1));
+        if(this.getChessField().getCol() != 0){
+            targetField = this.getChessBoard().getField((this.getChessField().getCol()-1), (this.getChessField().getRow()+direction * 1));
             if(targetField.getPiece() != null && targetField.getPiece().getOwner().getColor() == PlayerColor.BLACK){
                 possibleFields.add(targetField);
             }
         }
-        if(this.getCol() != 7){
-            targetField = this.getChessBoard().getField((this.getCol()+1), (this.getRow()+ direction * 1));
+        if(this.getChessField().getCol() != 7){
+            targetField = this.getChessBoard().getField((this.getChessField().getCol()+1), (this.getChessField().getRow()+ direction * 1));
             if(targetField.getPiece() != null && targetField.getPiece().getOwner().getColor() == PlayerColor.BLACK){
                 possibleFields.add(targetField);
             }
@@ -96,7 +94,7 @@ public class Pawn extends Piece {
      */
     private void checkPossiblePawnDoubleTurn(){
         if(this.checkPawnIsOnBaseLine()){
-            ChessField targetField =  this.chessBoard.getField(col, (row+(this.direction * 2)));
+            ChessField targetField =  this.getChessBoard().getField(this.getChessField().getCol(), (this.getChessField().getRow()+(this.direction * 2)));
             if(targetField.getPiece() == null){
                 possibleFields.add(targetField);    
             }
@@ -107,10 +105,10 @@ public class Pawn extends Piece {
      * @return true, wenn sich der Bauer auf der Grundlinie befindet, ansonsten false
      */
     private boolean checkPawnIsOnBaseLine(){
-        if(this.owner.getColor() == PlayerColor.WHITE && row == 1){
+        if(this.getOwner().getColor() == PlayerColor.WHITE && this.getChessField().getRow() == 1){
             return true;
         }
-        if(this.owner.getColor() == PlayerColor.BLACK && row == 6 ){
+        if(this.getOwner().getColor() == PlayerColor.BLACK && this.getChessField().getRow() == 6 ){
             return true;
         }
         return false;

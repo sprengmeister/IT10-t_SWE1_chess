@@ -73,7 +73,7 @@ public class ChessBoard {
         
         // Bauern weiss und schwarz
         if(row == 1 || row == 6 ){
-            return new Pawn(player, col, row, this);
+            return new Pawn(player, this);
         }
         
         
@@ -84,7 +84,11 @@ public class ChessBoard {
         chessField = new ChessField[8][8];
         for(int col = 0;col<8;col++){
             for(int row = 0;row<8;row++){
-                chessField[col][row] = new ChessField(this.getInitialFigure(col, row));
+                Piece initialPiece = this.getInitialFigure(col, row);
+                chessField[col][row] = new ChessField(initialPiece, col, row);
+                if( initialPiece != null) {
+                    initialPiece.setChessField(chessField[col][row]);
+                }
             }
         }
 
@@ -98,13 +102,13 @@ public class ChessBoard {
     public ChessField getField(int col, int row){
         return chessField[col][row];
     }
-    public ChessField getField(ChessField chessfieldSearch){
+    /*public ChessField getField(ChessField chessfieldSearch){
         Piece p = chessfieldSearch.getPiece();
         if(p != null){
             return getField(p.getCol(), p.getRow());
         }
         return null;
-    }
+    }*/
     
     
 }
