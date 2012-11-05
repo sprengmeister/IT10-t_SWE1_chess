@@ -92,12 +92,12 @@ public class ModelTester {
     public void checkFieldColsAndRows(){
         for(int row = 0;row < 8 ;row++){
             for(int col = 0; col < 8 ; col++){
-                Piece piece = game.getChessBoard().getField(col, row).getPiece() ;
-                if(!(piece == null || piece.getRow() == row)){
-                    Assert.fail("Figur auf Feld "+ col +" / "+ row +" meinst sie stehe auf dem Feld  " + piece.getCol() + " / " + piece.getRow() + ".");
+                ChessField chessfield = game.getChessBoard().getField(col, row) ;
+                if(!(chessfield.getRow() == row)){
+                    Assert.fail("Feld "+ col +" / "+ row +" meint es sei Feld  " + chessfield.getCol() + " / " + chessfield.getRow() + ".");
                 }
-                if(!(piece == null || piece.getCol() == col)){                 
-                    Assert.fail("Figur auf Feld "+ col +" / "+ row +" meinst sie stehe auf dem Feld  " + piece.getCol() + " / " + piece.getRow() + ".");
+                if(!(chessfield.getCol() == col)){                 
+                    Assert.fail("Feld "+ col +" / "+ row +" meint es sei Feld  " + chessfield.getCol() + " / " + chessfield.getRow() + ".");
                 }
             }
         }

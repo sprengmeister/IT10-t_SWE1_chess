@@ -13,22 +13,28 @@ import model.*;
  */
 public abstract class Piece {
     private Player owner;
-    private int row;
-    private int col;
+    private ChessField chessField;
     private ChessBoard chessBoard;
     
-    public Piece(Player owner, int col, int row, ChessBoard chessBoard){
+    public Piece(Player owner, ChessBoard chessBoard){
         this.owner = owner;
-        this.col = col;        
-        this.row = row;
         this.chessBoard = chessBoard;
     }
     
     public abstract ArrayList<ChessField> getPossibleFields();
-    
-    public void moveTo(int row, int col){
-        this.row = row;
-        this.col = col;
+
+    /**
+     * @return the chessField
+     */
+    public ChessField getChessField() {
+        return chessField;
+    }
+
+    /**
+     * @param chessField the chessField to set
+     */
+    public void setChessField(ChessField chessField) {
+        this.chessField = chessField;
     }
 
     /**
@@ -39,22 +45,13 @@ public abstract class Piece {
     }
 
     /**
-     * @return the row
+     * @return the chessBoard
      */
-    public int getRow() {
-        return row;
-    }
-
-    /**
-     * @return the col
-     */
-    public int getCol() {
-        return col;
-    }
-    
-    protected ChessBoard getChessBoard(){
+    public ChessBoard getChessBoard() {
         return chessBoard;
     }
+    
+    
     
     
 }

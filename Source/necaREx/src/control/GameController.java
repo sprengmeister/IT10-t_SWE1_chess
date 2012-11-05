@@ -17,7 +17,7 @@ public class GameController {
     private Game game;
     
     public GameController(){
-        newGame();
+        game = new Game();
     }
     
     public void newGame(){
@@ -29,7 +29,7 @@ public class GameController {
         if(field.getPiece() == null){
             throw new NoFigureOnFieldException();
         }
-        return game.getChessBoard().getField(field).getPiece().getPossibleFields();
+        return game.getChessBoard().getField(field.getCol(), field.getRow()).getPiece().getPossibleFields();
     }
     
     public void doTurn(ChessField from, ChessField to){
