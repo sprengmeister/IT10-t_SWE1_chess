@@ -12,10 +12,10 @@ import model.*;
  * @author florian
  */
 public abstract class Piece {
-    private Player owner;
-    private int row;
-    private int col;
-    private ChessBoard chessBoard;
+    protected Player owner;
+    protected int row;
+    protected int col;
+    protected ChessBoard chessBoard;
     
     public Piece(Player owner, int col, int row, ChessBoard chessBoard){
         this.owner = owner;
