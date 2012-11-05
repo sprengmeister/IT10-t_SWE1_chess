@@ -94,10 +94,10 @@ public class ModelTester {
             for(int col = 0; col < 8 ; col++){
                 Piece piece = game.getChessBoard().getField(col, row).getPiece() ;
                 if(!(piece == null || piece.getRow() == row)){
-                    Assert.fail("Figur auf Feld "+ col +" / "+ row +" meinst sie stehe auf dem Feld  " + piece.getCol() + " / " + piece.getRow() + ".");
+                    Assert.fail("Figur auf Feld "+ col +" / "+ row +" meint sie stehe auf dem Feld  " + piece.getCol() + " / " + piece.getRow() + ".");
                 }
                 if(!(piece == null || piece.getCol() == col)){                 
-                    Assert.fail("Figur auf Feld "+ col +" / "+ row +" meinst sie stehe auf dem Feld  " + piece.getCol() + " / " + piece.getRow() + ".");
+                    Assert.fail("Figur auf Feld "+ col +" / "+ row +" meint sie stehe auf dem Feld  " + piece.getCol() + " / " + piece.getRow() + ".");
                 }
             }
         }
