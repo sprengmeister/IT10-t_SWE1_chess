@@ -48,6 +48,8 @@ public class Pawn extends Piece {
         this.checkPossiblePawnDoubleTurn();
         this.checkPossiblePawnCapture();
 
+        //TODO prüfen ob mit diesem Zug eine Schachsituation ausgelöst wurde
+        
         return possibleFields;
     }
     /**
