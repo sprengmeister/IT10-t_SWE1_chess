@@ -13,7 +13,6 @@ import model.*;
  */
 public class Pawn extends Piece {
     
-    private ArrayList<ChessField> possibleFields;
     private int direction;
 
     /**
@@ -32,19 +31,18 @@ public class Pawn extends Piece {
      */
     @Override
     public ArrayList<ChessField> getPossibleFields() {
-        if(possibleFields == null){
-            possibleFields = new ArrayList<ChessField>();
-        } else{
-            possibleFields.clear();
-        }
+    	ArrayList<ChessField> possibleFields = new ArrayList<ChessField>();
+    
 
         // TODO Schlagen en passant
         // Schwierigkeit: Abhängigkeit von 2 Zügen, es kann nur en passant geschlagen werden, 
         //wenn weisser Bauer e2 - e4 gezogen hat und schwarz im direkt folgenden Zug d4 x e3 schlägt.              
 
-        this.checkPossiblePawnTurn();
-        this.checkPossiblePawnDoubleTurn();
-        this.checkPossiblePawnCapture();
+        
+        this.addPossiblePawnTurn(possibleFields);
+        this.addPossiblePawnDoubleTurn(possibleFields);
+        this.addPossiblePawnCaptures(possibleFields);
+        //this.checkSchlagenEnPassant();
 
         //TODO prüfen ob mit diesem Zug eine Schachsituation ausgelöst wurde
         
@@ -64,7 +62,7 @@ public class Pawn extends Piece {
     /**
      * Prüft, ob der Bauer ein Feld nach vorne fahren kann. 
      */
-    private void checkPossiblePawnTurn(){
+    private void addPossiblePawnTurn(ArrayList<ChessField> possibleFields){
         ChessField targetField =  this.getChessBoard().getField(this.getChessField().getCol(), (this.getChessField().getRow()+(this.direction * 1 )));
         if(targetField.getPiece() == null){
             possibleFields.add(targetField);    
@@ -73,7 +71,7 @@ public class Pawn extends Piece {
     /**
      * Prüft, ob der Bauer schlagen kann
      */
-    private void checkPossiblePawnCapture(){
+    private void addPossiblePawnCaptures(ArrayList<ChessField> possibleFields){
         ChessField targetField = null;
         if(this.getChessField().getCol() != 0){
             targetField = this.getChessBoard().getField((this.getChessField().getCol()-1), (this.getChessField().getRow()+direction * 1));
@@ -92,7 +90,7 @@ public class Pawn extends Piece {
     /**
      * Prüft ob der Bauer zwei Felder nach vorne fahren kann. 
      */
-    private void checkPossiblePawnDoubleTurn(){
+    private void addPossiblePawnDoubleTurn(ArrayList<ChessField> possibleFields){
         if(this.checkPawnIsOnBaseLine()){
             ChessField targetField =  this.getChessBoard().getField(this.getChessField().getCol(), (this.getChessField().getRow()+(this.direction * 2)));
             if(targetField.getPiece() == null){
