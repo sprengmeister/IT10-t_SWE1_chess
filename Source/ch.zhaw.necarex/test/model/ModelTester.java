@@ -106,10 +106,10 @@ public class ModelTester {
     public void movePawns(){
     	
     	ChessField fromField = game.getChessBoard().getField(1, 1);
-    	ChessField toField = game.getChessBoard().getField(1, 2);
+    	ChessField toField = game.getChessBoard().getField(1, 3);
     	game.getChessBoard().movePiece(fromField, toField);
-    	if(!(game.getChessBoard().getField(1, 2).getPiece() instanceof Pawn)){
-    		Assert.fail("Der Bauernzug eins nach vorne hat nicht funktioniert. ");
+    	if(!(game.getChessBoard().getField(1, 3).getPiece() instanceof Pawn)){
+    		Assert.fail("Der Bauernzug von schwarz zwei nach vorne hat nicht funktioniert. ");
     	}
     	if(!(game.getChessBoard().getField(1, 1).getPiece() == null)){
     		Assert.fail("Das Feld muss leer sein, nachdem der Bauer weggezogen ist. ");
@@ -134,6 +134,31 @@ public class ModelTester {
     		}
     	}
     	
+    	fromField = game.getChessBoard().getField(2, 6);
+    	toField = game.getChessBoard().getField(2,4);
+    	game.getChessBoard().movePiece(fromField, toField);
+    	if(!(game.getChessBoard().getField(2, 4).getPiece() instanceof Pawn)){
+    		Assert.fail("Der Bauernzug von schwarz zwei nach vorne hat nicht funktioniert. ");
+    	}
+    	if(!(game.getChessBoard().getField(2, 6).getPiece() == null)){
+    		Assert.fail("Das Feld muss leer sein, nachdem der Bauer weggezogen ist.");
+    	}
+    	
+    	fromField = game.getChessBoard().getField(1, 3);
+    	toField = game.getChessBoard().getField(2, 4);
+    	Piece pieceToCapture = toField.getPiece();
+    	game.getChessBoard().movePiece(fromField, toField);
+    	
+    	if(!(game.getChessBoard().getField(2, 4).getPiece() instanceof Pawn 
+    			&& game.getChessBoard().getField(2, 4).getPiece().getOwner().getColor() == PlayerColor.WHITE)) {
+    		Assert.fail("Bauer schlagen hat nicht funktioniert. Auf Feld 2,4 steht kein weisser Bauer. ");
+    	}
+    	if(!(game.getTurnList().get(2).getCapturedPiece() instanceof Pawn && game.getTurnList().get(2).getCapturedPiece().getOwner().getColor() == PlayerColor.BLACK)){
+    		Assert.fail("In der Zugsauflistung befindet sich kein schwarzer Bauer als captured Piece");
+    	}
+    	if(!(game.getCapturedPieces().contains(pieceToCapture))){
+    		Assert.fail("In der Liste der geschlagenen Figuren fehlt der schwarze Bauer. ");
+    	}
     		
     	
     }
