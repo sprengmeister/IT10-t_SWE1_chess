@@ -33,7 +33,7 @@ public class Pawn extends Piece {
     @Override
     public ArrayList<ChessField> getPossibleFields() {
         if(possibleFields == null){
-            possibleFields = new ArrayList<>();
+            possibleFields = new ArrayList<ChessField>();
         } else{
             possibleFields.clear();
         }
