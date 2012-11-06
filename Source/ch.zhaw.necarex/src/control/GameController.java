@@ -32,15 +32,13 @@ public class GameController {
         }
     }
     
-    public void doTurn(ChessField from, ChessField to){
-        // Verschiebe
-    	if(from.getPiece().getPossibleFields().contains(to)){
-    		game.getChessBoard().movePawn(from, to);
+    public void doTurn(ChessField fromField, ChessField toField){        
+    	if(fromField.getPiece().getPossibleFields().contains(toField)){
+    		game.getChessBoard().movePiece(fromField, toField);
+    		game.changeActivePlayer();
     	}
-    	
-    	
+	
     	// Prüfe auf Schach, Schachmatt, etc. 
-        
-        
+              
     }
 }
