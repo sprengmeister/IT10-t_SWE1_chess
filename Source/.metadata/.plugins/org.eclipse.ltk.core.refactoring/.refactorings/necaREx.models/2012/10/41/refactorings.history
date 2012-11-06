@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;necaREx.models/domainModel.uml&apos; to &apos;necarexModels&apos;" description="Rename resource &apos;domainModel.uml&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="domainModel.uml" name="necarexModels" stamp="1349791265496" updateReferences="true"/>
+</session>

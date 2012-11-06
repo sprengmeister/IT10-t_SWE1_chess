@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.badlogic.gdx.ApplicationListener"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.backends.lwjgl.LwjglApplication"/>
+<fullyQualifiedTypeName name="com.badlogic.gdx.Gdx"/>
+</qualifiedTypeNameHistroy>

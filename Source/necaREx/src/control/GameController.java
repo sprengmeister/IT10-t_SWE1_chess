@@ -4,10 +4,8 @@
  */
 package control;
 
-import exception.NoFigureOnFieldException;
 import java.util.ArrayList;
-import model.ChessField;
-import model.Game;
+import model.*;
 
 /**
  *
@@ -22,14 +20,16 @@ public class GameController {
     
     public void newGame(){
         game = new Game();
+        //view = new View(game, this);
     }
     
-    public ArrayList<ChessField> getPossibleFields(ChessField field) throws NoFigureOnFieldException{
+    public ArrayList<ChessField> getPossibleFields(ChessField field){
     
-        if(field.getPiece() == null){
-            throw new NoFigureOnFieldException();
+        if(field.getPiece() != null){
+        	return game.getChessBoard().getField(field.getCol(), field.getRow()).getPiece().getPossibleFields();
+        } else {
+        	return new ArrayList<ChessField>();
         }
-        return game.getChessBoard().getField(field.getCol(), field.getRow()).getPiece().getPossibleFields();
     }
     
     public void doTurn(ChessField from, ChessField to){
@@ -37,7 +37,7 @@ public class GameController {
         // Verschiebe
         
         
-        // Prüfe auf Schach, Schachmatt, etc. 
+        // PrÃ¼fe auf Schach, Schachmatt, etc. 
         
         
     }
