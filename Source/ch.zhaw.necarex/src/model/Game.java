@@ -18,12 +18,15 @@ public class Game {
     private ChessBoard chessBoard;
     private Player activePlayer;
     private ArrayList<Piece> capturedPieces;
+    private ArrayList<Turn> turnList;
     
     public Game(){
         playerWhite = new Player(PlayerColor.WHITE);
         playerBlack = new Player(PlayerColor.BLACK);
         activePlayer = playerWhite;
         chessBoard = new ChessBoard(this);
+        capturedPieces = new ArrayList<Piece>();
+        turnList = new ArrayList<Turn>();
     }
 
     /**
@@ -57,5 +60,11 @@ public class Game {
     		activePlayer = playerWhite;
     	}
     	return activePlayer;
+    }
+    public void addToCapturedPieces(Piece capturedPiece){
+    	this.capturedPieces.add(capturedPiece);
+    }
+    public void addToTurnList(Turn turn){
+    	this.turnList.add(turn);
     }
 }

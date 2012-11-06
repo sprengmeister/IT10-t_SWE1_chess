@@ -34,6 +34,11 @@ public class ChessField {
         this.piece = newPiece;
         return oldPiece;
     }
+    public Piece movePieceAway(){
+    	Piece oldPiece = this.piece;
+    	this.piece = null;
+    	return oldPiece;
+    }
 
     /**
      * @return the piece
@@ -57,3 +62,4 @@ public class ChessField {
     }
     
 }
+

@@ -17,7 +17,7 @@ public class ChessBoard {
     private Game game;
    
     
-    private Piece getInitialPawn(int col, int row){
+    private Piece getInitialPiece(int col, int row){
         Player player;
         if(row < 3 ){
             player = game.getPlayerWhite();
@@ -84,7 +84,7 @@ public class ChessBoard {
         chessField = new ChessField[8][8];
         for(int col = 0;col<8;col++){
             for(int row = 0;row<8;row++){
-                Piece initialPiece = this.getInitialPawn(col, row);
+                Piece initialPiece = this.getInitialPiece(col, row);
                 chessField[col][row] = new ChessField(initialPiece, col, row);
                 if( initialPiece != null) {
                     initialPiece.setChessField(chessField[col][row]);
@@ -97,21 +97,18 @@ public class ChessBoard {
     public ChessBoard(Game game){
         this.game = game;
         this.initChessboard();        
-    }
-    
+    } 
     public ChessField getField(int col, int row){
         return chessField[col][row];
     }
-    public void movePawn(ChessField from, ChessField to){
-    	// Zielfeld füllen
-    	
-    	// Wen geschlagen, geschlagene Figur in game.capturedPieces einfügen
-    	
-    	// Ursprungsfeld leeren
-    	
-    	// Log: Turn erstellen und in game.turns
+    public void movePiece(ChessField from, ChessField to){
+    	Turn turn = new Turn(from, to);
+    	game.addToTurnList(turn);
+    	Piece capturedPiece = to.exchangePiece(from.movePieceAway());
+    	if(capturedPiece != null){
+    		game.addToCapturedPieces(capturedPiece);
+    	}
     }
-   
-    
     
 }
+;

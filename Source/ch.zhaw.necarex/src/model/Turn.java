@@ -6,13 +6,36 @@ public class Turn {
 	private ChessField fromField;
 	private Piece fromPiece;
 	private ChessField toField;
-	private Piece toPiece;
+	private Piece capturedPiece;
+	private Player activePlayer;
 	
-	private Turn(ChessField fromField, Piece fromPiece, ChessField toField, Piece toPiece){
+	public Turn(ChessField fromField, ChessField toField){
 		this.fromField = fromField;
-		this.fromPiece = fromPiece;
 		this.toField = toField;
-		this.toPiece = toPiece;
+		
+		this.fromPiece = fromField.getPiece();
+		this.capturedPiece = toField.getPiece();
+		this.activePlayer = fromField.getPiece().getOwner();
+	}
+
+	public ChessField getFromField() {
+		return fromField;
+	}
+
+	public Piece getFromPiece() {
+		return fromPiece;
+	}
+
+	public ChessField getToField() {
+		return toField;
+	}
+
+	public Piece getCapturedPiece() {
+		return capturedPiece;
+	}
+
+	public Player getActivePlayer() {
+		return activePlayer;
 	}
 	
 

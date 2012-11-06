@@ -26,7 +26,7 @@ public class GameController {
     public ArrayList<ChessField> getPossibleFields(ChessField field){
     
         if(field.getPiece() != null){
-        	return game.getChessBoard().getField(field.getCol(), field.getRow()).getPiece().getPossibleFields();
+        	return field.getPiece().getPossibleFields();
         } else {
         	return new ArrayList<ChessField>();
         }
