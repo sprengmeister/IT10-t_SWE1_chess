@@ -72,7 +72,7 @@ public class Game {
     	this.turnList.add(turn);
     }
 
-	private ArrayList<Piece> getCapturedPieces() {
+	public ArrayList<Piece> getCapturedPieces() {
 		return capturedPieces;
 	}
 
