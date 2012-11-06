@@ -33,11 +33,13 @@ public class GameController {
     }
     
     public void doTurn(ChessField from, ChessField to){
-        
         // Verschiebe
-        
-        
-        // PrÃ¼fe auf Schach, Schachmatt, etc. 
+    	if(from.getPiece().getPossibleFields().contains(to)){
+    		game.getChessBoard().movePawn(from, to);
+    	}
+    	
+    	
+    	// Prüfe auf Schach, Schachmatt, etc. 
         
         
     }
