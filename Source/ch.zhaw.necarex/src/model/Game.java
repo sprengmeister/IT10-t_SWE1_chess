@@ -66,7 +66,7 @@ public class Game {
     	return activePlayer;
     }
     public void addToCapturedPieces(Piece capturedPiece){
-    	this.getCapturedPieces().add(capturedPiece);
+    	this.capturedPieces.add(capturedPiece);
     }
     public void addToTurnList(Turn turn){
     	this.turnList.add(turn);
