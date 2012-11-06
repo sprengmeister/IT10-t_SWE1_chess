@@ -20,7 +20,11 @@ public class Game {
     private ArrayList<Piece> capturedPieces;
     private ArrayList<Turn> turnList;
     
-    public Game(){
+    public ArrayList<Turn> getTurnList() {
+		return turnList;
+	}
+
+	public Game(){
         playerWhite = new Player(PlayerColor.WHITE);
         playerBlack = new Player(PlayerColor.BLACK);
         activePlayer = playerWhite;
@@ -62,9 +66,14 @@ public class Game {
     	return activePlayer;
     }
     public void addToCapturedPieces(Piece capturedPiece){
-    	this.capturedPieces.add(capturedPiece);
+    	this.getCapturedPieces().add(capturedPiece);
     }
     public void addToTurnList(Turn turn){
     	this.turnList.add(turn);
     }
+
+	private ArrayList<Piece> getCapturedPieces() {
+		return capturedPieces;
+	}
+
 }

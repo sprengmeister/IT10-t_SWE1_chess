@@ -4,7 +4,7 @@ import model.pieces.Piece;
 
 public class Turn {
 	private ChessField fromField;
-	private Piece fromPiece;
+	private Piece movingPiece;
 	private ChessField toField;
 	private Piece capturedPiece;
 	private Player activePlayer;
@@ -13,7 +13,7 @@ public class Turn {
 		this.fromField = fromField;
 		this.toField = toField;
 		
-		this.fromPiece = fromField.getPiece();
+		this.movingPiece = fromField.getPiece();
 		this.capturedPiece = toField.getPiece();
 		this.activePlayer = fromField.getPiece().getOwner();
 	}
@@ -22,8 +22,8 @@ public class Turn {
 		return fromField;
 	}
 
-	public Piece getFromPiece() {
-		return fromPiece;
+	public Piece getMovingPiece() {
+		return movingPiece;
 	}
 
 	public ChessField getToField() {

@@ -102,5 +102,40 @@ public class ModelTester {
             }
         }
     }
+    @Test
+    public void movePawns(){
+    	
+    	ChessField fromField = game.getChessBoard().getField(1, 1);
+    	ChessField toField = game.getChessBoard().getField(1, 2);
+    	game.getChessBoard().movePiece(fromField, toField);
+    	if(!(game.getChessBoard().getField(1, 2).getPiece() instanceof Pawn)){
+    		Assert.fail("Der Bauernzug eins nach vorne hat nicht funktioniert. ");
+    	}
+    	if(!(game.getChessBoard().getField(1, 1).getPiece() == null)){
+    		Assert.fail("Das Feld muss leer sein, nachdem der Bauer weggezogen ist. ");
+    	}
+    	if(!(game.getTurnList().size() == 1)){
+    		Assert.fail("In der Zugliste muss ein Datensatz sein. Es befinden sich "+ game.getTurnList().size() +" Datensätze in der Liste");
+    	} else {
+    		if(!(game.getTurnList().get(0).getFromField() == fromField)){
+    			Assert.fail("Beim ersten Zug ist ein falsches Von-Feld angegeben");
+    		}
+    		if(!(game.getTurnList().get(0).getToField() == toField)){
+    			Assert.fail("Beim ersten Zug ist ein falsches to-Feld angegeben");
+    		}
+    		if(!(game.getTurnList().get(0).getActivePlayer() == game.getPlayerWhite())){
+    			Assert.fail("Beim ersten Zug ist ein falscher Spieler eingetragen");
+    		}
+    		if(!(game.getTurnList().get(0).getCapturedPiece() == null)){
+    			Assert.fail("Beim Zug wurde nichts geschlagen.");
+    		}
+    		if(!(game.getTurnList().get(0).getMovingPiece() instanceof Pawn)){
+    			Assert.fail("Beim Zug hat sich ein Bauer bewegt");
+    		}
+    	}
+    	
+    		
+    	
+    }
     
 }
