@@ -3,6 +3,10 @@ package client.ui;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 
+/**
+ * LibGDX Main Klasse, übernimmt das Draw/Update.
+ * @author sprengmeister
+ */
 public class NecarexGame implements ApplicationListener  {
 
 
