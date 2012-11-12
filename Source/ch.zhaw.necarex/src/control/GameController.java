@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import model.*;
 
 /**
- *
+ * Kontrolliert den Ablauf des Schachspiels
  * @author florian
  */
 public class GameController {
