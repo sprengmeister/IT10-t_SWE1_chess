@@ -1,0 +1,66 @@
+<class-diagram version="1.0.11" icons="true" automaticImage="PNG" always-add-relationships="false" 
+  generalizations="true" realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="model.ai.PossibleSituation" project="ch.zhaw.necarex" 
+    file="/ch.zhaw.necarex/src/model/ai/PossibleSituation.java" binary="false">    
+    <position height="-1" width="-1" x="704" y="240"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="model.ai.PossibleSituationTree" project="ch.zhaw.necarex" 
+    file="/ch.zhaw.necarex/src/model/ai/PossibleSituationTree.java" binary="false">    
+    <position height="-1" width="-1" x="282" y="276"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="model.ChessBoard" project="ch.zhaw.necarex" 
+    file="/ch.zhaw.necarex/src/model/ChessBoard.java" binary="false">    
+    <position height="179" width="246" x="959" y="94"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <association id="4">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="5" name="board">        
+        <position height="15" width="39" x="838" y="198"/>      
+      </attribute>      
+      <multiplicity id="6" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="7">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="8" name="possibleSituations">        
+        <position height="15" width="107" x="411" y="238"/>      
+      </attribute>      
+      <multiplicity id="9" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="10">    
+    <bendpoint x="323" y="373"/>    
+    <bendpoint x="461" y="368"/>    
+    <bendpoint x="381" y="304"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="11" name="possibleSituationChilds">        
+        <position height="15" width="136" x="320" y="377"/>      
+      </attribute>      
+      <multiplicity id="12" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+    visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
