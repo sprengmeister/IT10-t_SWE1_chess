@@ -4,6 +4,10 @@ import java.util.List;
 
 import model.*;
 
+/**
+ * Model mit View-spezifischen Daten für das Schachbrett.
+ * @author sprengmeister
+ */
 public class ChessBoardViewModel {
 
 	private ChessField selectedField;
