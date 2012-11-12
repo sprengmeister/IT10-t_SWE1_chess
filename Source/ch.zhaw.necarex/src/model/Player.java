@@ -5,7 +5,7 @@
 package model;
 
 /**
- *
+ * Ein Schachspieler (Player) besitzt eine Farbe). 
  * @author florian
  */
 public class Player {

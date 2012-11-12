@@ -7,7 +7,7 @@ package model;
 import model.pieces.*;
 
 /**
- *
+ * Auf einem Schachfeld (ChessField), das auf einer Spalte und einer Zeile steht, kann eine Figur stehen. 
  * @author florian
  */
 public class ChessField {

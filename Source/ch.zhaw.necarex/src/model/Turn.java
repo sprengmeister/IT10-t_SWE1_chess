@@ -1,7 +1,11 @@
 package model;
 
 import model.pieces.Piece;
-
+/**
+ * Ein Zug (Turn) im Schach besteht aus einer Figur, die von einem Feld zu einem anderen zieht und dort allenfalls eine andere Figur schlägt.
+ * Die Attribute werden über den Konstruktor gesetzt, danach sind keine Änderungen mehr möglich, da ein gemachter Spielzug nicht geändert werden kann. 
+ * @author florian
+ */
 public class Turn {
 	private ChessField fromField;
 	private Piece movingPiece;

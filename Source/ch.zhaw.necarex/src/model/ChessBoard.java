@@ -8,7 +8,7 @@ import model.pieces.Pawn;
 import model.pieces.Piece;
 
 /**
- *
+ * Das ChessBoard kontrolliert die Schachfelder und macht die Anfangsaufstellung zu Beginn des Spiels. 
  * @author florian
  */
 public class ChessBoard {

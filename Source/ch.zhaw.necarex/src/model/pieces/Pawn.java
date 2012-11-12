@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import model.*;
 
 /**
- * Spielfigur Bauer
+ * Spielfigur Bauer, basiert auf Piece. Kennt die Gangart des Bauern und kann dessen mögliche Felder ausrechnen.
  * @author florian
  */
 public class Pawn extends Piece {

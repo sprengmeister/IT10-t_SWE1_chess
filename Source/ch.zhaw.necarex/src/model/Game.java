@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import model.pieces.Piece;
 
 /**
- *
+ * Ein Spiel (Game) besteht aus weissem und schwarzem Spieler, sowie einer Referenz des Schachbretts. Die Liste der vergangenen Züge und die bisher geschlagenen Figuren werden hier geführt. 
  * @author florian
  */
 public class Game {

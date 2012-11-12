@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import model.*;
 
 /**
- *
+ * Die Klasse Piece (abstrakt) beschreibt alles, was alle Schachfiguren gemeinsam haben. Alle Schachfiguren gehören einem Owner, stehen auf einem Schachfeld.Jede Schachfigur muss eine Methode implementieren, die die möglichen Felder zurück gibt.  
  * @author florian
  */
 public abstract class Piece {
@@ -27,7 +27,7 @@ public abstract class Piece {
      * @return the chessField
      */
     public ChessField getChessField() {
-        return chessField;
+    	return chessField;
     }
 
     /**
@@ -48,7 +48,8 @@ public abstract class Piece {
      * @return the chessBoard
      */
     public ChessBoard getChessBoard() {
-        return chessBoard;
+        // TODO: get over chessBoard
+    	return chessBoard;
     }
     
     
