@@ -16,6 +16,11 @@ public class ChessBoard {
     
     private Game game;
    
+    public ChessBoard(Game game){
+        this.game = game;
+        //TODO: Init raus nehmen, um testability zu erhöhen
+        this.initChessboard();        
+    } 
     
     private Piece getInitialPiece(int col, int row){
         Player player;
@@ -80,7 +85,8 @@ public class ChessBoard {
         return null;
     }
     
-    private void initChessboard(){
+
+    public void initChessboard(){
         chessField = new ChessField[8][8];
         for(int col = 0;col<8;col++){
             for(int row = 0;row<8;row++){
@@ -91,16 +97,17 @@ public class ChessBoard {
                 }
             }
         }
+    }
 
+    public void initChessboard(ChessField[][] chessField){
+    	//TODO: check dimension
+        this.chessField = chessField;
     }
     
-    public ChessBoard(Game game){
-        this.game = game;
-        this.initChessboard();        
-    } 
     public ChessField getField(int col, int row){
         return chessField[col][row];
     }
+    
     public void movePiece(ChessField from, ChessField to){
     	Turn turn = new Turn(from, to);
     	game.addToTurnList(turn);
