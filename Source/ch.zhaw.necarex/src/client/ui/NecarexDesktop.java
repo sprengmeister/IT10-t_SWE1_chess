@@ -12,7 +12,7 @@ public class NecarexDesktop {
 	 * @param args Startparameter
 	 */
 	public static void main(String[] args) {
-		 new LwjglApplication(new NecarexGame(), "necaREx", 480, 320, false);  
+		 new LwjglApplication(new NecarexGame(), "necaREx", 600, 500, false);  
 	}
 
 }
