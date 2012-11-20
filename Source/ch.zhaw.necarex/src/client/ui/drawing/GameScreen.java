@@ -71,11 +71,20 @@ public class GameScreen implements Screen {
 			Point selectedFieldPoint = boardDrawer.getFieldCoordinates(inputX, inputY);
 			if (selectedFieldPoint != null){
 				ChessField selectedField = chessBoard.getField(selectedFieldPoint.x, selectedFieldPoint.y);
-				//Nur Felder mit einer Figur darauf können markiert werden
-				Piece selctedPiece = selectedField.getPiece();
-				if (selctedPiece != null) {
-					viewModel.setSelectedField(selectedField);
-					viewModel.setReachableFields(selctedPiece.getPossibleFields());
+				//Wurde eine Figur ausgewählt, oder eine Figur bewegt?
+				if (viewModel.getSelectedField() != null && viewModel.getReachableFields().contains(selectedField)){
+					//Bewegung ausführen
+					controller.doTurn(viewModel.getSelectedField(), selectedField);
+					viewModel.setSelectedField(null);
+					viewModel.setReachableFields(null);
+				} else {
+					//Feld selektieren
+					Piece selctedPiece = selectedField.getPiece();
+					if (selctedPiece != null) {
+						//Nur Felder mit einer Figur darauf können markiert werden
+						viewModel.setSelectedField(selectedField);
+						viewModel.setReachableFields(selctedPiece.getPossibleFields());
+					}
 				}
 			}
 		}
