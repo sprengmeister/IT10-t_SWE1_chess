@@ -49,17 +49,30 @@ public class Knight extends Piece {
      * Prüft, ob das Pferd ein Feld nach vorne fahren kann. 
      */
     private void addAllKnightTurn(ArrayList<ChessField> possibleFields){
-    	possibleFields.add(this.getChessBoard().getField((this.getChessField().getCol() + 2), (this.getChessField().getRow() + 1)));
-    	possibleFields.add(this.getChessBoard().getField((this.getChessField().getCol() + 2), (this.getChessField().getRow() - 1)));
-    	possibleFields.add(this.getChessBoard().getField((this.getChessField().getCol() - 2), (this.getChessField().getRow() + 1)));
-    	possibleFields.add(this.getChessBoard().getField((this.getChessField().getCol() - 2), (this.getChessField().getRow() - 1)));
-    	possibleFields.add(this.getChessBoard().getField((this.getChessField().getCol() + 1), (this.getChessField().getRow() + 2)));
-    	possibleFields.add(this.getChessBoard().getField((this.getChessField().getCol() + 1), (this.getChessField().getRow() - 2)));
-    	possibleFields.add(this.getChessBoard().getField((this.getChessField().getCol() - 1), (this.getChessField().getRow() + 2)));
-    	possibleFields.add(this.getChessBoard().getField((this.getChessField().getCol() - 1), (this.getChessField().getRow() - 2)));
+    	ChessBoard board = this.getChessBoard();
+    	int col = this.getChessField().getCol();
+    	int row = this.getChessField().getRow();
+    	//board.getField gibt null zurück, falls kein gültiges Feld, 
+    	//darum hier mit diesem "Hack" nur gültige Felder einfügen.
+    	addIfNotNull(possibleFields, board.getField((col + 2), (row + 1)));
+    	addIfNotNull(possibleFields, board.getField((col + 2), (row + 1)));
+    	addIfNotNull(possibleFields, board.getField((col + 2), (row - 1)));
+    	addIfNotNull(possibleFields, board.getField((col - 2), (row + 1)));
+    	addIfNotNull(possibleFields, board.getField((col - 2), (row - 1)));
+    	addIfNotNull(possibleFields, board.getField((col + 1), (row + 2)));
+    	addIfNotNull(possibleFields, board.getField((col + 1), (row - 2)));
+    	addIfNotNull(possibleFields, board.getField((col - 1), (row + 2)));
+    	addIfNotNull(possibleFields, board.getField((col - 1), (row - 2)));
     }
     
-    /**
+    private void addIfNotNull(ArrayList<ChessField> possibleFields,
+			ChessField field) {
+		if (field != null){
+			possibleFields.add(field);
+		}
+	}
+
+	/**
      * Prüft, ob das Pferd schlagen kann
      */
     private void removeImpossibleKnightTurn(ArrayList<ChessField> possibleFields){

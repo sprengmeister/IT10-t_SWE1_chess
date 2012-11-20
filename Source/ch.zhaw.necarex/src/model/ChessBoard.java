@@ -29,9 +29,10 @@ public class ChessBoard {
             player = game.getPlayerBlack();
         }
         
+        //Aus Row/Column Werten eine Zahl machen -> Zehner = Row, Einer = Column
+        int fieldValue = row*10+col;
         // Reihe 0 -> Weisse Grundlinie 
         // Reihe 7 -> Schwarze Grundlinie
-        int fieldValue = row*10+col;
         switch (fieldValue){
 	        case 0:
 	        case 7:
@@ -89,7 +90,10 @@ public class ChessBoard {
     }
     
     public ChessField getField(int col, int row){
-        return chessField[col][row];
+    	if (col < chessField.length && col >= 0 
+    			&& row < chessField[col].length && row >= 0)
+    		return chessField[col][row];
+    	return null;
     }
     
     public void movePiece(ChessField from, ChessField to){
