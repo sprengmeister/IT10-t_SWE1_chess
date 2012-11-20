@@ -1,13 +1,8 @@
 package client.ui;
 
-import client.ui.drawing.BoardDrawer;
 import client.ui.drawing.GameScreen;
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.GLCommon;
 
 /**
  * LibGDX Main Klasse, übernimmt das Draw/Update.
@@ -19,7 +14,8 @@ public class NecarexGame extends Game {
 	
 	@Override
 	public void create() {
-		gameScreen = new GameScreen();
+		model.Game game = new model.Game();
+		gameScreen = new GameScreen(game);
 		setScreen(gameScreen);
 	}
 

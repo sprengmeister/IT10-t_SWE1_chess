@@ -4,6 +4,7 @@
  */
 package model.pieces;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import model.*;
 
@@ -22,6 +23,8 @@ public class Queen extends Piece {
      */
     public Queen(Player player, ChessBoard chessBoard){
         super(player, chessBoard);
+        //Index des zugehörigen Sprites setzen
+        super.setSpriteIndex(new Point(1, player.getColor() == PlayerColor.WHITE ? 0 : 1));
     }
 
     /**

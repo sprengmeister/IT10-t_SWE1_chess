@@ -1,9 +1,14 @@
 package client.ui.drawing;
 
+import model.ChessBoard;
+import model.Game;
+import model.pieces.Piece;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GLCommon;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table;
 
@@ -11,8 +16,16 @@ public class GameScreen implements Screen {
 
 	private BoardDrawer boardDrawer;
 	private MenuDrawer menuDrawer;
+	private PieceDrawer pieceDrawer;
 	private Stage stage;
 	private Table window;
+	private SpriteBatch spriteBatch;
+	private Game game;
+	
+	public GameScreen(Game game){
+		this.spriteBatch = new SpriteBatch();
+		this.game = game;
+	}
 	
 	@Override
 	public void dispose() {
@@ -28,7 +41,6 @@ public class GameScreen implements Screen {
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -39,7 +51,18 @@ public class GameScreen implements Screen {
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT | GL10.GL_STENCIL_BUFFER_BIT);
 
 		menuDrawer.draw(window);
-        boardDrawer.draw();
+        boardDrawer.draw(spriteBatch);
+        
+        ChessBoard chessBoard = game.getChessBoard();
+        Piece piece;
+        for(int i=0;i<8;i++){
+        	for (int j=0;j<8;j++){
+        		piece = chessBoard.getField(j, i).getPiece();
+        		if (piece != null){
+        			pieceDrawer.draw(spriteBatch, piece);
+        		}
+        	}
+        }
         
         stage.act( delta );
         stage.draw();
@@ -54,7 +77,6 @@ public class GameScreen implements Screen {
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -76,9 +98,9 @@ public class GameScreen implements Screen {
 		window.x = 0;
 		window.y = 0;
 		
+		pieceDrawer = new PieceDrawer((int)(boardTable.x+0.95*BoardDrawer.LABEL_WIDTH), (int)(boardTable.y+0.75*BoardDrawer.LABEL_HEIGHT));
 		boardDrawer = new BoardDrawer(boardTable);
 		menuDrawer = new MenuDrawer();
-		//stage.addActor(window);
 	}
 
 }

@@ -4,8 +4,13 @@
  */
 package model.pieces;
 
+import java.awt.Point;
 import java.util.ArrayList;
-import model.*;
+import java.util.Vector;
+
+import model.ChessBoard;
+import model.ChessField;
+import model.Player;
 
 /**
  * Die Klasse Piece (abstrakt) beschreibt alles, was alle Schachfiguren gemeinsam haben. Alle Schachfiguren gehören einem Owner, stehen auf einem Schachfeld.Jede Schachfigur muss eine Methode implementieren, die die möglichen Felder zurück gibt.  
@@ -15,8 +20,9 @@ public abstract class Piece {
     private Player owner;
     private ChessField chessField;
     private ChessBoard chessBoard;
-    
-    public Piece(Player owner, ChessBoard chessBoard){
+    private Point spriteIndex;
+
+	public Piece(Player owner, ChessBoard chessBoard){
         this.owner = owner;
         this.chessBoard = chessBoard;
     }
@@ -52,7 +58,13 @@ public abstract class Piece {
     	return chessBoard;
     }
     
-    
+    public Point getSpriteIndex() {
+		return spriteIndex;
+	}
+
+	protected void setSpriteIndex(Point spriteIndex) {
+		this.spriteIndex = spriteIndex;
+	}
     
     
 }

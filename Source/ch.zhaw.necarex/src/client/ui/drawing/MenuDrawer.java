@@ -8,10 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table;
 
 public class MenuDrawer {
-
-//	public MenuDrawer(Table window){
-//		this.window = window;
-//	}
+	
+	private Skin skin;
 
 	public void draw(Table window) {
         Button startGameButton = new Button(getSkin());
@@ -33,7 +31,6 @@ public class MenuDrawer {
 	
     protected Skin getSkin()
     {
-    	Skin skin = null;
         if( skin == null ) {
             skin = new Skin( Gdx.files.internal("assets/skin/uiskin.json" ), Gdx.files.local("assets/skin/uiskin.png" ) );
         }

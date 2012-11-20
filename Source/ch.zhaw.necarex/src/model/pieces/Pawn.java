@@ -4,8 +4,13 @@
  */
 package model.pieces;
 
+import java.awt.Point;
 import java.util.ArrayList;
-import model.*;
+
+import model.ChessBoard;
+import model.ChessField;
+import model.Player;
+import model.PlayerColor;
 
 /**
  * Spielfigur Bauer, basiert auf Piece. Kennt die Gangart des und kann dessen mögliche Felder ausrechnen.
@@ -22,7 +27,9 @@ public class Pawn extends Piece {
      */
     public Pawn(Player player, ChessBoard chessBoard){
         super(player, chessBoard);
-        this.setTurnDirectionByPlayer();     
+        this.setTurnDirectionByPlayer();
+        //Index des zugehörigen Sprites setzen
+        super.setSpriteIndex(new Point(0, player.getColor() == PlayerColor.WHITE ? 0 : 1));
     }
 
     /**

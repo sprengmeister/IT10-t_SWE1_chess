@@ -4,6 +4,7 @@
  */
 package model.pieces;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import model.*;
 
@@ -22,6 +23,9 @@ public class BiShop extends Piece {
      */
     public BiShop(Player player, ChessBoard chessBoard){
         super(player, chessBoard);
+        //Index des zugehörigen Sprites setzen
+        super.setSpriteIndex(new Point(4, player.getColor() == PlayerColor.WHITE ? 0 : 1));
+
     }
 
     /**

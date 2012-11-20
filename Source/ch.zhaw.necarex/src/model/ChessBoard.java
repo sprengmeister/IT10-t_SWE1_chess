@@ -4,8 +4,7 @@
  */
 package model;
 
-import model.pieces.Pawn;
-import model.pieces.Piece;
+import model.pieces.*;
 
 /**
  * Das ChessBoard kontrolliert die Schachfelder und macht die Anfangsaufstellung zu Beginn des Spiels. 
@@ -29,58 +28,43 @@ public class ChessBoard {
         } else {
             player = game.getPlayerBlack();
         }
-        // Zeile 1, Weisse Grundlinie
-        if(row == 0){
-            // Türme weiss
-            if(col == 0 || col == 7){
-                
-            }
-            // Springer weiss
-            if(col == 1 || col == 6){
-                
-            }
-            // Läufer weiss
-            if(col == 2 || col == 5){
-                
-            }
-            // Dame weiss
-            if(col == 3){
-                
-            }
-            // König weiss
-            if(col == 4){
-                
-            }
-        }
-        // Zeile 7, Schwarze Grundlinie
-        if(row == 7){
-            // Türme schwarz
-            if(col == 0 || col == 7){
-                
-            }
-            // Springer schwarz
-            if(col == 1 || col == 6){
-                
-            }
-            // Läufer schwarz
-            if(col == 2 || col == 5){
-                
-            }
-            // König schwarz
-            if(col == 3){
-                
-            }
-            // Dame schwarz
-            if(col == 4){
-                
-            }
+        
+        // Reihe 0 -> Weisse Grundlinie 
+        // Reihe 7 -> Schwarze Grundlinie
+        int fieldValue = row*10+col;
+        switch (fieldValue){
+	        case 0:
+	        case 7:
+	        case 70:
+	        case 77:
+	        	// Türme
+	        	return new Rook(player, this);
+	        case 1:
+	        case 6:
+	        case 71:
+	        case 76:
+	        	// Springer
+	        	return new Knight(player, this);
+	        case 2:
+	        case 5:
+	        case 72:
+	        case 75:
+	        	// Läufer
+	        	return new BiShop(player, this);
+	        case 3:
+	        case 73:
+	        	// Dame
+	        	return new Queen(player, this);
+	        case 4:
+	        case 74:
+	        	// König
+	        	return new King(player, this);
         }
         
-        // Bauern weiss und schwarz
+        // Bauern separat Abfragen (um sich die ganzen case-Statements zu sparen)
         if(row == 1 || row == 6 ){
             return new Pawn(player, this);
         }
-        
         
         return null;
     }
