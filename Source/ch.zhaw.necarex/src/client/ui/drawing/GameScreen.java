@@ -55,8 +55,9 @@ public class GameScreen implements Screen {
         
         ChessBoard chessBoard = game.getChessBoard();
         Piece piece;
-        for(int i=0;i<8;i++){
-        	for (int j=0;j<8;j++){
+        //Figuren von "oben" nach "unten" zeichnen, damit Überlappungen richtig gezeichnet werden
+        for(int i=7;i>=0;i--){
+        	for (int j=7;j>=0;j--){
         		piece = chessBoard.getField(j, i).getPiece();
         		if (piece != null){
         			pieceDrawer.draw(spriteBatch, piece);
