@@ -32,6 +32,7 @@ public class ChessField {
     public Piece exchangePiece(Piece newPiece){
         Piece oldPiece = getPiece();
         this.piece = newPiece;
+        newPiece.setChessField(this);
         return oldPiece;
     }
     public Piece movePieceAway(){
