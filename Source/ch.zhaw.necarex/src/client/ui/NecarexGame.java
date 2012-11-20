@@ -4,6 +4,8 @@ import client.ui.drawing.GameScreen;
 
 import com.badlogic.gdx.Game;
 
+import control.GameController;
+
 /**
  * LibGDX Main Klasse, übernimmt das Draw/Update.
  * @author sprengmeister
@@ -11,11 +13,19 @@ import com.badlogic.gdx.Game;
 public class NecarexGame extends Game {
 	
 	private GameScreen gameScreen;
+	private GameController controller;
+	
+	/**
+	 * Erstellt und initialisiert Haupt-Draw-Klasse
+	 * @param game Model mit den darzustellenden Informationen
+	 */
+	public NecarexGame(GameController controller){
+		this.controller = controller;
+	}
 	
 	@Override
 	public void create() {
-		model.Game game = new model.Game();
-		gameScreen = new GameScreen(game);
+		gameScreen = new GameScreen(controller);
 		setScreen(gameScreen);
 	}
 

@@ -1,12 +1,15 @@
 package client.ui.drawing;
 
+import java.awt.Point;
+
+import model.ChessField;
+import client.viewmodel.ChessBoardViewModel;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table;
 import com.badlogic.gdx.utils.Disposable;
 
@@ -26,12 +29,15 @@ public class BoardDrawer implements Disposable {
 	private final BitmapFont font = new BitmapFont();
 	private final ShapeRenderer renderer = new ShapeRenderer();
 	
-	public BoardDrawer(Table window){		
+	private ChessBoardViewModel viewModel;
+	
+	public BoardDrawer(Table window, ChessBoardViewModel viewModel){		
 		this.initX = window.x;
 		this.initY = window.y;
+		this.viewModel = viewModel;
 	}
-	
-    /**
+
+	/**
      * Zeichnet das Schachfeld
      */
 	public void draw(SpriteBatch spriteBatch){
@@ -59,10 +65,17 @@ public class BoardDrawer implements Disposable {
 		renderer.begin(ShapeType.FilledRectangle);
 		for(int i=0;i<8;i++){
 			for(int j=0;j<8;j++){
-				renderer.setColor((j%2 == 0 && i%2 == 0) 
-							  	|| (j%2 != 0 && i%2 != 0) 
-									? Color.WHITE
-									: Color.BLACK);
+				
+				if (isSelectedField(i, j)){
+					renderer.setColor(Color.GRAY);
+				} else if(isReachableField(i, j)){
+					renderer.setColor(Color.LIGHT_GRAY);
+				}else {
+					renderer.setColor((j%2 == 0 && i%2 == 0) 
+								  	|| (j%2 != 0 && i%2 != 0) 
+										? Color.WHITE
+										: Color.BLACK);
+				}
 				renderer.filledRect(j*FIELD_WIDTH + this.initX + LABEL_WIDTH, i*FIELD_HEIGHT + this.initY + 0.5f*LABEL_HEIGHT, FIELD_WIDTH, FIELD_HEIGHT);
 			}
 		}
@@ -76,9 +89,39 @@ public class BoardDrawer implements Disposable {
 		renderer.end();
 	}
 
+	private boolean isSelectedField(int row, int column) {
+		return viewModel.getSelectedField() != null
+				&& viewModel.getSelectedField().getRow() == row
+				&& viewModel.getSelectedField().getCol() == column;
+	}
+
+	private boolean isReachableField(int row, int column) {
+		if (viewModel.getReachableFields()!=null)
+			for(ChessField field : viewModel.getReachableFields()){
+				if (field.getRow()==row && field.getCol()==column)
+					return true;
+			}
+		return false;
+	}
+
 	@Override
 	public void dispose() {
 		renderer.dispose();
+	}
+
+	/**
+	 * Gibt die X/Y-Koordinate des selektierten Schachfeldes zurück
+	 * @param inputX X-Koordinate des geklickten Punktes
+	 * @param inputY Y-Koordinate des geklickten Punktes
+	 * @return X/Y Koordinate des Feldes
+	 */
+	public Point getFieldCoordinates(int inputX, int inputY) {
+		int fieldX = (int)((inputX - this.initX - LABEL_WIDTH)/FIELD_WIDTH);
+		int fieldY = Math.round((inputY - this.initY - LABEL_HEIGHT)/FIELD_HEIGHT);
+		if (fieldX >= 0 && fieldX < 8 && fieldY >= 0 && fieldY < 8)
+			return new Point(fieldX, fieldY);
+		else 
+			return null;
 	}
 
 }

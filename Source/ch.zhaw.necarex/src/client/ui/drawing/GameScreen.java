@@ -1,8 +1,13 @@
 package client.ui.drawing;
 
+import java.awt.Point;
+
 import model.ChessBoard;
+import model.ChessField;
 import model.Game;
 import model.pieces.Piece;
+import client.ui.NecarexDesktop;
+import client.viewmodel.ChessBoardViewModel;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -11,6 +16,8 @@ import com.badlogic.gdx.graphics.GLCommon;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table;
+
+import control.GameController;
 
 public class GameScreen implements Screen {
 
@@ -21,10 +28,14 @@ public class GameScreen implements Screen {
 	private Table window;
 	private SpriteBatch spriteBatch;
 	private Game game;
+	private GameController controller;
+	private ChessBoardViewModel viewModel;
 	
-	public GameScreen(Game game){
+	public GameScreen(GameController controller){
 		this.spriteBatch = new SpriteBatch();
-		this.game = game;
+		this.game = controller.getGame();
+		this.controller = controller;
+		this.viewModel = new ChessBoardViewModel();
 	}
 	
 	@Override
@@ -35,7 +46,6 @@ public class GameScreen implements Screen {
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -45,16 +55,34 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
+		ChessBoard chessBoard = game.getChessBoard();
+		Piece piece;
+		
 		//Weisser Background
 		GLCommon gl = Gdx.gl;
 		gl.glClearColor(255, 255, 255, 1);
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT | GL10.GL_STENCIL_BUFFER_BIT);
 
+		if (Gdx.input.isTouched()){
+			int inputX = Gdx.input.getX();
+			//Beim Input ist die Y-Achse verglichen zum rendern verkehrt (0 ist oben statt unten), 
+			//darum dies hier entsprechend ändern
+			int inputY = NecarexDesktop.WINDOW_HEIGHT-Gdx.input.getY();
+			Point selectedFieldPoint = boardDrawer.getFieldCoordinates(inputX, inputY);
+			if (selectedFieldPoint != null){
+				ChessField selectedField = chessBoard.getField(selectedFieldPoint.x, selectedFieldPoint.y);
+				//Nur Felder mit einer Figur darauf können markiert werden
+				Piece selctedPiece = selectedField.getPiece();
+				if (selctedPiece != null) {
+					viewModel.setSelectedField(selectedField);
+					viewModel.setReachableFields(selctedPiece.getPossibleFields());
+				}
+			}
+		}
+		
 		menuDrawer.draw(window);
         boardDrawer.draw(spriteBatch);
         
-        ChessBoard chessBoard = game.getChessBoard();
-        Piece piece;
         //Figuren von "oben" nach "unten" zeichnen, damit Überlappungen richtig gezeichnet werden
         for(int i=7;i>=0;i--){
         	for (int j=7;j>=0;j--){
@@ -100,7 +128,7 @@ public class GameScreen implements Screen {
 		window.y = 0;
 		
 		pieceDrawer = new PieceDrawer((int)(boardTable.x+0.95*BoardDrawer.LABEL_WIDTH), (int)(boardTable.y+0.75*BoardDrawer.LABEL_HEIGHT));
-		boardDrawer = new BoardDrawer(boardTable);
+		boardDrawer = new BoardDrawer(boardTable, viewModel);
 		menuDrawer = new MenuDrawer();
 	}
 

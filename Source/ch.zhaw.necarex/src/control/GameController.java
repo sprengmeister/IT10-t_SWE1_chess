@@ -41,4 +41,12 @@ public class GameController {
     	// Prüfe auf Schach, Schachmatt, etc. 
               
     }
+
+    /**
+     * Gibt die Model-Informationen zurück.
+     * @return Game-Model.
+     */
+	public Game getGame() {
+		return game;
+	}
 }
