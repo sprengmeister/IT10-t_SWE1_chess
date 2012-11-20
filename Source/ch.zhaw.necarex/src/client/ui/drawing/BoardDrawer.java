@@ -5,12 +5,16 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table;
+import com.badlogic.gdx.utils.Disposable;
 
 /**
  * Der BoardDrawer übernimmt alle Zeichnungsaufgaben bezogen auf das Schachbrett.
  * @author sprengmeister
  */
-public class BoardDrawer {
+public class BoardDrawer implements Disposable {
 
 	private float initX;
 	private float initY;
@@ -21,11 +25,11 @@ public class BoardDrawer {
 	
 	private ShapeRenderer renderer; 
 	
-	public BoardDrawer(int initX, int initY){
+	public BoardDrawer(Table window){
 		renderer = new ShapeRenderer();
 		
-		this.initX = initX;
-		this.initY = initY;
+		this.initX = window.x;
+		this.initY = window.y;
 	}
 	
     /**
@@ -34,15 +38,14 @@ public class BoardDrawer {
 	public void draw(){
         SpriteBatch spriteBatch = new SpriteBatch();
         BitmapFont font = new BitmapFont();
-		
+        
 		// A-H oberhalb und unterhalb des Bretts
 		for(int i=0;i<8;i++){
 	        CharSequence str = String.valueOf((char)(i+65));
-
 	        spriteBatch.begin();
 	        font.setColor(Color.BLACK);
 	        font.draw(spriteBatch, str, (float) (i*FIELD_WIDTH+0.3*FIELD_WIDTH + this.initX + LABEL_WIDTH), this.initY);
-	        font.draw(spriteBatch, str, (float) (i*FIELD_WIDTH+0.3*FIELD_WIDTH + this.initX + LABEL_WIDTH), (float) (this.initY + 1.5*LABEL_HEIGHT + 8 * FIELD_HEIGHT));
+	        font.draw(spriteBatch, str, (float) (i*FIELD_WIDTH+0.3*FIELD_WIDTH + this.initX + LABEL_WIDTH), (float) (this.initY + 1.5f*LABEL_HEIGHT + 8 * FIELD_HEIGHT));
 	        spriteBatch.end();
 		}
 		// 8-1 links und rechts des Bretts
@@ -63,15 +66,20 @@ public class BoardDrawer {
 							  	|| (j%2 != 0 && i%2 != 0) 
 									? Color.WHITE
 									: Color.BLACK);
-				renderer.filledRect(j*FIELD_WIDTH + this.initX + LABEL_WIDTH, i*FIELD_HEIGHT + this.initY + LABEL_HEIGHT, FIELD_WIDTH, FIELD_HEIGHT);
+				renderer.filledRect(j*FIELD_WIDTH + this.initX + LABEL_WIDTH, i*FIELD_HEIGHT + this.initY + 0.5f*LABEL_HEIGHT, FIELD_WIDTH, FIELD_HEIGHT);
 				renderer.end();
 			}
 		}
 			
 		renderer.begin(ShapeType.Rectangle);
 		renderer.setColor(Color.BLACK);
-		renderer.rect(this.initX + LABEL_WIDTH, this.initY + LABEL_HEIGHT, 8*FIELD_WIDTH, 8*FIELD_HEIGHT);
+		renderer.rect(this.initX + LABEL_WIDTH, this.initY + 0.5f * LABEL_HEIGHT, 8*FIELD_WIDTH, 8*FIELD_HEIGHT);
 		renderer.end();
+	}
+
+	@Override
+	public void dispose() {
+		renderer.dispose();
 	}
 
 }

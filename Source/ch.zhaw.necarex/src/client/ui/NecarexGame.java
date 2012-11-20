@@ -1,8 +1,10 @@
 package client.ui;
 
 import client.ui.drawing.BoardDrawer;
+import client.ui.drawing.GameScreen;
 
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GLCommon;
@@ -11,21 +13,19 @@ import com.badlogic.gdx.graphics.GLCommon;
  * LibGDX Main Klasse, übernimmt das Draw/Update.
  * @author sprengmeister
  */
-public class NecarexGame implements ApplicationListener  {
-
-	private BoardDrawer boardDrawer;
+public class NecarexGame extends Game {
+	
+	private GameScreen gameScreen;
 	
 	@Override
 	public void create() {
-		if (boardDrawer == null){
-			boardDrawer = new BoardDrawer(100, 100);
-		}
+		gameScreen = new GameScreen();
+		setScreen(gameScreen);
 	}
 
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -36,11 +36,7 @@ public class NecarexGame implements ApplicationListener  {
 
 	@Override
 	public void render() {
-		//Weisser Background
-		GLCommon gl = Gdx.gl;
-		gl.glClearColor(255, 255, 255, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT | GL10.GL_STENCIL_BUFFER_BIT);
-		boardDrawer.draw();
+		super.render();
 	}
 
 	@Override

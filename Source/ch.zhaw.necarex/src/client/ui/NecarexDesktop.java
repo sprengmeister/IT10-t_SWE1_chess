@@ -1,6 +1,7 @@
 package client.ui;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
 /**
  * Einstiegsklasse für Desktop Anwendungen. 
@@ -12,7 +13,13 @@ public class NecarexDesktop {
 	 * @param args Startparameter
 	 */
 	public static void main(String[] args) {
-		 new LwjglApplication(new NecarexGame(), "necaREx", 600, 500, false);  
+		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.height = 500;
+		config.width = 600;
+		//resizing verhindern, da sonst Figuren-Sprites zu gross/klein
+		config.resizable = false;
+		config.title = "necaREx";
+		new LwjglApplication(new NecarexGame(), config);  
 	}
 
 }
