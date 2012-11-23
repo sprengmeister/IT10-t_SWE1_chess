@@ -6,11 +6,13 @@ package model.pieces;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import model.*;
 
 /**
- * Spielfigur Bauer, basiert auf Piece. Kennt die Gangart des und kann dessen mögliche Felder ausrechnen.
- * @author florian
+ * Spielfigur Läufer, basiert auf Piece. Kennt die Gangart des und kann dessen mögliche Felder ausrechnen.
+ * @author beni
  */
 public class BiShop extends Piece {
     
@@ -36,13 +38,34 @@ public class BiShop extends Piece {
     public ArrayList<ChessField> getPossibleFields() {
     	ArrayList<ChessField> possibleFields = new ArrayList<ChessField>();
     
-
-
+        this.addAllBiShopTurn(possibleFields);
+        this.removeImpossibleBiShopTurn(possibleFields);
 
         //TODO prüfen ob mit diesem Zug eine Schachsituation ausgelöst wurde
         
         return possibleFields;
     }
+    
+    /**
+     * Fügt alle Züge hinzu, die die Figur fahren kann. 
+     */
+    private void addAllBiShopTurn(ArrayList<ChessField> possibleFields){
+    	//TODO
+    }
+    
+    /**
+     * Entfernt die unerlaubten Züge
+     */
+    private void removeImpossibleBiShopTurn(ArrayList<ChessField> possibleFields){
+    	//Figur würde andere Figur der gleichen Farbe schlagen
+    	Iterator<ChessField> samePlayer = possibleFields.iterator();
+    	while (samePlayer.hasNext()) {
+    		ChessField currentChessfield = samePlayer.next();
+    		if(currentChessfield.getPiece() != null && currentChessfield.getPiece().getOwner() == this.getChessField().getPiece().getOwner()){
+    			samePlayer.remove();
+    		}
+    	}
+    }    
 
     
 }

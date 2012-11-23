@@ -4,6 +4,7 @@
  */
 package model.pieces;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -22,6 +23,7 @@ public class Knight extends Piece {
      */
     public Knight(Player player, ChessBoard chessBoard){
         super(player, chessBoard);
+        super.setSpriteIndex(new Point(2, player.getColor() == PlayerColor.WHITE ? 0 : 1));
     }
 
     /**
@@ -43,8 +45,8 @@ public class Knight extends Piece {
     /**
      * Fügt alle 8 Züge hinzu, die der Springer fahren kann. 
      */
-    //allFields[i] und allFields[i+1] sind zusammen eine Koordinate eines Spielfelds
     private void addAllKnightTurn(ArrayList<ChessField> possibleFields){
+    	//allFields[i] und allFields[i+1] sind zusammen eine Koordinate eines Spielfelds
     	Integer[] allFields = new Integer[16];
     	allFields[0] = this.getChessField().getCol() + 2;
     	allFields[1] = this.getChessField().getRow() + 1;
