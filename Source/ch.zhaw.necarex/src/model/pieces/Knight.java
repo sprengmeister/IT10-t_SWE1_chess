@@ -4,28 +4,24 @@
  */
 package model.pieces;
 
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import model.*;
 
 /**
- * Spielfigur Pferd, basiert auf Piece. Kennt die Gangart des und kann dessen mögliche Felder ausrechnen.
+ * Spielfigur Springer, basiert auf Piece. Kennt die Gangart des und kann dessen mögliche Felder ausrechnen.
  * @author beni
  */
 public class Knight extends Piece {
 
     /**
-     * Konstruktor: Erzeugt einen Pferd
+     * Konstruktor: Erzeugt einen Springer
      * @param player Referenz zum Spieler 
      * @param chessBoard Referenz zum Schachbrett 
      */
     public Knight(Player player, ChessBoard chessBoard){
         super(player, chessBoard);
-        //Index des zugehörigen Sprites setzen
-        super.setSpriteIndex(new Point(2, player.getColor() == PlayerColor.WHITE ? 0 : 1));
-
     }
 
     /**
@@ -36,7 +32,6 @@ public class Knight extends Piece {
     public ArrayList<ChessField> getPossibleFields() {
     	ArrayList<ChessField> possibleFields = new ArrayList<ChessField>();
     
-    	//alle hinzufügen, danach unmögliche löschen
         this.addAllKnightTurn(possibleFields);
         this.removeImpossibleKnightTurn(possibleFields);
 
@@ -46,48 +41,40 @@ public class Knight extends Piece {
     }
     
     /**
-     * Prüft, ob das Pferd ein Feld nach vorne fahren kann. 
+     * Fügt alle 8 Züge hinzu, die der Springer fahren kann. 
      */
+    //allFields[i] und allFields[i+1] sind zusammen eine Koordinate eines Spielfelds
     private void addAllKnightTurn(ArrayList<ChessField> possibleFields){
-    	ChessBoard board = this.getChessBoard();
-    	int col = this.getChessField().getCol();
-    	int row = this.getChessField().getRow();
-    	//board.getField gibt null zurück, falls kein gültiges Feld, 
-    	//darum hier mit diesem "Hack" nur gültige Felder einfügen.
-    	addIfNotNull(possibleFields, board.getField((col + 2), (row + 1)));
-    	addIfNotNull(possibleFields, board.getField((col + 2), (row + 1)));
-    	addIfNotNull(possibleFields, board.getField((col + 2), (row - 1)));
-    	addIfNotNull(possibleFields, board.getField((col - 2), (row + 1)));
-    	addIfNotNull(possibleFields, board.getField((col - 2), (row - 1)));
-    	addIfNotNull(possibleFields, board.getField((col + 1), (row + 2)));
-    	addIfNotNull(possibleFields, board.getField((col + 1), (row - 2)));
-    	addIfNotNull(possibleFields, board.getField((col - 1), (row + 2)));
-    	addIfNotNull(possibleFields, board.getField((col - 1), (row - 2)));
+    	Integer[] allFields = new Integer[16];
+    	allFields[0] = this.getChessField().getCol() + 2;
+    	allFields[1] = this.getChessField().getRow() + 1;
+    	allFields[2] = this.getChessField().getCol() + 2;
+    	allFields[3] = this.getChessField().getRow() - 1;
+    	allFields[4] = this.getChessField().getCol() - 2;
+    	allFields[5] = this.getChessField().getRow() + 1;
+    	allFields[6] = this.getChessField().getCol() - 2;
+    	allFields[7] = this.getChessField().getRow() - 1;
+    	allFields[8] = this.getChessField().getCol() + 1;
+    	allFields[9] = this.getChessField().getRow() + 2;
+    	allFields[10] = this.getChessField().getCol() + 1;
+    	allFields[11] = this.getChessField().getRow() - 2;
+    	allFields[12] = this.getChessField().getCol() - 1;
+    	allFields[13] = this.getChessField().getRow() + 2;
+    	allFields[14] = this.getChessField().getCol() - 1;
+    	allFields[15] = this.getChessField().getRow() - 2;
+    	
+    	for (int i = 0; i < allFields.length; i+=2) {
+    		//Figur steht nicht ausserhalb des Schachbretts
+			if (!(allFields[i] > 7 || allFields[i+1] > 7 || allFields[i] < 0 || allFields[i+1] < 0)) {
+				possibleFields.add(this.getChessBoard().getField(allFields[i], allFields[i+1]));
+			}
+		}
     }
     
-    private void addIfNotNull(ArrayList<ChessField> possibleFields,
-			ChessField field) {
-		if (field != null){
-			possibleFields.add(field);
-		}
-	}
-
-	/**
-     * Prüft, ob das Pferd schlagen kann
+    /**
+     * Entfernt die unerlaubten Züge
      */
     private void removeImpossibleKnightTurn(ArrayList<ChessField> possibleFields){
-    	//Figur steht ausserhalb des Schachbretts
-    	Iterator<ChessField> outsideChessBoard = possibleFields.iterator();
-    	while (outsideChessBoard.hasNext()) {
-    		ChessField currentChessfield = outsideChessBoard.next();
-    		int col = currentChessfield.getCol();
-    		int row = currentChessfield.getRow();
-    		if(col > 8 || row > 8 || col < 0 || row < 0){
-    			outsideChessBoard.remove();
-    		}
-    	}
-    	
-    	
     	//Figur würde andere Figur der gleichen Farbe schlagen
     	Iterator<ChessField> samePlayer = possibleFields.iterator();
     	while (samePlayer.hasNext()) {
