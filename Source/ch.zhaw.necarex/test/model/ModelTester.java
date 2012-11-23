@@ -213,5 +213,70 @@ public class ModelTester {
     		
     	
     }
+    @Test
+    public void moveKnights(){
+    	
+    	ChessField fromField = game.getChessBoard().getField(1, 0);
+    	ChessField toField = game.getChessBoard().getField(2, 2);
+    	game.getChessBoard().movePiece(fromField, toField);
+    	if(!(game.getChessBoard().getField(2, 2).getPiece() instanceof Knight)){
+    		Assert.fail("Der Springernzug nach vorne, eins rechts hat nicht funktioniert. ");
+    	}
+    	if(!(game.getChessBoard().getField(1, 0).getPiece() == null)){
+    		Assert.fail("Das Feld muss leer sein, nachdem der Springer weggezogen ist. ");
+    	}
+    	if(!(game.getTurnList().size() == 4)){
+    		Assert.fail("In der Zugliste müssen 4 Datensätze sein. Es befinden sich "+ game.getTurnList().size() +" Datensätze in der Liste");
+    	} else {
+    		if(!(game.getTurnList().get(3).getFromField() == fromField)){
+    			Assert.fail("Beim ersten Zug ist ein falsches Von-Feld angegeben");
+    		}
+    		if(!(game.getTurnList().get(3).getToField() == toField)){
+    			Assert.fail("Beim ersten Zug ist ein falsches to-Feld angegeben");
+    		}
+    		if(!(game.getTurnList().get(3).getActivePlayer() == game.getPlayerWhite())){
+    			Assert.fail("Beim ersten Zug ist ein falscher Spieler eingetragen");
+    		}
+    		if(!(game.getTurnList().get(3).getCapturedPiece() == null)){
+    			Assert.fail("Beim Zug wurde nichts geschlagen.");
+    		}
+    		if(!(game.getTurnList().get(3).getMovingPiece() instanceof Knight)){
+    			Assert.fail("Beim Zug hat sich ein Springer bewegt");
+    		}
+    	}
+    	
+    	fromField = game.getChessBoard().getField(6, 7);
+    	toField = game.getChessBoard().getField(5, 5);
+    	game.getChessBoard().movePiece(fromField, toField);
+    	if(!(game.getChessBoard().getField(5, 5).getPiece() instanceof Knight)){
+    		Assert.fail("Der Springerzug von zwei nach vorne, eins rechts hat nicht funktioniert. ");
+    	}
+    	if(!(game.getChessBoard().getField(6, 7).getPiece() == null)){
+    		Assert.fail("Das Feld muss leer sein, nachdem der Springer weggezogen ist.");
+    	}
+    	
+    	//schwarzen Springer in Position bringen, damit er geschlagen werden kann
+    	fromField = game.getChessBoard().getField(5, 5);
+    	toField = game.getChessBoard().getField(4, 3);
+    	game.getChessBoard().movePiece(fromField, toField);
+    	
+    	fromField = game.getChessBoard().getField(2, 2);
+    	toField = game.getChessBoard().getField(4, 3);
+    	Piece pieceToCapture = toField.getPiece();
+    	game.getChessBoard().movePiece(fromField, toField);
+    	
+    	if(!(game.getChessBoard().getField(4, 3).getPiece() instanceof Knight 
+    			&& game.getChessBoard().getField(4, 3).getPiece().getOwner().getColor() == PlayerColor.WHITE)) {
+    		Assert.fail("Springer schlagen hat nicht funktioniert. Auf Feld 4, 3 steht kein weisser Springer. ");
+    	}
+    	if(!(game.getTurnList().get(6).getCapturedPiece() instanceof Knight && game.getTurnList().get(6).getCapturedPiece().getOwner().getColor() == PlayerColor.BLACK)){
+    		Assert.fail("In der Zugsauflistung befindet sich kein schwarzer Springer als captured Piece");
+    	}
+    	if(!(game.getCapturedPieces().contains(pieceToCapture))){
+    		Assert.fail("In der Liste der geschlagenen Figuren fehlt der schwarze Springer. ");
+    	}
+    		
+    	
+    }
     
 }
