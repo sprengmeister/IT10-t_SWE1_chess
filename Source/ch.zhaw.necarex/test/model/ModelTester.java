@@ -6,6 +6,7 @@ package model;
 
 import java.util.ArrayList;
 import junit.framework.Assert;
+import model.pieces.Knight;
 import model.pieces.Pawn;
 import model.pieces.Piece;
 import org.junit.After;
@@ -72,6 +73,33 @@ public class ModelTester {
         }        
     }
     @Test
+    public void initGameKnight(){        
+        if(!(game.getChessBoard().getField(1, 0).getPiece() instanceof Knight)){
+            Assert.fail("Auf Feld 1/0 ist kein Springer");
+        }
+        if(!(game.getChessBoard().getField(1, 0).getPiece().getOwner().getColor() == PlayerColor.WHITE)){
+            Assert.fail("Die Figur auf Feld 1/0 muss weiss sein");
+        }        
+        if(!(game.getChessBoard().getField(6, 0).getPiece() instanceof Knight)){
+            Assert.fail("Auf Feld 6/0 ist kein Springer");
+        }
+        if(!(game.getChessBoard().getField(6, 0).getPiece().getOwner().getColor() == PlayerColor.WHITE)){
+            Assert.fail("Die Figur auf Feld 6/0 muss weiss sein");
+        }
+        if(!(game.getChessBoard().getField(1, 7).getPiece() instanceof Knight)){
+            Assert.fail("Auf Feld 1/7 ist kein Springer");
+        }
+        if(!(game.getChessBoard().getField(1, 7).getPiece().getOwner().getColor() == PlayerColor.BLACK)){
+            Assert.fail("Die Figur auf Feld 1/7 muss schwarz sein");
+        }
+        if(!(game.getChessBoard().getField(6, 7).getPiece() instanceof Knight)){
+            Assert.fail("Auf Feld 6/7 ist kein Springer");
+        }
+        if(!(game.getChessBoard().getField(6, 7).getPiece().getOwner().getColor() == PlayerColor.BLACK)){
+            Assert.fail("Die Figur auf Feld 6/7 muss schwarz sein");
+        }
+    }
+    @Test
     public void pawnsOnBaseLine(){
         for(int col = 0; col< 8 ;col++){
             Piece p = game.getChessBoard().getField(col, 1).getPiece();
@@ -86,8 +114,31 @@ public class ModelTester {
                 Assert.fail("In der Grundstellung hat jeder Bauer zwei Zugsmöglichkeiten.");
             }
         }
-    }
-    
+    } 
+    @Test
+    public void knightsOnBaseLine(){
+    	Piece p = game.getChessBoard().getField(1, 0).getPiece();
+        if(!(p.getPossibleFields().contains(game.getChessBoard().getField(0, 2)))){
+            Assert.fail("Das weisse Springer in der Grundstellung auf Feld 1 / 0 muss auf Feld 0 / 2 kommen");
+        }
+        if(!(p.getPossibleFields().contains(game.getChessBoard().getField(2, 2)))){
+            Assert.fail("Das weisse Springer in der Grundstellung auf Feld 1 / 0 muss auf Feld 2 / 2 kommen");
+        }            
+        if(p.getPossibleFields().size() != 2 ){
+            Assert.fail("In der Grundstellung hat der Springer zwei Zugsmöglichkeiten.");
+        }
+        
+    	p = game.getChessBoard().getField(6, 7).getPiece();
+        if(!(p.getPossibleFields().contains(game.getChessBoard().getField(5, 5)))){
+            Assert.fail("Das schwarze Springer in der Grundstellung auf Feld 6 / 7 muss auf Feld 5 / 5 kommen");
+        }
+        if(!(p.getPossibleFields().contains(game.getChessBoard().getField(7, 5)))){
+            Assert.fail("Das schwarze Springer in der Grundstellung auf Feld 6 / 7 muss auf Feld 7 / 5 kommen");
+        }            
+        if(p.getPossibleFields().size() != 2 ){
+            Assert.fail("In der Grundstellung hat der Springer zwei Zugsmöglichkeiten.");
+        }
+    }   
     @Test
     public void checkFieldColsAndRows(){
         for(int row = 0;row < 8 ;row++){

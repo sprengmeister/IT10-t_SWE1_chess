@@ -4,7 +4,9 @@
  */
 package model;
 
-import model.pieces.*;
+import model.pieces.Knight;
+import model.pieces.Pawn;
+import model.pieces.Piece;
 
 /**
  * Das ChessBoard kontrolliert die Schachfelder und macht die Anfangsaufstellung zu Beginn des Spiels. 
@@ -28,44 +30,58 @@ public class ChessBoard {
         } else {
             player = game.getPlayerBlack();
         }
-        
-        //Aus Row/Column Werten eine Zahl machen -> Zehner = Row, Einer = Column
-        int fieldValue = row*10+col;
-        // Reihe 0 -> Weisse Grundlinie 
-        // Reihe 7 -> Schwarze Grundlinie
-        switch (fieldValue){
-	        case 0:
-	        case 7:
-	        case 70:
-	        case 77:
-	        	// Türme
-	        	return new Rook(player, this);
-	        case 1:
-	        case 6:
-	        case 71:
-	        case 76:
-	        	// Springer
-	        	return new Knight(player, this);
-	        case 2:
-	        case 5:
-	        case 72:
-	        case 75:
-	        	// Läufer
-	        	return new BiShop(player, this);
-	        case 3:
-	        case 73:
-	        	// Dame
-	        	return new Queen(player, this);
-	        case 4:
-	        case 74:
-	        	// König
-	        	return new King(player, this);
+        // Zeile 1, Weisse Grundlinie
+        if(row == 0){
+            // Türme weiss
+            if(col == 0 || col == 7){
+                
+            }
+            // Springer weiss
+            if(col == 1 || col == 6){
+            	return new Knight(player, this);                
+            }
+            // Läufer weiss
+            if(col == 2 || col == 5){
+                
+            }
+            // Dame weiss
+            if(col == 3){
+                
+            }
+            // König weiss
+            if(col == 4){
+                
+            }
+        }
+        // Zeile 7, Schwarze Grundlinie
+        if(row == 7){
+            // Türme schwarz
+            if(col == 0 || col == 7){
+                
+            }
+            // Springer schwarz
+            if(col == 1 || col == 6){
+            	return new Knight(player, this);
+            }
+            // Läufer schwarz
+            if(col == 2 || col == 5){
+                
+            }
+            // König schwarz
+            if(col == 3){
+                
+            }
+            // Dame schwarz
+            if(col == 4){
+                
+            }
         }
         
-        // Bauern separat Abfragen (um sich die ganzen case-Statements zu sparen)
+        // Bauern weiss und schwarz
         if(row == 1 || row == 6 ){
             return new Pawn(player, this);
         }
+        
         
         return null;
     }
@@ -90,10 +106,7 @@ public class ChessBoard {
     }
     
     public ChessField getField(int col, int row){
-    	if (col < chessField.length && col >= 0 
-    			&& row < chessField[col].length && row >= 0)
-    		return chessField[col][row];
-    	return null;
+        return chessField[col][row];
     }
     
     public void movePiece(ChessField from, ChessField to){
