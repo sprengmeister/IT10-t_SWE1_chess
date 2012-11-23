@@ -61,52 +61,60 @@ public class Rook extends Piece {
     	ChessField targetField;
     	switch (direction) {
 		case LEFT:
-			targetField = this.getChessBoard().getField(this.getChessField().getCol() - 1, this.getChessField().getRow());
-			while (!(targetField.getCol() < 0)) {
-				if (targetField.getPiece() == null) {
-					possibleFields.add(targetField);
-				} else {
-					checkForPiece(possibleFields, targetField);
-					break;
-				}
+			if (!(this.getChessField().getCol() == 0)) {
+				targetField = this.getChessBoard().getField(this.getChessField().getCol() - 1, this.getChessField().getRow());
+				while (!(targetField.getCol() < 0)) {
+					if (targetField.getPiece() == null) {
+						possibleFields.add(targetField);
+					} else {
+						checkForPiece(possibleFields, targetField);
+						break;
+					}
+				}				
 			}
-			break;
+		break;
 
 		case RIGHT:
-			targetField = this.getChessBoard().getField(this.getChessField().getCol() + 1, this.getChessField().getRow());
-			while (!(targetField.getCol() > 7)) {
-				if (targetField.getPiece() == null) {
-					possibleFields.add(targetField);
-				} else {
-					checkForPiece(possibleFields, targetField);
-					break;
+			if (!(this.getChessField().getCol() == 7)) {
+				targetField = this.getChessBoard().getField(this.getChessField().getCol() + 1, this.getChessField().getRow());
+				while (!(targetField.getCol() > 7)) {
+					if (targetField.getPiece() == null) {
+						possibleFields.add(targetField);
+					} else {
+						checkForPiece(possibleFields, targetField);
+						break;
+					}
 				}
 			}
-			break;
+		break;
 
 		case UP:
-			targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() + 1);
-			while (!(targetField.getRow() > 7)) {
-				if (targetField.getPiece() == null) {
-					possibleFields.add(targetField);
-				} else {
-					checkForPiece(possibleFields, targetField);
-					break;
+			if (!(this.getChessField().getRow() == 7)) {
+				targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() + 1);
+				while (!(targetField.getRow() > 7)) {
+					if (targetField.getPiece() == null) {
+						possibleFields.add(targetField);
+					} else {
+						checkForPiece(possibleFields, targetField);
+						break;
+					}
 				}
 			}
-			break;
+		break;
 
 		case DOWN:
-			targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() - 1);
-			while (!(targetField.getRow() < 0)) {
-				if (targetField.getPiece() == null) {
-					possibleFields.add(targetField);
-				} else {
-					checkForPiece(possibleFields, targetField);
-					break;
+			if (!(this.getChessField().getRow() == 0)) {
+				targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() - 1);
+				while (!(targetField.getRow() < 0)) {
+					if (targetField.getPiece() == null) {
+						possibleFields.add(targetField);
+					} else {
+						checkForPiece(possibleFields, targetField);
+						break;
+					}
 				}
 			}
-			break;
+		break;
 		}
 	}
     

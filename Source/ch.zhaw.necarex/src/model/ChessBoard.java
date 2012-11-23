@@ -7,6 +7,7 @@ package model;
 import model.pieces.Knight;
 import model.pieces.Pawn;
 import model.pieces.Piece;
+import model.pieces.Rook;
 
 /**
  * Das ChessBoard kontrolliert die Schachfelder und macht die Anfangsaufstellung zu Beginn des Spiels. 
@@ -34,7 +35,7 @@ public class ChessBoard {
         if(row == 0){
             // Türme weiss
             if(col == 0 || col == 7){
-                
+            	return new Rook(player, this);   
             }
             // Springer weiss
             if(col == 1 || col == 6){
@@ -57,7 +58,7 @@ public class ChessBoard {
         if(row == 7){
             // Türme schwarz
             if(col == 0 || col == 7){
-                
+            	return new Rook(player, this);  
             }
             // Springer schwarz
             if(col == 1 || col == 6){

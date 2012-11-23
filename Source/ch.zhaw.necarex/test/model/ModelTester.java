@@ -9,6 +9,8 @@ import junit.framework.Assert;
 import model.pieces.Knight;
 import model.pieces.Pawn;
 import model.pieces.Piece;
+import model.pieces.Rook;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -100,6 +102,33 @@ public class ModelTester {
         }
     }
     @Test
+    public void initGameRook(){        
+        if(!(game.getChessBoard().getField(0, 0).getPiece() instanceof Rook)){
+            Assert.fail("Auf Feld 0/0 ist kein Turm");
+        }
+        if(!(game.getChessBoard().getField(0, 0).getPiece().getOwner().getColor() == PlayerColor.WHITE)){
+            Assert.fail("Die Figur auf Feld 0/0 muss weiss sein");
+        }        
+        if(!(game.getChessBoard().getField(7, 0).getPiece() instanceof Rook)){
+            Assert.fail("Auf Feld 7/0 ist kein Turm");
+        }
+        if(!(game.getChessBoard().getField(7, 0).getPiece().getOwner().getColor() == PlayerColor.WHITE)){
+            Assert.fail("Die Figur auf Feld 7/0 muss weiss sein");
+        }
+        if(!(game.getChessBoard().getField(0, 7).getPiece() instanceof Rook)){
+            Assert.fail("Auf Feld 0/7 ist kein Turm");
+        }
+        if(!(game.getChessBoard().getField(0, 7).getPiece().getOwner().getColor() == PlayerColor.BLACK)){
+            Assert.fail("Die Figur auf Feld 0/7 muss schwarz sein");
+        }
+        if(!(game.getChessBoard().getField(7, 7).getPiece() instanceof Rook)){
+            Assert.fail("Auf Feld 7/7 ist kein Turm");
+        }
+        if(!(game.getChessBoard().getField(7, 7).getPiece().getOwner().getColor() == PlayerColor.BLACK)){
+            Assert.fail("Die Figur auf Feld 7/7 muss schwarz sein");
+        }
+    }
+    @Test
     public void pawnsOnBaseLine(){
         for(int col = 0; col< 8 ;col++){
             Piece p = game.getChessBoard().getField(col, 1).getPiece();
@@ -139,6 +168,18 @@ public class ModelTester {
             Assert.fail("In der Grundstellung hat der Springer zwei Zugsmöglichkeiten.");
         }
     }   
+    @Test
+    public void rooksOnBaseLine(){
+    	Piece p = game.getChessBoard().getField(0, 0).getPiece();
+        if(p.getPossibleFields().size() != 0){
+            Assert.fail("In der Grundstellung hat der Turm keine Zugsmöglichkeit.");
+        }
+        
+    	p = game.getChessBoard().getField(7, 7).getPiece();
+        if(p.getPossibleFields().size() != 0){
+            Assert.fail("In der Grundstellung hat der Turm keine Zugsmöglichkeit.");
+        }
+    } 
     @Test
     public void checkFieldColsAndRows(){
         for(int row = 0;row < 8 ;row++){
