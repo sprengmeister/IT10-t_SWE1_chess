@@ -41,10 +41,10 @@ public class Rook extends Piece {
 		if (this.getChessField().getCol() != 0) {
 			targetField = this.getChessBoard().getField(this.getChessField().getCol() - 1, this.getChessField().getRow());
 			for (int i = 0; i < 7; i++){
-				if (targetField.getPiece() == null) {					
+				if (targetField.getPiece() == null) {		
+					targetField = this.getChessBoard().getField(targetField.getCol() - i, targetField.getRow());
+					if(targetField.getCol() < 0) break;			
 					possibleFields.add(targetField);
-					targetField = this.getChessBoard().getField(this.getChessField().getCol() - i, this.getChessField().getRow());
-					if(targetField.getCol() < 0) break;
 				} else {
 					checkForPiece(possibleFields, targetField);
 					break;
@@ -57,9 +57,9 @@ public class Rook extends Piece {
 			targetField = this.getChessBoard().getField(this.getChessField().getCol() + 1, this.getChessField().getRow());
 			for (int i = 0; i < 7; i++){
 				if (targetField.getPiece() == null) {
-					possibleFields.add(targetField);
-					targetField = this.getChessBoard().getField(this.getChessField().getCol() + i, this.getChessField().getRow());
+					targetField = this.getChessBoard().getField(targetField.getCol() + i, targetField.getRow());
 					if(targetField.getCol() > 7) break;
+					possibleFields.add(targetField);
 				} else {
 					checkForPiece(possibleFields, targetField);
 					break;
@@ -72,9 +72,9 @@ public class Rook extends Piece {
 			targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() + 1);
 			for (int i = 0; i < 7; i++){
 				if (targetField.getPiece() == null) {
-					possibleFields.add(targetField);
-					targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() + i);
+					targetField = this.getChessBoard().getField(targetField.getCol(), targetField.getRow() + i);
 					if(targetField.getRow() > 7) break;
+					possibleFields.add(targetField);
 				} else {
 					checkForPiece(possibleFields, targetField);
 					break;
@@ -87,9 +87,9 @@ public class Rook extends Piece {
 			targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() - 1);
 			for (int i = 0; i < 7; i++){
 				if (targetField.getPiece() == null) {
-					possibleFields.add(targetField);
-					targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() - i);
+					targetField = this.getChessBoard().getField(targetField.getCol(), targetField.getRow() - i);
 					if(targetField.getRow() < 0) break;
+					possibleFields.add(targetField);
 				} else {
 					checkForPiece(possibleFields, targetField);
 					break;
