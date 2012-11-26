@@ -6,7 +6,6 @@ package model.pieces;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import model.*;
 
@@ -34,18 +33,6 @@ public class Knight extends Piece {
     public ArrayList<ChessField> getPossibleFields() {
     	ArrayList<ChessField> possibleFields = new ArrayList<ChessField>();
     
-        this.addAllKnightTurn(possibleFields);
-        this.removeImpossibleKnightTurn(possibleFields);
-
-        //TODO prüfen ob mit diesem Zug eine Schachsituation ausgelöst wurde
-        
-        return possibleFields;
-    }
-    
-    /**
-     * Fügt alle 8 Züge hinzu, die der Springer fahren kann. 
-     */
-    private void addAllKnightTurn(ArrayList<ChessField> possibleFields){
     	//allFields[i] und allFields[i+1] sind zusammen eine Koordinate eines Spielfelds
     	Integer[] allFields = new Integer[16];
     	allFields[0] = this.getChessField().getCol() + 2;
@@ -66,24 +53,17 @@ public class Knight extends Piece {
     	allFields[15] = this.getChessField().getRow() - 2;
     	
     	for (int i = 0; i < allFields.length; i+=2) {
-    		//Figur steht nicht ausserhalb des Schachbretts
-			if (!(allFields[i] > 7 || allFields[i+1] > 7 || allFields[i] < 0 || allFields[i+1] < 0)) {
-				possibleFields.add(this.getChessBoard().getField(allFields[i], allFields[i+1]));
+    		//Figur steht nicht ausserhalb des Schachbretts und ist keine Figur der gleichen Farbe
+			if (!(allFields[i] > 7 || allFields[i+1] > 7 || allFields[i] < 0 || allFields[i+1] < 0)) { 
+				ChessField currentChessfield = this.getChessBoard().getField(allFields[i], allFields[i+1]);
+				if (!(currentChessfield.getPiece() != null && currentChessfield.getPiece().getOwner() == this.getChessField().getPiece().getOwner())) {
+					possibleFields.add(currentChessfield);
+				}
 			}
 		}
+
+        //TODO prüfen ob mit diesem Zug eine Schachsituation ausgelöst wurde
+        
+        return possibleFields;
     }
-    
-    /**
-     * Entfernt die unerlaubten Züge
-     */
-    private void removeImpossibleKnightTurn(ArrayList<ChessField> possibleFields){
-    	//Figur würde andere Figur der gleichen Farbe schlagen
-    	Iterator<ChessField> samePlayer = possibleFields.iterator();
-    	while (samePlayer.hasNext()) {
-    		ChessField currentChessfield = samePlayer.next();
-    		if(currentChessfield.getPiece() != null && currentChessfield.getPiece().getOwner() == this.getChessField().getPiece().getOwner()){
-    			samePlayer.remove();
-    		}
-    	}
-    }    
 }

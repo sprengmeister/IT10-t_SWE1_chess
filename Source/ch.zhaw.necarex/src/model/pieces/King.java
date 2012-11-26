@@ -6,7 +6,6 @@ package model.pieces;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import model.*;
 
@@ -35,27 +34,7 @@ public class King extends Piece {
     public ArrayList<ChessField> getPossibleFields() {
     	ArrayList<ChessField> possibleFields = new ArrayList<ChessField>();
 
-        this.addAllKingTurn(possibleFields);
-        this.removeImpossibleKingTurn(possibleFields);
-
-        //TODO prüfen ob mit diesem Zug eine Schachsituation ausgelöst wurde
-        
-        return possibleFields;
-    }
-    
-    public boolean isCheck(){
-    	return false;
-    }
-    
-    public boolean isCheckMate(){
-    	return false;
-    }
-
-    /**
-     * Fügt alle 8 Züge hinzu, die die Figur fahren kann. 
-     */
-    private void addAllKingTurn(ArrayList<ChessField> possibleFields){
-    	//allFields[i] und allFields[i+1] sind zusammen eine Koordinate eines Spielfelds
+    	//allFields[i] und allFields[i+1] sind zusammen eine Koordinate (Spalte/Zeile) eines Spielfelds
     	Integer[] allFields = new Integer[16];
     	allFields[0] = this.getChessField().getCol() + 1;
     	allFields[1] = this.getChessField().getRow() + 1;
@@ -75,25 +54,25 @@ public class King extends Piece {
     	allFields[15] = this.getChessField().getRow() - 1;
     	
     	for (int i = 0; i < allFields.length; i+=2) {
-    		//Figur steht nicht ausserhalb des Schachbretts
-			if (!(allFields[i] > 7 || allFields[i+1] > 7 || allFields[i] < 0 || allFields[i+1] < 0)) {
-				possibleFields.add(this.getChessBoard().getField(allFields[i], allFields[i+1]));
+    		//Figur steht nicht ausserhalb des Schachbretts und ist keine Figur der gleichen Farbe
+			if (!(allFields[i] > 7 || allFields[i+1] > 7 || allFields[i] < 0 || allFields[i+1] < 0)) { 
+				ChessField currentChessfield = this.getChessBoard().getField(allFields[i], allFields[i+1]);
+				if (!(currentChessfield.getPiece() != null && currentChessfield.getPiece().getOwner() == this.getChessField().getPiece().getOwner())) {
+					possibleFields.add(currentChessfield);
+				}
 			}
 		}
+
+        //TODO prüfen ob mit diesem Zug eine Schachsituation ausgelöst wurde
+        
+        return possibleFields;
     }
     
-    /**
-     * Entfernt die unerlaubten Züge
-     */
-    private void removeImpossibleKingTurn(ArrayList<ChessField> possibleFields){
-    	//Figur würde andere Figur der gleichen Farbe schlagen
-    	Iterator<ChessField> samePlayer = possibleFields.iterator();
-    	while (samePlayer.hasNext()) {
-    		ChessField currentChessfield = samePlayer.next();
-    		if(currentChessfield.getPiece() != null && currentChessfield.getPiece().getOwner() == this.getChessField().getPiece().getOwner()){
-    			samePlayer.remove();
-    		}
-    	}
-    }   
+    public boolean isCheck(){
+    	return false;
+    }
     
+    public boolean isCheckMate(){
+    	return false;
+    }    
 }
