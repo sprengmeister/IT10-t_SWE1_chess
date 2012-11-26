@@ -6,7 +6,6 @@ package model.pieces;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import model.*;
 
@@ -39,13 +38,13 @@ public class BiShop extends Piece {
     	ChessField targetField;
     	
     	//nach links unten fahren
-		if (this.getChessField().getCol() != 0) {
-			targetField = this.getChessBoard().getField(this.getChessField().getCol() - 1, this.getChessField().getRow());
+		if (this.getChessField().getCol() != 0 || this.getChessField().getRow() != 0) {
+			targetField = this.getChessBoard().getField(this.getChessField().getCol() - 1, this.getChessField().getRow() - 1);
 			for (int i = 0; i < 7; i++){
 				if (targetField.getPiece() == null) {					
 					possibleFields.add(targetField);
-					if(targetField.getCol() - i < 0) break;
-					targetField = this.getChessBoard().getField(this.getChessField().getCol() - 1 - i, this.getChessField().getRow());
+					targetField = this.getChessBoard().getField(this.getChessField().getCol() - i, this.getChessField().getRow() - i);
+					if(targetField.getCol() < 0 || targetField.getRow() < 0) break;
 				} else {
 					checkForPiece(possibleFields, targetField);
 					break;
@@ -54,13 +53,13 @@ public class BiShop extends Piece {
 		}
 
 		//nach rechts oben fahren
-		if (this.getChessField().getCol() != 7) {
-			targetField = this.getChessBoard().getField(this.getChessField().getCol() + 1, this.getChessField().getRow());
+		if (this.getChessField().getCol() != 7 || this.getChessField().getRow() != 7) {
+			targetField = this.getChessBoard().getField(this.getChessField().getCol() + 1, this.getChessField().getRow() + 1);
 			for (int i = 0; i < 7; i++){
 				if (targetField.getPiece() == null) {
 					possibleFields.add(targetField);
-					if(targetField.getCol() + i > 7) break;
-					targetField = this.getChessBoard().getField(this.getChessField().getCol() + 1 + i, this.getChessField().getRow());
+					targetField = this.getChessBoard().getField(this.getChessField().getCol() + i, this.getChessField().getRow() + i);
+					if(targetField.getCol() > 7 || targetField.getRow() > 7) break;
 				} else {
 					checkForPiece(possibleFields, targetField);
 					break;
@@ -69,13 +68,13 @@ public class BiShop extends Piece {
 		}
 
 		//nach links oben fahren
-		if (this.getChessField().getRow() != 7) {
-			targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() + 1);
+		if (this.getChessField().getCol() != 0 || this.getChessField().getRow() != 7) {
+			targetField = this.getChessBoard().getField(this.getChessField().getCol() - 1, this.getChessField().getRow() + 1);
 			for (int i = 0; i < 7; i++){
 				if (targetField.getPiece() == null) {
 					possibleFields.add(targetField);
-					if(targetField.getRow() + i > 7) break;
-					targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() + 1  + i);
+					targetField = this.getChessBoard().getField(this.getChessField().getCol() - i, this.getChessField().getRow() + i);
+					if(targetField.getCol() < 0 || targetField.getRow() > 7) break;
 				} else {
 					checkForPiece(possibleFields, targetField);
 					break;
@@ -84,13 +83,13 @@ public class BiShop extends Piece {
 		}
 			
 		//nach rechts unten fahren
-		if (this.getChessField().getRow() != 0) {
-			targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() - 1);
+		if (this.getChessField().getCol() != 7 || this.getChessField().getRow() != 0) {
+			targetField = this.getChessBoard().getField(this.getChessField().getCol() + 1, this.getChessField().getRow() - 1);
 			for (int i = 0; i < 7; i++){
 				if (targetField.getPiece() == null) {
 					possibleFields.add(targetField);
-					if(targetField.getRow() - i < 0) break;
-					targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() - 1 - i);
+					targetField = this.getChessBoard().getField(this.getChessField().getCol() + i, this.getChessField().getRow() - i);
+					if(targetField.getCol() > 7 || targetField.getRow() < 0) break;
 				} else {
 					checkForPiece(possibleFields, targetField);
 					break;

@@ -181,6 +181,18 @@ public class ModelTester {
         }
     } 
     @Test
+    public void biShopsOnBaseLine(){
+    	Piece p = game.getChessBoard().getField(2, 0).getPiece();
+        if(p.getPossibleFields().size() != 0){
+            Assert.fail("In der Grundstellung hat der Läufer keine Zugsmöglichkeit.");
+        }
+        
+    	p = game.getChessBoard().getField(5, 7).getPiece();
+        if(p.getPossibleFields().size() != 0){
+            Assert.fail("In der Grundstellung hat der Läufer keine Zugsmöglichkeit.");
+        }
+    } 
+    @Test
     public void checkFieldColsAndRows(){
         for(int row = 0;row < 8 ;row++){
             for(int col = 0; col < 8 ; col++){

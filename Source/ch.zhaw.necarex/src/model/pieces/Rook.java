@@ -43,8 +43,8 @@ public class Rook extends Piece {
 			for (int i = 0; i < 7; i++){
 				if (targetField.getPiece() == null) {					
 					possibleFields.add(targetField);
-					if(targetField.getCol() - i < 0) break;
-					targetField = this.getChessBoard().getField(this.getChessField().getCol() - 1 - i, this.getChessField().getRow());
+					targetField = this.getChessBoard().getField(this.getChessField().getCol() - i, this.getChessField().getRow());
+					if(targetField.getCol() < 0) break;
 				} else {
 					checkForPiece(possibleFields, targetField);
 					break;
@@ -58,8 +58,8 @@ public class Rook extends Piece {
 			for (int i = 0; i < 7; i++){
 				if (targetField.getPiece() == null) {
 					possibleFields.add(targetField);
-					if(targetField.getCol() + i > 7) break;
-					targetField = this.getChessBoard().getField(this.getChessField().getCol() + 1 + i, this.getChessField().getRow());
+					targetField = this.getChessBoard().getField(this.getChessField().getCol() + i, this.getChessField().getRow());
+					if(targetField.getCol() > 7) break;
 				} else {
 					checkForPiece(possibleFields, targetField);
 					break;
@@ -73,8 +73,8 @@ public class Rook extends Piece {
 			for (int i = 0; i < 7; i++){
 				if (targetField.getPiece() == null) {
 					possibleFields.add(targetField);
-					if(targetField.getRow() + i > 7) break;
-					targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() + 1  + i);
+					targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() + i);
+					if(targetField.getRow() > 7) break;
 				} else {
 					checkForPiece(possibleFields, targetField);
 					break;
@@ -88,8 +88,8 @@ public class Rook extends Piece {
 			for (int i = 0; i < 7; i++){
 				if (targetField.getPiece() == null) {
 					possibleFields.add(targetField);
-					if(targetField.getRow() - i < 0) break;
-					targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() - 1 - i);
+					targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() - i);
+					if(targetField.getRow() < 0) break;
 				} else {
 					checkForPiece(possibleFields, targetField);
 					break;
