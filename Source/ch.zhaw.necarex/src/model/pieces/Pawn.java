@@ -98,13 +98,17 @@ public class Pawn extends Piece {
      * Prüft ob der Bauer zwei Felder nach vorne fahren kann. 
      */
     private void addPossiblePawnDoubleTurn(ArrayList<ChessField> possibleFields){
-        if(this.checkPawnIsOnBaseLine()){
+        if(this.checkPawnIsOnBaseLine() && checkNoFigureInFrontOfPawn()){
             ChessField targetField =  this.getChessBoard().getField(this.getChessField().getCol(), (this.getChessField().getRow()+(this.direction * 2)));
             if(targetField.getPiece() == null){
                 possibleFields.add(targetField);    
             }
         }
     }
+    private boolean checkNoFigureInFrontOfPawn(){
+    	return  this.getChessBoard().getField(this.getChessField().getCol(), (this.getChessField().getRow() + direction * 1 )).getPiece() == null;
+    }
+    
     /**
      * Prüft ob ein Bauer auf der Grundlinie (Weiss Zeile 1, Schwarz Zeile 6)
      * @return true, wenn sich der Bauer auf der Grundlinie befindet, ansonsten false
