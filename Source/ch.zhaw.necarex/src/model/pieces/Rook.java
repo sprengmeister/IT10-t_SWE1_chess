@@ -10,12 +10,10 @@ import java.util.ArrayList;
 import model.*;
 
 /**
- * Spielfigur Turm, basiert auf Piece. Kennt die Gangart des und kann dessen mögliche Felder ausrechnen.
+ * Spielfigur Turm, basiert auf Piece. Kennt die Gangart des Turms und kann dessen mögliche Felder ausrechnen.
  * @author beni
  */
 public class Rook extends Piece {
-
-    private enum Direction { LEFT, RIGHT, UP, DOWN }; 
 
     /**
      * Konstruktor: Erzeugt eine neue Figur
@@ -37,86 +35,72 @@ public class Rook extends Piece {
     public ArrayList<ChessField> getPossibleFields() {
     	ArrayList<ChessField> possibleFields = new ArrayList<ChessField>();
     
-        this.addRookTurn(possibleFields);
+    	ChessField targetField;
+    	
+    	//nach links fahren
+		if (this.getChessField().getCol() != 0) {
+			targetField = this.getChessBoard().getField(this.getChessField().getCol() - 1, this.getChessField().getRow());
+			for (int i = 0; i < 7; i++){
+				if (targetField.getPiece() == null) {					
+					possibleFields.add(targetField);
+					if(targetField.getCol() - i < 0) break;
+					targetField = this.getChessBoard().getField(this.getChessField().getCol() - 1 - i, this.getChessField().getRow());
+				} else {
+					checkForPiece(possibleFields, targetField);
+					break;
+				}
+			}				
+		}
+
+		//nach rechts fahren
+		if (this.getChessField().getCol() != 7) {
+			targetField = this.getChessBoard().getField(this.getChessField().getCol() + 1, this.getChessField().getRow());
+			for (int i = 0; i < 7; i++){
+				if (targetField.getPiece() == null) {
+					possibleFields.add(targetField);
+					if(targetField.getCol() + i > 7) break;
+					targetField = this.getChessBoard().getField(this.getChessField().getCol() + 1 + i, this.getChessField().getRow());
+				} else {
+					checkForPiece(possibleFields, targetField);
+					break;
+				}
+			}
+		}
+
+		//nach oben fahren
+		if (this.getChessField().getRow() != 7) {
+			targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() + 1);
+			for (int i = 0; i < 7; i++){
+				if (targetField.getPiece() == null) {
+					possibleFields.add(targetField);
+					if(targetField.getRow() + i > 7) break;
+					targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() + 1  + i);
+				} else {
+					checkForPiece(possibleFields, targetField);
+					break;
+				}
+			}
+		}
+			
+		//nach unten fahren
+		if (this.getChessField().getRow() != 0) {
+			targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() - 1);
+			for (int i = 0; i < 7; i++){
+				if (targetField.getPiece() == null) {
+					possibleFields.add(targetField);
+					if(targetField.getRow() - i < 0) break;
+					targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() - 1 - i);
+				} else {
+					checkForPiece(possibleFields, targetField);
+					break;
+				}
+			}
+		}
         
         //TODO prüfen ob mit diesem Zug eine Schachsituation ausgelöst wurde
         
         return possibleFields;
     }
-
-    /**
-     * Fügt alle Züge hinzu, die die Figur fahren kann. 
-     */
-    private void addRookTurn(ArrayList<ChessField> possibleFields){
-    	stepDirectionTillOtherPieceOrEndOfBoard(possibleFields, Direction.LEFT);
-    	stepDirectionTillOtherPieceOrEndOfBoard(possibleFields, Direction.RIGHT);
-    	stepDirectionTillOtherPieceOrEndOfBoard(possibleFields, Direction.UP);
-    	stepDirectionTillOtherPieceOrEndOfBoard(possibleFields, Direction.DOWN);
-    }
-    
-    /**
-     * Fügt alle Züge hinzu, die die Figur in eine bestimmte Richtung fahren kann. 
-     */
-    private void stepDirectionTillOtherPieceOrEndOfBoard(ArrayList<ChessField>  possibleFields, Direction direction){
-    	ChessField targetField;
-    	switch (direction) {
-		case LEFT:
-			if (!(this.getChessField().getCol() == 0)) {
-				targetField = this.getChessBoard().getField(this.getChessField().getCol() - 1, this.getChessField().getRow());
-				while (!(targetField.getCol() < 0)) {
-					if (targetField.getPiece() == null) {
-						possibleFields.add(targetField);
-					} else {
-						checkForPiece(possibleFields, targetField);
-						break;
-					}
-				}				
-			}
-		break;
-
-		case RIGHT:
-			if (!(this.getChessField().getCol() == 7)) {
-				targetField = this.getChessBoard().getField(this.getChessField().getCol() + 1, this.getChessField().getRow());
-				while (!(targetField.getCol() > 7)) {
-					if (targetField.getPiece() == null) {
-						possibleFields.add(targetField);
-					} else {
-						checkForPiece(possibleFields, targetField);
-						break;
-					}
-				}
-			}
-		break;
-
-		case UP:
-			if (!(this.getChessField().getRow() == 7)) {
-				targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() + 1);
-				while (!(targetField.getRow() > 7)) {
-					if (targetField.getPiece() == null) {
-						possibleFields.add(targetField);
-					} else {
-						checkForPiece(possibleFields, targetField);
-						break;
-					}
-				}
-			}
-		break;
-
-		case DOWN:
-			if (!(this.getChessField().getRow() == 0)) {
-				targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() - 1);
-				while (!(targetField.getRow() < 0)) {
-					if (targetField.getPiece() == null) {
-						possibleFields.add(targetField);
-					} else {
-						checkForPiece(possibleFields, targetField);
-						break;
-					}
-				}
-			}
-		break;
-		}
-	}
     
     /**
      * Ist die gefunde Figur vom Gegner oder nicht?
@@ -125,6 +109,5 @@ public class Rook extends Piece {
     	if (targetField.getPiece().getOwner() != this.getChessField().getPiece().getOwner()) {
     		possibleFields.add(targetField);
 		}
-    }   
-    
+    }       
 }

@@ -11,7 +11,7 @@ import java.util.Iterator;
 import model.*;
 
 /**
- * Spielfigur Springer, basiert auf Piece. Kennt die Gangart des und kann dessen mögliche Felder ausrechnen.
+ * Spielfigur Springer, basiert auf Piece. Kennt die Gangart des Springers und kann dessen mögliche Felder ausrechnen.
  * @author beni
  */
 public class Knight extends Piece {

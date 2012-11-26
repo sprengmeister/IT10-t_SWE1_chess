@@ -251,19 +251,17 @@ public class ModelTester {
     	if(!(game.getCapturedPieces().contains(pieceToCapture))){
     		Assert.fail("In der Liste der geschlagenen Figuren fehlt der schwarze Bauer. ");
     	}
-    		
-    	
     }
     @Test
     public void moveKnights(){
     	
-    	ChessField fromField = game.getChessBoard().getField(1, 0);
-    	ChessField toField = game.getChessBoard().getField(2, 2);
+    	ChessField fromField = game.getChessBoard().getField(6, 7);
+    	ChessField toField = game.getChessBoard().getField(5, 5);
     	game.getChessBoard().movePiece(fromField, toField);
-    	if(!(game.getChessBoard().getField(2, 2).getPiece() instanceof Knight)){
-    		Assert.fail("Der Springernzug nach vorne, eins rechts hat nicht funktioniert. ");
+    	if(!(game.getChessBoard().getField(5, 5).getPiece() instanceof Knight)){
+    		Assert.fail("Der Springerzug nach vorne, eins rechts hat nicht funktioniert. ");
     	}
-    	if(!(game.getChessBoard().getField(1, 0).getPiece() == null)){
+    	if(!(game.getChessBoard().getField(6, 7).getPiece() == null)){
     		Assert.fail("Das Feld muss leer sein, nachdem der Springer weggezogen ist. ");
     	}
     	if(!(game.getTurnList().size() == 4)){
@@ -275,7 +273,7 @@ public class ModelTester {
     		if(!(game.getTurnList().get(3).getToField() == toField)){
     			Assert.fail("Beim ersten Zug ist ein falsches to-Feld angegeben");
     		}
-    		if(!(game.getTurnList().get(3).getActivePlayer() == game.getPlayerWhite())){
+    		if(!(game.getTurnList().get(3).getActivePlayer() == game.getPlayerBlack())){
     			Assert.fail("Beim ersten Zug ist ein falscher Spieler eingetragen");
     		}
     		if(!(game.getTurnList().get(3).getCapturedPiece() == null)){
@@ -286,13 +284,13 @@ public class ModelTester {
     		}
     	}
     	
-    	fromField = game.getChessBoard().getField(6, 7);
-    	toField = game.getChessBoard().getField(5, 5);
+    	fromField = game.getChessBoard().getField(1, 0);
+    	toField = game.getChessBoard().getField(2, 2);
     	game.getChessBoard().movePiece(fromField, toField);
-    	if(!(game.getChessBoard().getField(5, 5).getPiece() instanceof Knight)){
+    	if(!(game.getChessBoard().getField(2, 2).getPiece() instanceof Knight)){
     		Assert.fail("Der Springerzug von zwei nach vorne, eins rechts hat nicht funktioniert. ");
     	}
-    	if(!(game.getChessBoard().getField(6, 7).getPiece() == null)){
+    	if(!(game.getChessBoard().getField(1, 0).getPiece() == null)){
     		Assert.fail("Das Feld muss leer sein, nachdem der Springer weggezogen ist.");
     	}
     	
@@ -316,8 +314,68 @@ public class ModelTester {
     	if(!(game.getCapturedPieces().contains(pieceToCapture))){
     		Assert.fail("In der Liste der geschlagenen Figuren fehlt der schwarze Springer. ");
     	}
-    		
-    	
     }
-    
+    @Test
+    public void moveRooks(){
+    	
+    	ChessField fromField = game.getChessBoard().getField(7, 7);
+    	ChessField toField = game.getChessBoard().getField(6, 7);
+    	game.getChessBoard().movePiece(fromField, toField);
+    	if(!(game.getChessBoard().getField(6, 7).getPiece() instanceof Rook)){
+    		Assert.fail("Der Turmzug eins nach rechts hat nicht funktioniert. ");
+    	}
+    	if(!(game.getChessBoard().getField(7, 7).getPiece() == null)){
+    		Assert.fail("Das Feld muss leer sein, nachdem der Turm weggezogen ist. ");
+    	}
+    	if(!(game.getTurnList().size() == 8)){
+    		Assert.fail("In der Zugliste müssen 7 Datensätze sein. Es befinden sich "+ game.getTurnList().size() +" Datensätze in der Liste");
+    	} else {
+    		if(!(game.getTurnList().get(7).getFromField() == fromField)){
+    			Assert.fail("Beim ersten Zug ist ein falsches Von-Feld angegeben");
+    		}
+    		if(!(game.getTurnList().get(7).getToField() == toField)){
+    			Assert.fail("Beim ersten Zug ist ein falsches to-Feld angegeben");
+    		}
+    		if(!(game.getTurnList().get(7).getActivePlayer() == game.getPlayerBlack())){
+    			Assert.fail("Beim ersten Zug ist ein falscher Spieler eingetragen");
+    		}
+    		if(!(game.getTurnList().get(7).getCapturedPiece() == null)){
+    			Assert.fail("Beim Zug wurde nichts geschlagen.");
+    		}
+    		if(!(game.getTurnList().get(7).getMovingPiece() instanceof Rook)){
+    			Assert.fail("Beim Zug hat sich ein Turm bewegt");
+    		}
+    	}
+    	
+    	fromField = game.getChessBoard().getField(0, 0);
+    	toField = game.getChessBoard().getField(1, 0);
+    	game.getChessBoard().movePiece(fromField, toField);
+    	if(!(game.getChessBoard().getField(1, 0).getPiece() instanceof Rook)){
+    		Assert.fail("Der Turmzug eins nach rechts hat nicht funktioniert. ");
+    	}
+    	if(!(game.getChessBoard().getField(0, 0).getPiece() == null)){
+    		Assert.fail("Das Feld muss leer sein, nachdem der Turm weggezogen ist.");
+    	}
+    	
+    	//Schwarz einen Zug machen lassen (mit seinem Bauern)
+    	fromField = game.getChessBoard().getField(3, 1);
+    	toField = game.getChessBoard().getField(3, 2);
+    	game.getChessBoard().movePiece(fromField, toField);
+    	
+    	fromField = game.getChessBoard().getField(1, 0);
+    	toField = game.getChessBoard().getField(1, 6);
+    	Piece pieceToCapture = toField.getPiece();
+    	game.getChessBoard().movePiece(fromField, toField);
+    	
+    	if(!(game.getChessBoard().getField(1, 6).getPiece() instanceof Rook 
+    			&& game.getChessBoard().getField(1, 6).getPiece().getOwner().getColor() == PlayerColor.WHITE)) {
+    		Assert.fail("Turm schlagen hat nicht funktioniert. Auf Feld 1, 6 steht kein weisser Turm. ");
+    	}
+    	if(!(game.getTurnList().get(10).getCapturedPiece() instanceof Pawn && game.getTurnList().get(10).getCapturedPiece().getOwner().getColor() == PlayerColor.BLACK)){
+    		Assert.fail("In der Zugsauflistung befindet sich kein schwarzer Bauer als captured Piece");
+    	}
+    	if(!(game.getCapturedPieces().contains(pieceToCapture))){
+    		Assert.fail("In der Liste der geschlagenen Figuren fehlt der schwarze Bauer. ");
+    	}
+    }
 }

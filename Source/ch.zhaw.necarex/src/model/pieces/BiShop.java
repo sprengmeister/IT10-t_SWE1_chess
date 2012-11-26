@@ -11,12 +11,10 @@ import java.util.Iterator;
 import model.*;
 
 /**
- * Spielfigur Läufer, basiert auf Piece. Kennt die Gangart des und kann dessen mögliche Felder ausrechnen.
+ * Spielfigur Läufer, basiert auf Piece. Kennt die Gangart des Läufers und kann dessen mögliche Felder ausrechnen.
  * @author beni
  */
 public class BiShop extends Piece {
-    
-    private int direction;
 
     /**
      * Konstruktor: Erzeugt eine neue Figur
@@ -37,9 +35,68 @@ public class BiShop extends Piece {
     @Override
     public ArrayList<ChessField> getPossibleFields() {
     	ArrayList<ChessField> possibleFields = new ArrayList<ChessField>();
-    
-        this.addAllBiShopTurn(possibleFields);
-        this.removeImpossibleBiShopTurn(possibleFields);
+    	
+    	ChessField targetField;
+    	
+    	//nach links unten fahren
+		if (this.getChessField().getCol() != 0) {
+			targetField = this.getChessBoard().getField(this.getChessField().getCol() - 1, this.getChessField().getRow());
+			for (int i = 0; i < 7; i++){
+				if (targetField.getPiece() == null) {					
+					possibleFields.add(targetField);
+					if(targetField.getCol() - i < 0) break;
+					targetField = this.getChessBoard().getField(this.getChessField().getCol() - 1 - i, this.getChessField().getRow());
+				} else {
+					checkForPiece(possibleFields, targetField);
+					break;
+				}
+			}				
+		}
+
+		//nach rechts oben fahren
+		if (this.getChessField().getCol() != 7) {
+			targetField = this.getChessBoard().getField(this.getChessField().getCol() + 1, this.getChessField().getRow());
+			for (int i = 0; i < 7; i++){
+				if (targetField.getPiece() == null) {
+					possibleFields.add(targetField);
+					if(targetField.getCol() + i > 7) break;
+					targetField = this.getChessBoard().getField(this.getChessField().getCol() + 1 + i, this.getChessField().getRow());
+				} else {
+					checkForPiece(possibleFields, targetField);
+					break;
+				}
+			}
+		}
+
+		//nach links oben fahren
+		if (this.getChessField().getRow() != 7) {
+			targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() + 1);
+			for (int i = 0; i < 7; i++){
+				if (targetField.getPiece() == null) {
+					possibleFields.add(targetField);
+					if(targetField.getRow() + i > 7) break;
+					targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() + 1  + i);
+				} else {
+					checkForPiece(possibleFields, targetField);
+					break;
+				}
+			}
+		}
+			
+		//nach rechts unten fahren
+		if (this.getChessField().getRow() != 0) {
+			targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() - 1);
+			for (int i = 0; i < 7; i++){
+				if (targetField.getPiece() == null) {
+					possibleFields.add(targetField);
+					if(targetField.getRow() - i < 0) break;
+					targetField = this.getChessBoard().getField(this.getChessField().getCol(), this.getChessField().getRow() - 1 - i);
+				} else {
+					checkForPiece(possibleFields, targetField);
+					break;
+				}
+			}
+		}
 
         //TODO prüfen ob mit diesem Zug eine Schachsituation ausgelöst wurde
         
@@ -47,25 +104,11 @@ public class BiShop extends Piece {
     }
     
     /**
-     * Fügt alle Züge hinzu, die die Figur fahren kann. 
+     * Ist die gefunde Figur vom Gegner oder nicht?
      */
-    private void addAllBiShopTurn(ArrayList<ChessField> possibleFields){
-    	//TODO
-    }
-    
-    /**
-     * Entfernt die unerlaubten Züge
-     */
-    private void removeImpossibleBiShopTurn(ArrayList<ChessField> possibleFields){
-    	//Figur würde andere Figur der gleichen Farbe schlagen
-    	Iterator<ChessField> samePlayer = possibleFields.iterator();
-    	while (samePlayer.hasNext()) {
-    		ChessField currentChessfield = samePlayer.next();
-    		if(currentChessfield.getPiece() != null && currentChessfield.getPiece().getOwner() == this.getChessField().getPiece().getOwner()){
-    			samePlayer.remove();
-    		}
-    	}
-    }    
-
-    
+    private void checkForPiece(ArrayList<ChessField> possibleFields, ChessField targetField){
+    	if (targetField.getPiece().getOwner() != this.getChessField().getPiece().getOwner()) {
+    		possibleFields.add(targetField);
+		}
+    }   
 }
