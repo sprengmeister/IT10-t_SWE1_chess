@@ -251,8 +251,6 @@ public class ModelTester {
     	if(!(game.getCapturedPieces().contains(pieceToCapture))){
     		Assert.fail("In der Liste der geschlagenen Figuren fehlt der schwarze Bauer. ");
     	}
-    		
-    	
     }
     @Test
     public void moveKnights(){
@@ -316,8 +314,6 @@ public class ModelTester {
     	if(!(game.getCapturedPieces().contains(pieceToCapture))){
     		Assert.fail("In der Liste der geschlagenen Figuren fehlt der schwarze Springer. ");
     	}
-    		
-    	
     }
     @Test
     public void moveRooks(){
@@ -381,8 +377,5 @@ public class ModelTester {
     	if(!(game.getCapturedPieces().contains(pieceToCapture))){
     		Assert.fail("In der Liste der geschlagenen Figuren fehlt der schwarze Bauer. ");
     	}
-    		
-    	
     }
-    
 }

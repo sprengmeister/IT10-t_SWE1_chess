@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import model.*;
 
 /**
- * Spielfigur Turm, basiert auf Piece. Kennt die Gangart des und kann dessen mögliche Felder ausrechnen.
+ * Spielfigur Turm, basiert auf Piece. Kennt die Gangart des Turms und kann dessen mögliche Felder ausrechnen.
  * @author beni
  */
 public class Rook extends Piece {
@@ -109,6 +109,5 @@ public class Rook extends Piece {
     	if (targetField.getPiece().getOwner() != this.getChessField().getPiece().getOwner()) {
     		possibleFields.add(targetField);
 		}
-    }   
-    
+    }       
 }

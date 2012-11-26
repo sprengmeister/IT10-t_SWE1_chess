@@ -11,7 +11,7 @@ import java.util.Iterator;
 import model.*;
 
 /**
- * Spielfigur König, basiert auf Piece. Kennt die Gangart des und kann dessen mögliche Felder ausrechnen.
+ * Spielfigur König, basiert auf Piece. Kennt die Gangart des Königs und kann dessen mögliche Felder ausrechnen.
  * @author beni
  */
 public class King extends Piece {

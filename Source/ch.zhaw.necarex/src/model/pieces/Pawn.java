@@ -13,7 +13,7 @@ import model.Player;
 import model.PlayerColor;
 
 /**
- * Spielfigur Bauer, basiert auf Piece. Kennt die Gangart des und kann dessen mögliche Felder ausrechnen.
+ * Spielfigur Bauer, basiert auf Piece. Kennt die Gangart des Bauerns und kann dessen mögliche Felder ausrechnen.
  * @author florian
  */
 public class Pawn extends Piece {
