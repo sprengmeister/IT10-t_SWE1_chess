@@ -1,4 +1,5 @@
 Thumbs.db
+.metadata
 *.DS_store
 *.obj
 *.exe
