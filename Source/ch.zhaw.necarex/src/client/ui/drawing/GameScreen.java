@@ -66,7 +66,7 @@ public class GameScreen implements Screen {
 		gl.glClearColor(255, 255, 255, 1);
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT | GL10.GL_STENCIL_BUFFER_BIT);
 
-		if (Gdx.input.isTouched()){
+		if (Gdx.input.isTouched() && Gdx.input.justTouched()){
 			int inputX = Gdx.input.getX();
 			//Beim Input ist die Y-Achse verglichen zum rendern verkehrt (0 ist oben statt unten), 
 			//darum dies hier entsprechend ändern

@@ -67,9 +67,12 @@ public class BoardDrawer implements Disposable {
 			for(int j=0;j<8;j++){
 				
 				if (isSelectedField(i, j)){
-					renderer.setColor(Color.GRAY);
+					renderer.setColor(Color.RED);
 				} else if(isReachableField(i, j)){
-					renderer.setColor(Color.LIGHT_GRAY);
+					renderer.setColor((j%2 == 0 && i%2 == 0) 
+								   || (j%2 != 0 && i%2 != 0) 
+										? Color.LIGHT_GRAY
+										: Color.DARK_GRAY);
 				}else {
 					renderer.setColor((j%2 == 0 && i%2 == 0) 
 								  	|| (j%2 != 0 && i%2 != 0) 
