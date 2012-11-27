@@ -1,6 +1,7 @@
 package client.ui;
 
 import client.ui.drawing.GameScreen;
+import client.viewmodel.ChessBoardViewModel;
 
 import com.badlogic.gdx.Game;
 
@@ -14,18 +15,20 @@ public class NecarexGame extends Game {
 	
 	private GameScreen gameScreen;
 	private GameController controller;
+	private ChessBoardViewModel viewModel;
 	
 	/**
 	 * Erstellt und initialisiert Haupt-Draw-Klasse
 	 * @param game Model mit den darzustellenden Informationen
 	 */
-	public NecarexGame(GameController controller){
+	public NecarexGame(GameController controller, ChessBoardViewModel viewModel){
 		this.controller = controller;
+		this.viewModel = viewModel;
 	}
 	
 	@Override
 	public void create() {
-		gameScreen = new GameScreen(controller);
+		gameScreen = new GameScreen(controller, viewModel);
 		setScreen(gameScreen);
 	}
 

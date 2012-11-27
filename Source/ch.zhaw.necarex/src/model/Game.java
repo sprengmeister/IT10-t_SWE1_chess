@@ -25,14 +25,18 @@ public class Game {
 	}
 
 	public Game(){
+		initialize();
+    }
+
+	public void initialize(){
         playerWhite = new Player(PlayerColor.WHITE);
         playerBlack = new Player(PlayerColor.BLACK);
         activePlayer = playerWhite;
         chessBoard = new ChessBoard(this);
         capturedPieces = new ArrayList<Piece>();
         turnList = new ArrayList<Turn>();
-    }
-
+	}
+	
     /**
      * @return the playerWhite
      */

@@ -5,7 +5,10 @@
 package control;
 
 import java.util.ArrayList;
-import model.*;
+
+import model.ChessField;
+import model.Game;
+import client.viewmodel.ChessBoardViewModel;
 
 /**
  * Kontrolliert den Ablauf des Schachspiels
@@ -13,14 +16,11 @@ import model.*;
  */
 public class GameController {
     private Game game;
+    private ChessBoardViewModel viewModel;
     
-    public GameController(){
-        game = new Game();
-    }
-    
-    public void newGame(){
-        game = new Game();
-        //view = new View(game, this);
+    public GameController(ChessBoardViewModel viewModel){
+        this.game = new Game();
+        this.viewModel = viewModel;
     }
     
     public ArrayList<ChessField> getPossibleFields(ChessField field){
@@ -36,12 +36,18 @@ public class GameController {
     	if(fromField.getPiece().getPossibleFields().contains(toField)){
     		game.getChessBoard().movePiece(fromField, toField);
     		game.changeActivePlayer();
+    		viewModel.reset();
     	}
-	
     	// Prüfe auf Schach, Schachmatt, etc. 
               
     }
 
+    public void startNewGame(){
+    	game.getChessBoard().initChessboard();
+    	game.initialize();
+        viewModel.reset();
+    }
+    
     /**
      * Gibt die Model-Informationen zurück.
      * @return Game-Model.

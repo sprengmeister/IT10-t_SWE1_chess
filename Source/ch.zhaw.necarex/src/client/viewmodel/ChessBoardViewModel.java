@@ -13,6 +13,11 @@ public class ChessBoardViewModel {
 	private ChessField selectedField;
 	private List<ChessField> reachableFields;
 	
+	public void reset(){
+		this.selectedField = null;
+		this.reachableFields = null;
+	}
+	
 	public ChessField getSelectedField() {
 		return selectedField;
 	}

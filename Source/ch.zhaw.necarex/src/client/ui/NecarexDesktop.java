@@ -1,5 +1,7 @@
 package client.ui;
 
+import client.viewmodel.ChessBoardViewModel;
+
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
@@ -19,7 +21,8 @@ public class NecarexDesktop {
 	 */
 	public static void main(String[] args) {
 		//necaREx Controller
-		GameController controller = new GameController();
+		ChessBoardViewModel vieModel = new ChessBoardViewModel();
+		GameController controller = new GameController(vieModel);
 		
 		//LibGDX Applikation starten
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
@@ -28,7 +31,7 @@ public class NecarexDesktop {
 		//resizing verhindern, da sonst Figuren-Sprites zu gross/klein
 		config.resizable = false;
 		config.title = "necaREx";
-		new LwjglApplication(new NecarexGame(controller), config);  
+		new LwjglApplication(new NecarexGame(controller, vieModel), config);  
 	}
 
 }

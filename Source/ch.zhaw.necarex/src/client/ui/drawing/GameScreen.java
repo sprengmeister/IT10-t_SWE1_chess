@@ -10,12 +10,15 @@ import client.ui.NecarexDesktop;
 import client.viewmodel.ChessBoardViewModel;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GLCommon;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 import control.GameController;
 
@@ -24,18 +27,18 @@ public class GameScreen implements Screen {
 	private BoardDrawer boardDrawer;
 	private MenuDrawer menuDrawer;
 	private PieceDrawer pieceDrawer;
-	private Stage stage;
 	private Table window;
+	private Stage stage;
 	private SpriteBatch spriteBatch;
 	private Game game;
 	private GameController controller;
 	private ChessBoardViewModel viewModel;
 	
-	public GameScreen(GameController controller){
+	public GameScreen(GameController controller, ChessBoardViewModel viewModel){
 		this.spriteBatch = new SpriteBatch();
 		this.game = controller.getGame();
 		this.controller = controller;
-		this.viewModel = new ChessBoardViewModel();
+		this.viewModel = viewModel;
 	}
 	
 	@Override
@@ -75,8 +78,6 @@ public class GameScreen implements Screen {
 				if (viewModel.getSelectedField() != null && viewModel.getReachableFields().contains(selectedField)){
 					//Bewegung ausführen
 					controller.doTurn(viewModel.getSelectedField(), selectedField);
-					viewModel.setSelectedField(null);
-					viewModel.setReachableFields(null);
 				} else {
 					//Feld selektieren
 					Piece selctedPiece = selectedField.getPiece();
@@ -89,7 +90,7 @@ public class GameScreen implements Screen {
 			}
 		}
 		
-		menuDrawer.draw(window);
+		//menuDrawer.draw(window);
         boardDrawer.draw(spriteBatch);
         
         //Figuren von "oben" nach "unten" zeichnen, damit Überlappungen richtig gezeichnet werden
@@ -102,6 +103,11 @@ public class GameScreen implements Screen {
         	}
         }
         
+//        spriteBatch.begin();
+//        window.draw(spriteBatch, 1);
+//        spriteBatch.end();
+        
+        stage.addActor(window);
         stage.act( delta );
         stage.draw();
 	}
@@ -119,26 +125,28 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		stage = new Stage(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(), true);
+		stage = new Stage(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(), false);
 		Gdx.input.setInputProcessor(stage);
 		
 		//Schachbrett-Bereich festlegen
 		Table boardTable = new Table();
-		boardTable.x = 40;
-		boardTable.y = 60;
-		boardTable.height = 300;
-		boardTable.width = 300;
+		boardTable.setX(40);
+		boardTable.setY(60);
+		boardTable.setHeight(300);
+		boardTable.setWidth(300);
 		
 		//Gesamter Zeichnungsbereich festlegen
 		window = new Table();
-		window.height = stage.height();
-		window.width = stage.width();
-		window.x = 0;
-		window.y = 0;
+		window.setFillParent(true);
+		window.setHeight(Gdx.graphics.getHeight());
+		window.setWidth(Gdx.graphics.getWidth());
 		
-		pieceDrawer = new PieceDrawer((int)(boardTable.x+0.95*BoardDrawer.LABEL_WIDTH), (int)(boardTable.y+0.75*BoardDrawer.LABEL_HEIGHT));
+		pieceDrawer = new PieceDrawer((int)(boardTable.getX()+0.95*BoardDrawer.LABEL_WIDTH), (int)(boardTable.getY()+0.75*BoardDrawer.LABEL_HEIGHT));
 		boardDrawer = new BoardDrawer(boardTable, viewModel);
-		menuDrawer = new MenuDrawer();
+		menuDrawer = new MenuDrawer(this.controller);
+		
+		menuDrawer.draw(window);
+		stage.addActor(window);
 	}
 
 }
