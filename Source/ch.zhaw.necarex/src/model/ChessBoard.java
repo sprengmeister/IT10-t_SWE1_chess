@@ -16,7 +16,7 @@ import model.pieces.Rook;
  * Das ChessBoard kontrolliert die Schachfelder und macht die Anfangsaufstellung zu Beginn des Spiels. 
  * @author florian
  */
-public class ChessBoard {
+public class ChessBoard implements Cloneable{
     private ChessField[][] chessField;
     
     private Game game;
@@ -106,6 +106,26 @@ public class ChessBoard {
     	if(capturedPiece != null){
     		game.addToCapturedPieces(capturedPiece);
     	}
+    }
+    
+    public boolean checkMate(){
+    	for(int col=0;col<8;col++){
+    		for(int row = 0;row < 8; row++){
+    			if(this.getField(col, row).getPiece() != null && this.getField(col, row).getPiece().daresOpponentKing()){
+    				return true;
+    			}
+    		}
+    	}
+    	return false;
+    }
+    public ChessBoard clone(){
+		try {
+			return (ChessBoard) super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+			return null;
+		}
+    	
     }
     
 }
