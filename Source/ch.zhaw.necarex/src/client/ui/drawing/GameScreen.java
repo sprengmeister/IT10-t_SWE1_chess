@@ -79,12 +79,15 @@ public class GameScreen implements Screen {
 					//Bewegung ausführen
 					controller.doTurn(viewModel.getSelectedField(), selectedField);
 				} else {
-					//Feld selektieren
-					Piece selctedPiece = selectedField.getPiece();
-					if (selctedPiece != null) {
-						//Nur Felder mit einer Figur darauf können markiert werden
-						viewModel.setSelectedField(selectedField);
-						viewModel.setReachableFields(selctedPiece.getPossibleFields());
+					//Figur darf nur ausgewählt werden, wenn Spieler am Zug ist
+					if (selectedField.getPiece()!=null && selectedField.getPiece().getOwner()==game.getActivePlayer()){
+						//Feld selektieren
+						Piece selctedPiece = selectedField.getPiece();
+						if (selctedPiece != null) {
+							//Nur Felder mit einer Figur darauf können markiert werden
+							viewModel.setSelectedField(selectedField);
+							viewModel.setReachableFields(selctedPiece.getPossibleFields());
+						}
 					}
 				}
 			}

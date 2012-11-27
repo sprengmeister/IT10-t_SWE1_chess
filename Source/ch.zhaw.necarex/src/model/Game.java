@@ -50,7 +50,13 @@ public class Game {
     public Player getPlayerBlack() {
         return playerBlack;
     }
-
+    
+    /**
+     * @return der Spieler der am Zug ist.
+     */
+    public Player getActivePlayer(){
+    	return activePlayer;
+    }
     /**
      * @return the chessBoard
      */
