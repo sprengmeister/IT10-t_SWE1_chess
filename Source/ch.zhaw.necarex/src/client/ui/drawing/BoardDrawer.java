@@ -52,7 +52,7 @@ public class BoardDrawer implements Disposable {
 	        font.draw(spriteBatch, str, (float) (i*FIELD_WIDTH+0.3*FIELD_WIDTH + this.initX + LABEL_WIDTH), (float) (this.initY + 1.5f*LABEL_HEIGHT + 8 * FIELD_HEIGHT));
 		}
 		// 8-1 links und rechts des Bretts
-		for(int i=8,j=0;i>0;i--,j++){
+		for(int i=1,j=0;i<9;i++,j++){
 			CharSequence str = String.valueOf(i);
 			font.setColor(Color.BLACK);
 			font.draw(spriteBatch, str,  this.initX, (float)(j*FIELD_HEIGHT+0.3*FIELD_HEIGHT + this.initY + LABEL_HEIGHT));
