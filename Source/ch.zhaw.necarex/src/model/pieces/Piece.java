@@ -17,7 +17,7 @@ import model.Player;
  * Die Klasse Piece (abstrakt) beschreibt alles, was alle Schachfiguren gemeinsam haben. Alle Schachfiguren gehören einem Owner, stehen auf einem Schachfeld.Jede Schachfigur muss eine Methode implementieren, die die möglichen Felder zurück gibt.  
  * @author florian
  */
-public abstract class Piece {
+public abstract class Piece implements Cloneable {
     private Player owner;
     private ChessField chessField;
     private ChessBoard chessBoard;
@@ -67,17 +67,27 @@ public abstract class Piece {
 		this.spriteIndex = spriteIndex;
 	}
 	
-	protected ArrayList<ChessField> checkPossibleFieldsDaringOwnKing(ArrayList<ChessField> possibleFields){
+	/**
+	 * Prüft die Zugliste, ob ein Zug den eigenen König bedroht und entfernt entsprechende Züge.  
+	 * @param possibleFields 
+	 * @return possible Fields ohne die nicht erlaubten Züge 
+	 */
+	protected ArrayList<ChessField> checkDaringOwnKing(ArrayList<ChessField> possibleFields){
 
 		Iterator<ChessField> possibleFieldIterator = possibleFields.iterator();
 		while (possibleFieldIterator.hasNext()) {
 			ChessField testChessField = possibleFieldIterator.next();
 			// Zug probeweise durchführen
 			ChessBoard cbTest = this.getChessBoard().clone();
-			cbTest.movePiece(this.getChessField(), testChessField);
+			
+			//Koordinaten
+			
+			
+			
+			//testChessField.exchangePiece(this.getChessField().movePieceAway());
 	    	for(int col=0;col<8;col++){
 	    		for(int row = 0;row < 8; row++){
-	    			Piece pieceOnField = this.getChessBoard().getField(col, row).getPiece();
+	    			Piece pieceOnField = cbTest.getField(col, row).getPiece();
 	    			if(pieceOnField!= null && pieceOnField.getOwner() != this.getOwner() && pieceOnField.daresOpponentKing()){
 	    		        possibleFieldIterator.remove();
 	    			}
@@ -89,6 +99,7 @@ public abstract class Piece {
 		
 		return possibleFields;
 	}
+	
 	
 	public boolean daresOpponentKing(){
 		ArrayList<ChessField> reachableFieldList = this.getPossibleFields();
@@ -103,6 +114,17 @@ public abstract class Piece {
 		}
 		return false;
 	}
-    
+    public Piece clone(ChessField chessField, ChessBoard chessBoard){
+    	try {
+			Piece p = (Piece) super.clone();
+			p.chessField = chessField;
+			p.chessBoard = chessBoard;
+			return p;
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+    }
     
 }

@@ -10,7 +10,7 @@ import model.pieces.*;
  * Auf einem Schachfeld (ChessField), das auf einer Spalte und einer Zeile steht, kann eine Figur stehen. 
  * @author florian
  */
-public class ChessField {
+public class ChessField implements Cloneable {
     private Piece piece;
     private int col;
     private int row;
@@ -60,6 +60,20 @@ public class ChessField {
      */
     public int getRow() {
         return row;
+    }
+    
+    public ChessField clone(ChessBoard cb){
+    	ChessField cf = null;
+    	try {
+			cf = (ChessField)super.clone();
+			if(this.piece != null){
+				cf.piece = this.piece.clone(cf, cb);
+			}
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return cf;
+    	
     }
     
 }

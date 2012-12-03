@@ -106,9 +106,10 @@ public class ChessBoard implements Cloneable{
     	if(capturedPiece != null){
     		game.addToCapturedPieces(capturedPiece);
     	}
+    	//this.isCheckMate();
     }
     
-    public boolean checkMate(){
+    public boolean isCheck(){
     	for(int col=0;col<8;col++){
     		for(int row = 0;row < 8; row++){
     			if(this.getField(col, row).getPiece() != null && this.getField(col, row).getPiece().daresOpponentKing()){
@@ -119,13 +120,22 @@ public class ChessBoard implements Cloneable{
     	return false;
     }
     public ChessBoard clone(){
-		try {
-			return (ChessBoard) super.clone();
+    	ChessBoard cb ; 
+    	try {
+			cb =  (ChessBoard) super.clone();
+			cb.chessField = null;
+			cb.chessField = new ChessField[8][8];
+			for(int col=0;col<8;col++){
+	    		for(int row = 0;row < 8; row++){
+	    			cb.chessField[col][row] = this.chessField[col][row].clone(cb);
+	    		}
+	    	}	
+			
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 			return null;
 		}
-    	
+    	return cb;
     }
     
 }
