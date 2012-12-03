@@ -32,7 +32,17 @@ public class King extends Piece {
      */
     @Override
     public ArrayList<ChessField> getPossibleFields() {
-    	ArrayList<ChessField> possibleFields = new ArrayList<ChessField>();
+    	ArrayList<ChessField> possibleFields = this.getFieldsAroundKing();
+
+        return this.checkDaringOwnKing(possibleFields);
+    }
+    @Override
+    public ArrayList<ChessField> getDaringFields(){
+    	return this.getFieldsAroundKing();
+    }
+    
+    private ArrayList<ChessField> getFieldsAroundKing(){
+       	ArrayList<ChessField> possibleFields = new ArrayList<ChessField>();
 
     	//allFields[i] und allFields[i+1] sind zusammen eine Koordinate (Spalte/Zeile) eines Spielfelds
     	Integer[] allFields = new Integer[16];
@@ -54,7 +64,7 @@ public class King extends Piece {
     	allFields[15] = this.getChessField().getRow() - 1;
     	
     	for (int i = 0; i < allFields.length; i+=2) {
-    		//Figur steht nicht ausserhalb des Schachbretts und ist keine Figur der gleichen Farbe
+    		// Figur steht nicht ausserhalb des Schachbretts und ist keine Figur der gleichen Farbe
 			if (!(allFields[i] > 7 || allFields[i+1] > 7 || allFields[i] < 0 || allFields[i+1] < 0)) { 
 				ChessField currentChessfield = this.getChessBoard().getField(allFields[i], allFields[i+1]);
 				if (!(currentChessfield.getPiece() != null && currentChessfield.getPiece().getOwner() == this.getChessField().getPiece().getOwner())) {
@@ -63,13 +73,7 @@ public class King extends Piece {
 			}
 		}
 
-        //TODO prüfen ob mit diesem Zug eine Schachsituation ausgelöst wurde
-        
-        return possibleFields;
-    }
-    @Override
-    public ArrayList<ChessField> getDaringFields(){
-    	return this.getPossibleFields();
+        return possibleFields;   	
     }
     
     
