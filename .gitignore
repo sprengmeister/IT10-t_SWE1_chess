@@ -30,3 +30,7 @@ _ReSharper*/
 *.vssscc
 $tf*/
 *.class
+
+Source/necaREx.client.ui/.project
+
+Source/necaREx.common/.project
