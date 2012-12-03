@@ -29,6 +29,13 @@ public abstract class Piece implements Cloneable {
     }
     
     public abstract ArrayList<ChessField> getPossibleFields();
+    
+    /**
+     * Gibt eine Liste zurück aller Felder, die von der Figur bedroht 
+     * sind und zum Beispiel einen daraufstehenden König schachstellen
+     * @return
+     */
+    public abstract ArrayList<ChessField> getDaringFields();
 
     /**
      * @return the chessField
@@ -68,7 +75,7 @@ public abstract class Piece implements Cloneable {
 	}
 	
 	/**
-	 * Prüft die Zugliste, ob ein Zug den eigenen König bedroht und entfernt entsprechende Züge.  
+	 * Prüft die Zugliste, ob ein Zug den eigenen König in eine Schachsituation bringt und entfernt entsprechende Züge.  
 	 * @param possibleFields 
 	 * @return possible Fields ohne die nicht erlaubten Züge 
 	 */
@@ -76,24 +83,23 @@ public abstract class Piece implements Cloneable {
 
 		Iterator<ChessField> possibleFieldIterator = possibleFields.iterator();
 		while (possibleFieldIterator.hasNext()) {
-			ChessField testChessField = possibleFieldIterator.next();
+			ChessField toItem = possibleFieldIterator.next();
 			// Zug probeweise durchführen
 			ChessBoard cbTest = this.getChessBoard().clone();
+			ChessField from = cbTest.getField(this.getChessField().getCol(), this.getChessField().getRow());
+			ChessField to = cbTest.getField(toItem.getCol(), toItem.getRow());
 			
-			//Koordinaten
+			to.exchangePiece(from.movePieceAway());
 			
-			
-			
-			//testChessField.exchangePiece(this.getChessField().movePieceAway());
 	    	for(int col=0;col<8;col++){
 	    		for(int row = 0;row < 8; row++){
 	    			Piece pieceOnField = cbTest.getField(col, row).getPiece();
-	    			if(pieceOnField!= null && pieceOnField.getOwner() != this.getOwner() && pieceOnField.daresOpponentKing()){
+	    			if(pieceOnField!= null && pieceOnField.getOwner() != this.getOwner() &&  pieceOnField.daresOpponentKing()){
 	    		        possibleFieldIterator.remove();
 	    			}
 	    		}
 	    	}
-	    	// Probeweise durchgeführter Zug zurückfahren
+	    	// Testschachbrett löschen
 	    	cbTest = null;
         }
 		
@@ -102,7 +108,7 @@ public abstract class Piece implements Cloneable {
 	
 	
 	public boolean daresOpponentKing(){
-		ArrayList<ChessField> reachableFieldList = this.getPossibleFields();
+		ArrayList<ChessField> reachableFieldList = this.getDaringFields();
 		for (ChessField chessField : reachableFieldList) {
 			// auf einem reachable Field steht ein gegnerischer König. 
 			if(chessField.getPiece() != null &&  

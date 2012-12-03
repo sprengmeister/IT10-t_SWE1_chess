@@ -67,6 +67,11 @@ public class King extends Piece {
         
         return possibleFields;
     }
+    @Override
+    public ArrayList<ChessField> getDaringFields(){
+    	return this.getPossibleFields();
+    }
+    
     
     public boolean isCheck(){
     	return false;

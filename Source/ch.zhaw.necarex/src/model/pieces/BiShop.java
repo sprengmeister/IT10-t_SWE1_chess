@@ -102,6 +102,12 @@ public class BiShop extends Piece {
         return possibleFields;
     }
     
+    @Override
+    public ArrayList<ChessField> getDaringFields(){
+    	return this.getPossibleFields();
+    }
+    
+    
     /**
      * Ist die gefunde Figur vom Gegner oder nicht?
      */

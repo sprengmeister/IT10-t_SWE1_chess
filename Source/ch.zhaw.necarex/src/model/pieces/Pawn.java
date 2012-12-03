@@ -53,8 +53,19 @@ public class Pawn extends Piece {
 
         //TODO prüfen ob mit diesem Zug eine Schachsituation ausgelöst wurde
         
-        return possibleFields;
+        return this.checkDaringOwnKing(possibleFields);
     }
+    
+    @Override
+    public ArrayList<ChessField> getDaringFields(){
+		ArrayList<ChessField> possibleFields = new ArrayList<ChessField>();		
+		this.addPossiblePawnCaptures(possibleFields);
+		
+		return possibleFields;
+    }
+    
+    
+    
     /**
      * Setzt die interne Variable direction aufgrund der Farbe. Weiss fährt von der Reihe 1 zu 7, Schwarz von 6 zu 0
      */

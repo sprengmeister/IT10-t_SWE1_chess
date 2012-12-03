@@ -66,4 +66,9 @@ public class Knight extends Piece {
         
         return possibleFields;
     }
+    @Override
+    public ArrayList<ChessField> getDaringFields(){
+    	return this.getPossibleFields();
+    }
+    
 }
