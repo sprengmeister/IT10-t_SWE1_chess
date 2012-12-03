@@ -30,7 +30,8 @@ public class Game {
 
 	public void initialize(){
         playerWhite = new Player(PlayerColor.WHITE);
-        playerBlack = new Player(PlayerColor.BLACK);
+        // TODO change computer player
+        playerBlack = new ComputerPlayer(PlayerColor.BLACK, this);
         activePlayer = playerWhite;
         chessBoard = new ChessBoard(this);
         capturedPieces = new ArrayList<Piece>();

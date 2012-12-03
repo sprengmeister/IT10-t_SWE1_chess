@@ -6,6 +6,8 @@ import java.util.ArrayList;
  * @author florian
  */
 public class PossibleSituationTree {
-	private PossibleSituation possibleSituations;
+	private PossibleSituation possibleSituation;
 	private ArrayList<PossibleSituationTree> possibleSituationChilds;
+	
+	
 }

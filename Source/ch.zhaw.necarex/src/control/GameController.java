@@ -7,6 +7,7 @@ package control;
 import java.util.ArrayList;
 
 import model.ChessField;
+import model.ComputerPlayer;
 import model.Game;
 import client.viewmodel.ChessBoardViewModel;
 
@@ -37,6 +38,9 @@ public class GameController {
     		game.getChessBoard().movePiece(fromField, toField);
     		game.changeActivePlayer();
     		viewModel.reset();
+    	}
+    	if(game.getActivePlayer() instanceof ComputerPlayer){
+    		((ComputerPlayer)game.getActivePlayer()).doTurn(this);
     	}
     	// Prüfe auf Schach, Schachmatt, etc. 
               
