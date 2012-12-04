@@ -47,14 +47,14 @@ public class BoardDrawer implements Disposable {
 		// A-H oberhalb und unterhalb des Bretts
 		for(int i=0;i<8;i++){
 	        CharSequence str = String.valueOf((char)(i+65));
-	        font.setColor(Color.BLACK);
+	        font.setColor(Color.WHITE);
 	        font.draw(spriteBatch, str, (float) (i*FIELD_WIDTH+0.3*FIELD_WIDTH + this.initX + LABEL_WIDTH), this.initY);
 	        font.draw(spriteBatch, str, (float) (i*FIELD_WIDTH+0.3*FIELD_WIDTH + this.initX + LABEL_WIDTH), (float) (this.initY + 1.5f*LABEL_HEIGHT + 8 * FIELD_HEIGHT));
 		}
 		// 8-1 links und rechts des Bretts
 		for(int i=1,j=0;i<9;i++,j++){
 			CharSequence str = String.valueOf(i);
-			font.setColor(Color.BLACK);
+			font.setColor(Color.WHITE);
 			font.draw(spriteBatch, str,  this.initX, (float)(j*FIELD_HEIGHT+0.3*FIELD_HEIGHT + this.initY + LABEL_HEIGHT));
 			font.draw(spriteBatch, str,  (float) (this.initX + 1.5*LABEL_WIDTH + 8 * FIELD_WIDTH), (float)(j*FIELD_HEIGHT+0.3*FIELD_HEIGHT + this.initY + LABEL_HEIGHT));
 		}
@@ -87,7 +87,7 @@ public class BoardDrawer implements Disposable {
 		
 		//SpriteBatch mit Rahmen um die Schachfelder starten
 		renderer.begin(ShapeType.Rectangle);
-		renderer.setColor(Color.BLACK);
+		renderer.setColor(Color.WHITE);
 		renderer.rect(this.initX + LABEL_WIDTH, this.initY + 0.5f * LABEL_HEIGHT, 8*FIELD_WIDTH, 8*FIELD_HEIGHT);
 		renderer.end();
 	}

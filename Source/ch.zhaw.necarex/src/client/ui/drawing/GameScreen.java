@@ -27,6 +27,7 @@ public class GameScreen implements Screen {
 	private BoardDrawer boardDrawer;
 	private MenuDrawer menuDrawer;
 	private PieceDrawer pieceDrawer;
+	
 	private Table window;
 	private Stage stage;
 	private SpriteBatch spriteBatch;
@@ -63,45 +64,16 @@ public class GameScreen implements Screen {
 		
 		//Weisser Background
 		GLCommon gl = Gdx.gl;
-		gl.glClearColor(255, 255, 255, 1);
+		gl.glClearColor(0, 0, 0, 1);
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT | GL10.GL_STENCIL_BUFFER_BIT);
 
-		if (Gdx.input.isTouched() && Gdx.input.justTouched()){
-			int inputX = Gdx.input.getX();
-			//Beim Input ist die Y-Achse verglichen zum rendern verkehrt (0 ist oben statt unten), 
-			//darum dies hier entsprechend ändern
-			int inputY = NecarexDesktop.WINDOW_HEIGHT-Gdx.input.getY();
-			Point selectedFieldPoint = boardDrawer.getFieldCoordinates(inputX, inputY);
-			if (selectedFieldPoint != null){
-				ChessField selectedField = chessBoard.getField(selectedFieldPoint.x, selectedFieldPoint.y);
-				//Wurde eine Figur ausgewählt, oder eine Figur bewegt?
-				if (viewModel.getSelectedField() != null && viewModel.getReachableFields().contains(selectedField)){
-					//Bewegung ausführen
-					controller.doTurn(viewModel.getSelectedField(), selectedField);
-				} else {
-					//Figur darf nur ausgewählt werden, wenn Spieler am Zug ist
-					if (selectedField.getPiece()!=null && selectedField.getPiece().getOwner()==game.getActivePlayer()){
-						//Feld selektieren
-						Piece selctedPiece = selectedField.getPiece();
-						if (selctedPiece != null) {
-							if (viewModel.getSelectedField() != null 
-									&& selctedPiece == viewModel.getSelectedField().getPiece()){
-								//Figur bereits selektiert? -> Deselektieren
-								viewModel.reset();
-							} else {
-								//Nur Felder mit einer Figur darauf können markiert werden
-								viewModel.setSelectedField(selectedField);
-								viewModel.setReachableFields(selctedPiece.getPossibleFields());
-							}
-						}
-					}
-				}
-			}
-		}
+		//Wurde "geklickt"? -> Infos ins ViewModel und Aktion an den Controller delegieren
+		doClickReaction(chessBoard);
 		
-		//menuDrawer.draw(window);
+		//Schachbrett zeichnen
         boardDrawer.draw(spriteBatch);
         
+        //Figuren zeichnen
         //Figuren von "oben" nach "unten" zeichnen, damit Überlappungen richtig gezeichnet werden
         for(int i=7;i>=0;i--){
         	for (int j=7;j>=0;j--){
@@ -112,9 +84,52 @@ public class GameScreen implements Screen {
         	}
         }
 
+        menuDrawer.update(this.game);
+        
         stage.addActor(window);
         stage.act( delta );
         stage.draw();
+	}
+
+	/***
+	 * Prüft ob ein Klick auf das Schachbrett stattgefunden hat und reagiert entsprechend.
+	 * @param chessBoard
+	 */
+	private void doClickReaction(ChessBoard chessBoard) {
+		
+		if (Gdx.input.isTouched() && Gdx.input.justTouched()){
+			int inputX = Gdx.input.getX();
+			//Beim Input ist die Y-Achse verglichen zum rendern verkehrt (0 ist oben statt unten), 
+			//darum dies hier entsprechend ändern
+			int inputY = NecarexDesktop.WINDOW_HEIGHT-Gdx.input.getY();
+			Point selectedFieldPoint = boardDrawer.getFieldCoordinates(inputX, inputY);
+			//Wurde innerhalb des Schachbretts geklickt?
+			if (selectedFieldPoint != null){
+				ChessField selectedField = chessBoard.getField(selectedFieldPoint.x, selectedFieldPoint.y);
+				//Ein Klick kann folgende Bedeutungen haben:
+				// - Figur selektieren -> erster Klick auf ein Feld
+				// - Figur deselektieren -> zweiter Klick auf selbes Feld
+				// - Figur bewegen -> Zweiter Klick auf anderes Feld
+				if (viewModel.getSelectedField() != null && viewModel.getReachableFields().contains(selectedField)){
+					//Figur bewegen
+					controller.doTurn(viewModel.getSelectedField(), selectedField);
+				} else {
+					//Figur darf nur ausgewählt werden, wenn sie dem Spieler gehört
+					if (selectedField.getPiece()!=null && selectedField.getPiece().getOwner()==game.getActivePlayer()){
+						Piece selctedPiece = selectedField.getPiece();
+						if (viewModel.getSelectedField() != null 
+								&& selctedPiece == viewModel.getSelectedField().getPiece()){
+							//Figur deselektieren
+							viewModel.reset();
+						} else {
+							//Feld selektieren
+							viewModel.setSelectedField(selectedField);
+							viewModel.setReachableFields(selctedPiece.getPossibleFields());
+						}
+					}
+				}
+			}
+		}
 	}
 
 	@Override
@@ -148,9 +163,10 @@ public class GameScreen implements Screen {
 		
 		pieceDrawer = new PieceDrawer((int)(boardTable.getX()+0.95*BoardDrawer.LABEL_WIDTH), (int)(boardTable.getY()+0.75*BoardDrawer.LABEL_HEIGHT));
 		boardDrawer = new BoardDrawer(boardTable, viewModel);
-		menuDrawer = new MenuDrawer(this.controller, 320, 100);
+		menuDrawer = new MenuDrawer(this.controller, 450, 0);
 		
 		menuDrawer.draw(window);
+		
 		stage.addActor(window);
 	}
 
