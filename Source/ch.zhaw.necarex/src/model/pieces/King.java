@@ -32,17 +32,24 @@ public class King extends Piece {
      */
     @Override
     public ArrayList<ChessField> getPossibleFields() {
-    	ArrayList<ChessField> possibleFields = this.getFieldsAroundKing();
+    	ArrayList<ChessField> possibleFields = this.getPossibleFieldsAroundKing();
 
         return this.checkDaringOwnKing(possibleFields);
     }
+    /**
+     * Erzeugt eine Liste aller Felder, auf welchen die Figur den gegnerischen König bedrohen würde
+     * @return Liste aller Felder, die durch die Figur bedroht werden
+     */
     @Override
     public ArrayList<ChessField> getDaringFields(){
-    	return this.getFieldsAroundKing();
+    	return this.getPossibleFieldsAroundKing();
     }
-    
-    private ArrayList<ChessField> getFieldsAroundKing(){
-       	ArrayList<ChessField> possibleFields = new ArrayList<ChessField>();
+    /**
+     * Gibt alle Felder die für den König erreichbar sind zurück
+     * @return Liste der Felder 
+     */
+    private ArrayList<ChessField> getPossibleFieldsAroundKing(){
+       	possibleFields = new ArrayList<ChessField>();
 
     	//allFields[i] und allFields[i+1] sind zusammen eine Koordinate (Spalte/Zeile) eines Spielfelds
     	Integer[] allFields = new Integer[16];

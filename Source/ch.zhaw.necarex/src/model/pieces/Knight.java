@@ -31,7 +31,7 @@ public class Knight extends Piece {
      */
     @Override
     public ArrayList<ChessField> getPossibleFields() {
-    	ArrayList<ChessField> possibleFields = new ArrayList<ChessField>();
+    	possibleFields = new ArrayList<ChessField>();
     
     	//allFields[i] und allFields[i+1] sind zusammen eine Koordinate eines Spielfelds
     	Integer[] allFields = new Integer[16];
