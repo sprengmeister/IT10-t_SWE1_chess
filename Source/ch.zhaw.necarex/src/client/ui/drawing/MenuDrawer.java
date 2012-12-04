@@ -15,9 +15,13 @@ public class MenuDrawer {
 	
 	private Skin skin = new Skin( Gdx.files.internal("assets/skin/uiskin.json" ));
 	private GameController controller;
+	private int initX;
+	private int initY;
 
-	public MenuDrawer(GameController controller){
+	public MenuDrawer(GameController controller, int initX, int initY){
 		this.controller = controller;
+		this.initX = initX;
+		this.initY = initY;
 	}
 	
 	public void draw(Table window) {
@@ -33,11 +37,11 @@ public class MenuDrawer {
 		} });
  
         Label addressLabel = new Label("Gegenspieler:", skin);
-        List enemyList = new List(new Object[]{"Menschlich", "Computer"}, skin);
-        window.add(startGameButton).expandX().padLeft(230).padBottom(20);
+        List enemyList = new List(new Object[]{"Mensch", "Computer "}, skin);
+        window.add(startGameButton).expandX().padLeft(initX).padBottom(20);
         window.row();
-        window.add(addressLabel).padLeft(230);
+        window.add(addressLabel).padLeft(initX);
         window.row();
-        window.add(enemyList).padLeft(230);
+        window.add(enemyList).padLeft(initX).padBottom(initY);
 	}
 }

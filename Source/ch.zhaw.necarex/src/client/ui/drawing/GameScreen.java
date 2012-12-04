@@ -105,11 +105,7 @@ public class GameScreen implements Screen {
         		}
         	}
         }
-        
-//        spriteBatch.begin();
-//        window.draw(spriteBatch, 1);
-//        spriteBatch.end();
-        
+
         stage.addActor(window);
         stage.act( delta );
         stage.draw();
@@ -133,8 +129,8 @@ public class GameScreen implements Screen {
 		
 		//Schachbrett-Bereich festlegen
 		Table boardTable = new Table();
-		boardTable.setX(40);
-		boardTable.setY(60);
+		boardTable.setX(100);
+		boardTable.setY(100);
 		boardTable.setHeight(300);
 		boardTable.setWidth(300);
 		
@@ -146,7 +142,7 @@ public class GameScreen implements Screen {
 		
 		pieceDrawer = new PieceDrawer((int)(boardTable.getX()+0.95*BoardDrawer.LABEL_WIDTH), (int)(boardTable.getY()+0.75*BoardDrawer.LABEL_HEIGHT));
 		boardDrawer = new BoardDrawer(boardTable, viewModel);
-		menuDrawer = new MenuDrawer(this.controller);
+		menuDrawer = new MenuDrawer(this.controller, 320, 100);
 		
 		menuDrawer.draw(window);
 		stage.addActor(window);
