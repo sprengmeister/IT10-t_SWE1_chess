@@ -90,14 +90,18 @@ public abstract class Piece implements Cloneable {
 			ChessField to = cbTest.getField(toItem.getCol(), toItem.getRow());
 			
 			to.exchangePiece(from.movePieceAway());
-			
+			boolean delete = false;
 	    	for(int col=0;col<8;col++){
 	    		for(int row = 0;row < 8; row++){
 	    			Piece pieceOnField = cbTest.getField(col, row).getPiece();
 	    			if(pieceOnField!= null && pieceOnField.getOwner() != this.getOwner() &&  pieceOnField.daresOpponentKing()){
-	    		        possibleFieldIterator.remove();
+	    				delete = true;
 	    			}
 	    		}
+	    	}
+	    	// remove des Iterators darf nur einmal aufgerufen werden. 
+	    	if(delete){
+				possibleFieldIterator.remove();
 	    	}
 	    	// Testschachbrett löschen
 	    	cbTest = null;
@@ -127,7 +131,6 @@ public abstract class Piece implements Cloneable {
 			p.chessBoard = chessBoard;
 			return p;
 		} catch (CloneNotSupportedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
