@@ -22,6 +22,7 @@ public class Knight extends Piece {
      */
     public Knight(Player player, ChessBoard chessBoard){
         super(player, chessBoard);
+        super.setPieceValue(30);
         super.setSpriteIndex(new Point(2, player.getColor() == PlayerColor.WHITE ? 0 : 1));
     }
 

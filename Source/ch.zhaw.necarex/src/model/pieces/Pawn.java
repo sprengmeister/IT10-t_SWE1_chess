@@ -28,6 +28,7 @@ public class Pawn extends Piece {
     public Pawn(Player player, ChessBoard chessBoard){
         super(player, chessBoard);
         this.setTurnDirectionByPlayer();
+        super.setPieceValue(10);
         //Index des zugehörigen Sprites setzen
         super.setSpriteIndex(new Point(0, player.getColor() == PlayerColor.WHITE ? 0 : 1));
     }

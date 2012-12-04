@@ -21,6 +21,7 @@ public abstract class Piece implements Cloneable {
     private ChessBoard chessBoard;
     private Point spriteIndex;
     protected ArrayList<ChessField> possibleFields;
+    protected int pieceValue;
 
 	public Piece(Player owner, ChessBoard chessBoard){
         this.owner = owner;
@@ -62,6 +63,14 @@ public abstract class Piece implements Cloneable {
      */
     public ChessBoard getChessBoard() {
     	return chessBoard;
+    }
+    
+    public int getPieceValue(){
+    	return pieceValue;
+    }
+    
+    protected void setPieceValue(int pieceValue){
+    	this.pieceValue = pieceValue;
     }
     
     public Point getSpriteIndex() {

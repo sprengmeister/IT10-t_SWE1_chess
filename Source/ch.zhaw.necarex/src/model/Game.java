@@ -31,7 +31,8 @@ public class Game {
 	public void initialize(){
         playerWhite = new Player(PlayerColor.WHITE);
         // TODO change computer player
-        playerBlack = new ComputerPlayer(PlayerColor.BLACK, this);
+        //playerBlack = new ComputerPlayer(PlayerColor.BLACK, this);
+        playerBlack = new Player(PlayerColor.BLACK);
         activePlayer = playerWhite;
         chessBoard = new ChessBoard(this);
         capturedPieces = new ArrayList<Piece>();
@@ -58,6 +59,11 @@ public class Game {
     public Player getActivePlayer(){
     	return activePlayer;
     }
+    
+    public Player getInactivePlayer(){
+    	return activePlayer == playerWhite ? playerBlack : playerWhite;
+    }
+    
     /**
      * @return the chessBoard
      */

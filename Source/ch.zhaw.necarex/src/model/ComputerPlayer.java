@@ -19,13 +19,15 @@ public class ComputerPlayer extends Player {
 	
 	
 	
-	public void doTurn(GameController controller){
+	public Turn getBestTurn(){
 		PossibleSituation actSituation = new PossibleSituation(game, game.getChessBoard());
-		actSituation.findPossibleSituationChilds();
-		PossibleSituation bestSituation = actSituation.getBestSituation();
+		actSituation.findPossibleSituationChilds(0);
+		PossibleSituation bestSituation = actSituation.getBestSituation(0);
 		
-		controller.doTurn(game.getChessBoard().getField(bestSituation.getFrom().getCol(), bestSituation.getFrom().getRow()), game.getChessBoard().getField(bestSituation.getTo().getCol(), bestSituation.getTo().getRow()));
-		// game.getChessBoard().movePiece(bestSituation.getFrom(), bestSituation.getTo());
+		ChessField fromField = game.getChessBoard().getField(bestSituation.getFrom().getCol(), bestSituation.getFrom().getRow());
+		ChessField toField = game.getChessBoard().getField(bestSituation.getTo().getCol(), bestSituation.getTo().getRow()); 
+		Turn bestTurn = new Turn(fromField, toField);
+		return bestTurn;
 	}
 
 

@@ -22,8 +22,9 @@ public class King extends Piece {
      */
     public King(Player player, ChessBoard chessBoard){
         super(player, chessBoard);
+        super.setPieceValue(999);
         //Index des zugehörigen Sprites setzen
-        super.setSpriteIndex(new Point(5, player.getColor() == PlayerColor.WHITE ? 0 : 1));
+        super.setSpriteIndex(new Point(1, player.getColor() == PlayerColor.WHITE ? 0 : 1));
     }
 
     /**

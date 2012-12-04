@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import model.ChessField;
 import model.ComputerPlayer;
 import model.Game;
+import model.Turn;
 import client.viewmodel.ChessBoardViewModel;
 
 /**
@@ -39,8 +40,11 @@ public class GameController {
     		game.changeActivePlayer();
     		viewModel.reset();
     	}
-    	if(game.getActivePlayer() instanceof ComputerPlayer){
-    		((ComputerPlayer)game.getActivePlayer()).doTurn(this);
+    	
+    	if(game.getActivePlayer() instanceof ComputerPlayer){	
+    		//TODO: Evtl. Logik anpassen
+    		Turn computerTurn = ((ComputerPlayer)game.getActivePlayer()).getBestTurn();
+    		doTurn(computerTurn.getFromField(), computerTurn.getToField());
     	}
     	// Prüfe auf Schach, Schachmatt, etc. 
               
