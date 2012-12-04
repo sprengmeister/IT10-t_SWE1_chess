@@ -84,9 +84,15 @@ public class GameScreen implements Screen {
 						//Feld selektieren
 						Piece selctedPiece = selectedField.getPiece();
 						if (selctedPiece != null) {
-							//Nur Felder mit einer Figur darauf können markiert werden
-							viewModel.setSelectedField(selectedField);
-							viewModel.setReachableFields(selctedPiece.getPossibleFields());
+							if (viewModel.getSelectedField() != null 
+									&& selctedPiece == viewModel.getSelectedField().getPiece()){
+								//Figur bereits selektiert? -> Deselektieren
+								viewModel.reset();
+							} else {
+								//Nur Felder mit einer Figur darauf können markiert werden
+								viewModel.setSelectedField(selectedField);
+								viewModel.setReachableFields(selctedPiece.getPossibleFields());
+							}
 						}
 					}
 				}
