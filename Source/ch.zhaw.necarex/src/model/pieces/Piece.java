@@ -7,8 +7,6 @@ package model.pieces;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Vector;
-
 import model.ChessBoard;
 import model.ChessField;
 import model.Player;
@@ -22,6 +20,7 @@ public abstract class Piece implements Cloneable {
     private ChessField chessField;
     private ChessBoard chessBoard;
     private Point spriteIndex;
+    protected ArrayList<ChessField> possibleFields;
 
 	public Piece(Player owner, ChessBoard chessBoard){
         this.owner = owner;
@@ -62,7 +61,6 @@ public abstract class Piece implements Cloneable {
      * @return the chessBoard
      */
     public ChessBoard getChessBoard() {
-        // TODO: get over chessBoard
     	return chessBoard;
     }
     
@@ -136,4 +134,93 @@ public abstract class Piece implements Cloneable {
 		}
     }
     
+    /**
+     * Wenn es sich bei der Figur auf dem Feld um eine eigene Figur handelt, kann dieses Feld nicht erreicht werden
+     * Handelt es sich um eine gegnerische Figur, kann diese geschlagen werden. 
+     */
+    protected void checkForPieceCapture(ArrayList<ChessField> possibleFields, ChessField targetField){
+    	if (targetField.getPiece().getOwner() != this.getChessField().getPiece().getOwner()) {
+    		possibleFields.add(targetField);
+		}
+    }
+    protected void checkTurnColumn(){
+    	boolean goFurther = true;
+    	int col = (this.getChessField().getCol()+1);
+    	while(col <= 7 && goFurther){
+    		goFurther = this.addToPossibleFieldList(col, this.getChessField().getRow());
+    		col++;
+    	}
+
+    	col = (this.getChessField().getCol()-1);
+    	while(col >= 0 && goFurther){
+    		goFurther = this.addToPossibleFieldList(col, this.getChessField().getRow());
+    		col--;
+    	}
+    }    
+    protected void checkTurnRow(){
+    	
+    	boolean goFurther = true;
+    	int row = (this.getChessField().getRow()+1);
+    	while(row <= 7 && goFurther){
+    		goFurther = this.addToPossibleFieldList(this.getChessField().getCol(), row);
+    		row++;
+    	}
+
+    	row = (this.getChessField().getRow()-1);
+    	while(row >= 0 && goFurther){
+    		goFurther = this.addToPossibleFieldList(this.getChessField().getCol(), row);
+    		row--;
+    	}
+
+   }   
+    protected void checkTurnDiag(){
+    	
+    	int row = this.getChessField().getRow()+1;
+    	int col = this.getChessField().getCol()+1;
+    	boolean goFurther = true;
+    	while(row <= 7 && col <= 7 && goFurther){
+    		goFurther = this.addToPossibleFieldList(col, row);
+    		row++;
+    		col++;
+    	}
+    	
+    	row = this.getChessField().getRow()-1;
+    	col = this.getChessField().getCol()-1;
+    	goFurther = true;
+    	while(row >=0 && col >= 0 && goFurther){
+    		goFurther = this.addToPossibleFieldList(col, row);
+    		row--;
+    		col--;
+    	}
+    	
+    	row = this.getChessField().getRow()-1;
+    	col = this.getChessField().getCol()+1;
+    	goFurther = true;
+    	while(row >=0 && col <=7 && goFurther){
+    		goFurther = this.addToPossibleFieldList(col, row);
+    		row--;
+    		col++;
+    	}
+
+    	row = this.getChessField().getRow()+1;
+    	col = this.getChessField().getCol()-1;
+    	goFurther = true;
+    	while(row <= 7 && col >= 0 && goFurther){
+    		goFurther = this.addToPossibleFieldList(col, row);
+    		row++;
+    		col--;
+    	}    	
+    	
+     }
+    
+    private boolean addToPossibleFieldList(int col, int row){   	
+    	ChessField targetField = this.getChessBoard().getField(col, row);	
+		if (targetField.getPiece() == null) {	
+			possibleFields.add(targetField);
+			return true;
+		} else {
+			checkForPieceCapture(possibleFields, targetField);
+			return false; 
+		}    			
+    } 
 }
