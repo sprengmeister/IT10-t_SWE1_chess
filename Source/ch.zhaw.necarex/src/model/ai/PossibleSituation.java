@@ -90,7 +90,6 @@ public class PossibleSituation implements Comparable<PossibleSituation> {
 			PossibleSituation bestChildSituation = posSit.getBestSituation(i+1);
 			if (bestChildSituation != null){
 				posSit.setScore(posSit.getScore()+bestChildSituation.getScore());
-				//this.score += bestChildSituation.getScore();
 				System.out.println(posSit.hashCode() + ";"+i + ";" + posSit.getScore() + ";" + posSit.to.getPiece().getOwner().getColor());
 			}
 		}
@@ -99,13 +98,13 @@ public class PossibleSituation implements Comparable<PossibleSituation> {
 			if (i%2==0) {
 				//Zug vom Computer -> Score aufsteigend sortieren
 				//Sein Score wird negativ gerechnet. Je kleiner die die Punktzahl, umso mehr Schaden wurde verursacht
-				//Collections.shuffle(possibleSituationChilds);
+				Collections.shuffle(possibleSituationChilds);
 				Collections.sort(possibleSituationChilds);
 			} else {
 				//Zug vom Gegner -> Score absteigend sortieren
 				//Computer Score wird positiv gerechnet. Je grösser die Punktzahl, umso weniger Schaden musste eingesteckt werden
 				Comparator<PossibleSituation> reversedComparator = Collections.reverseOrder();
-				//Collections.shuffle(possibleSituationChilds);
+				Collections.shuffle(possibleSituationChilds);
 				Collections.sort(possibleSituationChilds, reversedComparator);
 			}
 			return possibleSituationChilds.get(0);
