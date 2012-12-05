@@ -2,6 +2,7 @@ package model.ai;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 import model.ChessBoard;
 import model.ChessField;
@@ -70,6 +71,7 @@ public class PossibleSituation implements Comparable<PossibleSituation> {
 		   				
 		   				PossibleSituation possibleSituation = new PossibleSituation(this.game, cbAfterTurn, from, to);
 		   				possibleSituation.calcScore(hop);
+		   				//Abbruch-Bedingung, für mehr als 2 Hops, dauert der Vorgang zu lange
 		   				if (hop < 2)
 		   					possibleSituation.findPossibleSituationChilds(hop+1);
 		   				possibleSituationChilds.add(possibleSituation);
@@ -87,10 +89,25 @@ public class PossibleSituation implements Comparable<PossibleSituation> {
 		for (PossibleSituation posSit : possibleSituationChilds) {
 			PossibleSituation bestChildSituation = posSit.getBestSituation(i+1);
 			if (bestChildSituation != null){
-				this.score += bestChildSituation.getScore();
+				posSit.setScore(posSit.getScore()+bestChildSituation.getScore());
+				//this.score += bestChildSituation.getScore();
 				System.out.println(posSit.hashCode() + ";"+i + ";" + posSit.getScore() + ";" + posSit.to.getPiece().getOwner().getColor());
 			}
-			Collections.sort(possibleSituationChilds);
+		}
+		
+		if (possibleSituationChilds.size() > 0){
+			if (i%2==0) {
+				//Zug vom Computer -> Score aufsteigend sortieren
+				//Sein Score wird negativ gerechnet. Je kleiner die die Punktzahl, umso mehr Schaden wurde verursacht
+				Collections.shuffle(possibleSituationChilds);
+				Collections.sort(possibleSituationChilds);
+			} else {
+				//Zug vom Gegner -> Score absteigend sortieren
+				//Computer Score wird positiv gerechnet. Je grösser die Punktzahl, umso weniger Schaden musste eingesteckt werden
+				Comparator<PossibleSituation> reversedComparator = Collections.reverseOrder();
+				Collections.shuffle(possibleSituationChilds);
+				Collections.sort(possibleSituationChilds, reversedComparator);
+			}
 			return possibleSituationChilds.get(0);
 		}
 		return null;
@@ -103,6 +120,9 @@ public class PossibleSituation implements Comparable<PossibleSituation> {
 	}
 	public int getScore(){
 		return score;
+	}
+	public void setScore(int score){
+		this.score = score;
 	}
 
 	@Override
