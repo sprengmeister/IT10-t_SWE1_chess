@@ -15,6 +15,7 @@ import model.pieces.Piece;
 public class Game {
     private Player playerWhite;
     private Player playerBlack;
+    private Player playerBlackHuman;
     private ChessBoard chessBoard;
     private Player activePlayer;
     private ArrayList<Piece> capturedPieces;
@@ -31,8 +32,9 @@ public class Game {
 	public void initialize(){
         playerWhite = new Player(PlayerColor.WHITE);
         // TODO change computer player
-        playerBlack = new ComputerPlayer(PlayerColor.BLACK, this);
-        //playerBlack = new Player(PlayerColor.BLACK);
+        //playerBlack = new ComputerPlayer(PlayerColor.BLACK, this);
+        playerBlack = new Player(PlayerColor.BLACK);
+        playerBlackHuman = playerBlack;
         activePlayer = playerWhite;
         chessBoard = new ChessBoard(this);
         capturedPieces = new ArrayList<Piece>();
@@ -64,12 +66,21 @@ public class Game {
     	return activePlayer == playerWhite ? playerBlack : playerWhite;
     }
     
+    public void changeBlackPlayer(){
+    	if (playerBlack instanceof ComputerPlayer){
+    		playerBlack = playerBlackHuman;
+    	} else {
+    		playerBlack = new ComputerPlayer(PlayerColor.BLACK, this);
+    	}
+    }
+    
     /**
      * @return the chessBoard
      */
     public ChessBoard getChessBoard() {
         return chessBoard;
     }
+    
     /**
      * Wechselt den aktiven Spieler
      * @return Der Spieler der nachher am Zug ist 
@@ -82,9 +93,11 @@ public class Game {
     	}
     	return activePlayer;
     }
+    
     public void addToCapturedPieces(Piece capturedPiece){
     	this.capturedPieces.add(capturedPiece);
     }
+    
     public void addToTurnList(Turn turn){
     	this.turnList.add(turn);
     }
