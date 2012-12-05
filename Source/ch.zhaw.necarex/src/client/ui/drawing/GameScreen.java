@@ -59,6 +59,9 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
+		//Model/KI nachführen
+		controller.update();
+		
 		ChessBoard chessBoard = game.getChessBoard();
 		Piece piece;
 		
@@ -163,7 +166,7 @@ public class GameScreen implements Screen {
 		
 		pieceDrawer = new PieceDrawer((int)(boardTable.getX()+0.95*BoardDrawer.LABEL_WIDTH), (int)(boardTable.getY()+0.75*BoardDrawer.LABEL_HEIGHT));
 		boardDrawer = new BoardDrawer(boardTable, viewModel);
-		menuDrawer = new MenuDrawer(this.controller, 450, 0);
+		menuDrawer = new MenuDrawer(this.controller, this.viewModel, 450, 0);
 		
 		menuDrawer.draw(window);
 		

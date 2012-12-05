@@ -2,6 +2,7 @@ package client.ui.drawing;
 
 import model.Game;
 import model.PlayerColor;
+import client.viewmodel.ChessBoardViewModel;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Event;
@@ -18,16 +19,19 @@ public class MenuDrawer {
 	
 	private Skin skin = new Skin( Gdx.files.internal("assets/skin/uiskin.json" ));
 	private GameController controller;
+	private ChessBoardViewModel viewModel;
+	
 	private int initX;
 	private int initY;
 
 	private Label numberOfTurnsValue;
 	private Label activePlayerValue;
 	
-	public MenuDrawer(GameController controller, int initX, int initY){
+	public MenuDrawer(GameController controller, ChessBoardViewModel viewModel, int initX, int initY){
 		this.controller = controller;
 		this.initX = initX;
 		this.initY = initY;
+		this.viewModel = viewModel;
 	}
 	
 	public void update(Game model){
@@ -49,6 +53,15 @@ public class MenuDrawer {
  
         Label addressLabel = new Label("Gegenspieler:", skin);
         List enemyList = new List(new Object[]{"Mensch", "Computer "}, skin);
+        enemyList.addListener(new EventListener(){
+        	public boolean handle(Event arg){
+        		if (arg.getTarget() instanceof List){
+        			viewModel.setArtificalIntelligenceEnabled(((List)arg.getTarget()).getSelectedIndex()==1);
+        			return true;
+        		}
+        		return false;
+        	}
+        });
         
         Label numberOfTurnsLabel = new Label("Anzahl Zuege:", skin);
         numberOfTurnsValue = new Label("0", skin);

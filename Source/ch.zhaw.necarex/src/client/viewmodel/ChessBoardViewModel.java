@@ -12,6 +12,7 @@ public class ChessBoardViewModel {
 
 	private ChessField selectedField;
 	private List<ChessField> reachableFields;
+	private boolean isArtificalIntelligenceEnabled = false;
 	
 	public void reset(){
 		this.selectedField = null;
@@ -30,5 +31,13 @@ public class ChessBoardViewModel {
 	public void setReachableFields(List<ChessField> reachableFields) {
 		this.reachableFields = reachableFields;
 	}
+	public boolean isArtificalIntelligenceEnabled() {
+		return isArtificalIntelligenceEnabled;
+	}
+	public void setArtificalIntelligenceEnabled(
+			boolean isArtificalIntelligenceEnabled) {
+		this.isArtificalIntelligenceEnabled = isArtificalIntelligenceEnabled;
+	}
+
 
 }

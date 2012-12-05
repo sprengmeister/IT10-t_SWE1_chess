@@ -59,7 +59,7 @@ public class PossibleSituation implements Comparable<PossibleSituation> {
 	   	for(int col=0;col<8;col++){
 	   		for(int row = 0;row < 8; row++){
 	   			ChessField fromField = board.getField(col, row);
-	   			if(fromField.getPiece() != null && fromField.getPiece().getOwner() == this.getActivePlayer(hop)){
+	   			if(fromField.getPiece() != null && fromField.getPiece().getOwner().getColor() == this.getActivePlayer(hop).getColor()){
 	   				ArrayList<ChessField> possibleFieldList = fromField.getPiece().getPossibleFields();
 	   				
 	   				for (ChessField chessField : possibleFieldList) {
