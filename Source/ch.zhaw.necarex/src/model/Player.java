@@ -21,5 +21,4 @@ public class Player {
     public PlayerColor getColor() {
         return color;
     }
-    
 }
