@@ -42,14 +42,16 @@ public class Pawn extends Piece {
     	possibleFields = new ArrayList<ChessField>();
     
 
-        // TODO Schlagen en passant
-        // Schwierigkeit: Abhängigkeit von 2 Zügen, es kann nur en passant geschlagen werden, 
-        //wenn weisser Bauer e2 - e4 gezogen hat und schwarz im direkt folgenden Zug d4 x e3 schlägt.              
-
+        
         
         this.addPossiblePawnTurn();
         this.addPossiblePawnDoubleTurn();
         this.addPossiblePawnCaptures();
+        
+        // TODO Schlagen en passant
+        // Schwierigkeit: Abhängigkeit von 2 Zügen, es kann nur en passant geschlagen werden, 
+        //wenn weisser Bauer e2 - e4 gezogen hat und schwarz im direkt folgenden Zug d4 x e3 schlägt.              
+
         //this.checkSchlagenEnPassant();
 
         //TODO prüfen ob mit diesem Zug eine Schachsituation ausgelöst wurde
@@ -94,13 +96,13 @@ public class Pawn extends Piece {
         ChessField targetField = null;
         if(this.getChessField().getCol() != 0){
             targetField = this.getChessBoard().getField((this.getChessField().getCol()-1), (this.getChessField().getRow()+direction * 1));
-            if(targetField.getPiece() != null && targetField.getPiece().getOwner().getColor() == PlayerColor.BLACK){
+            if(targetField.getPiece() != null && targetField.getPiece().getOwner() != this.getOwner()){
                 possibleFields.add(targetField);
             }
         }
         if(this.getChessField().getCol() != 7){
             targetField = this.getChessBoard().getField((this.getChessField().getCol()+1), (this.getChessField().getRow()+ direction * 1));
-            if(targetField.getPiece() != null && targetField.getPiece().getOwner().getColor() == PlayerColor.BLACK){
+            if(targetField.getPiece() != null && targetField.getPiece().getOwner() != this.getOwner()){
                 possibleFields.add(targetField);
             }
         }           
