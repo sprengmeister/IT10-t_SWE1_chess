@@ -32,8 +32,18 @@ public class Knight extends Piece {
      */
     @Override
     public ArrayList<ChessField> getPossibleFields() {
-    	possibleFields = new ArrayList<ChessField>();
+    	possibleFields = new ArrayList<ChessField>();  	
+    	getPossibleFieldsOfKnight();
+        return this.checkDaringOwnKing(possibleFields);
+    }
+    @Override
+    public ArrayList<ChessField> getDaringFields(){
+    	possibleFields = new ArrayList<ChessField>();  	
+    	getPossibleFieldsOfKnight();
+    	return possibleFields;
+    }
     
+    private void getPossibleFieldsOfKnight() {
     	//allFields[i] und allFields[i+1] sind zusammen eine Koordinate eines Spielfelds
     	Integer[] allFields = new Integer[16];
     	allFields[0] = this.getChessField().getCol() + 2;
@@ -62,14 +72,5 @@ public class Knight extends Piece {
 				}
 			}
 		}
-
-        //TODO prüfen ob mit diesem Zug eine Schachsituation ausgelöst wurde
-        
-        return possibleFields;
     }
-    @Override
-    public ArrayList<ChessField> getDaringFields(){
-    	return this.getPossibleFields();
-    }
-    
 }
