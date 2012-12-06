@@ -8,6 +8,8 @@ import model.ChessBoard;
 import model.ChessField;
 import model.Game;
 import model.Player;
+import model.PlayerColor;
+import model.pieces.King;
 import model.pieces.Piece;
 
 /**
@@ -20,6 +22,7 @@ public class PossibleSituation implements Comparable<PossibleSituation> {
 	private ChessField from;
 	private ChessField to;
 	private ArrayList<PossibleSituation> possibleSituationChilds;
+	private static final int MAX_HOPS = 2;
 	
 	private int score;
 	
@@ -67,12 +70,12 @@ public class PossibleSituation implements Comparable<PossibleSituation> {
 		   				ChessField from = cbAfterTurn.getField(fromField.getCol(), fromField.getRow());
 		   				ChessField to = cbAfterTurn.getField(chessField.getCol(), chessField.getRow());
 		   				
-		   				to.exchangePiece(from.movePieceAway());						
+		   				to.exchangePiece(from.movePieceAway());
 		   				
 		   				PossibleSituation possibleSituation = new PossibleSituation(this.game, cbAfterTurn, from, to);
 		   				possibleSituation.calcScore(hop);
 		   				//Abbruch-Bedingung, für mehr als 2 Hops, dauert der Vorgang zu lange
-		   				if (hop < 2)
+		   				if (hop < MAX_HOPS)
 		   					possibleSituation.findPossibleSituationChilds(hop+1);
 		   				possibleSituationChilds.add(possibleSituation);
 					}
@@ -93,7 +96,6 @@ public class PossibleSituation implements Comparable<PossibleSituation> {
 				System.out.println(posSit.hashCode() + ";"+i + ";" + posSit.getScore() + ";" + posSit.to.getPiece().getOwner().getColor());
 			}
 		}
-		
 		if (possibleSituationChilds.size() > 0){
 			if (i%2==0) {
 				//Zug vom Computer -> Score aufsteigend sortieren
@@ -108,6 +110,9 @@ public class PossibleSituation implements Comparable<PossibleSituation> {
 				Collections.sort(possibleSituationChilds, reversedComparator);
 			}
 			return possibleSituationChilds.get(0);
+		} else if (i <= MAX_HOPS && getActivePlayer(i).getColor()!=PlayerColor.BLACK){
+			//Schachmatt
+			this.score += 99999;
 		}
 		return null;
 	}
