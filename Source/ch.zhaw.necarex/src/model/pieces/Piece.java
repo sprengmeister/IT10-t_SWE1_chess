@@ -159,7 +159,7 @@ public abstract class Piece implements Cloneable {
     		goFurther = this.addToPossibleFieldList(col, this.getChessField().getRow());
     		col++;
     	}
-
+    	goFurther = true;
     	col = (this.getChessField().getCol()-1);
     	while(col >= 0 && goFurther){
     		goFurther = this.addToPossibleFieldList(col, this.getChessField().getRow());
@@ -174,7 +174,7 @@ public abstract class Piece implements Cloneable {
     		goFurther = this.addToPossibleFieldList(this.getChessField().getCol(), row);
     		row++;
     	}
-
+    	goFurther = true;
     	row = (this.getChessField().getRow()-1);
     	while(row >= 0 && goFurther){
     		goFurther = this.addToPossibleFieldList(this.getChessField().getCol(), row);
