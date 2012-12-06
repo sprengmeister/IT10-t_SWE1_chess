@@ -13,12 +13,26 @@ public class ChessBoardViewModel {
 	private ChessField selectedField;
 	private List<ChessField> reachableFields;
 	private boolean isArtificalIntelligenceEnabled = false;
+	private PlayerColor playerWonColor = null;
 	
-	public void reset(){
+	public void resetRound(){
 		this.selectedField = null;
 		this.reachableFields = null;
 	}
 	
+	public void resetGame(){
+		playerWonColor = null;
+		resetRound();
+	}
+	
+	public PlayerColor getPlayerWonColor() {
+		return playerWonColor;
+	}
+
+	public void setPlayerWonColor(PlayerColor playerWonColor) {
+		this.playerWonColor = playerWonColor;
+	}
+
 	public ChessField getSelectedField() {
 		return selectedField;
 	}

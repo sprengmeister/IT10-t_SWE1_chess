@@ -119,6 +119,33 @@ public class ChessBoard implements Cloneable{
     	}
     	return false;
     }
+    
+    /**
+     * Gibt den Spieler zurück der Schachmatt ist, oder NULL.
+     * @return Besiegter Spieler oder NULL
+     */
+    public Player getPlayerInCheckMate(){
+    	if (isPlayerCheckMate(PlayerColor.WHITE)) return this.game.getPlayerWhite();
+    	if (isPlayerCheckMate(PlayerColor.BLACK)) return this.game.getPlayerBlack();
+    	return null;
+    }
+    
+    /**
+     * Prüft ob ein Spieler Schachmatt ist.
+     */
+    private boolean isPlayerCheckMate(PlayerColor color){
+    	boolean isCheckMate = true;
+    	for (int col = 0; col < 8 && isCheckMate; col++) {
+			for (int row = 0; row < 8 && isCheckMate; row++) {
+				Piece p = this.getField(col, row).getPiece();
+				if (p != null && p.getOwner().getColor()==color && p.getPossibleFields().size() != 0){
+					isCheckMate = false;
+				}
+			}
+		}
+    	return isCheckMate;
+    }
+    
     public ChessBoard clone(){
     	ChessBoard cb ; 
     	try {

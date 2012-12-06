@@ -65,7 +65,7 @@ public class Game {
     public Player getInactivePlayer(){
     	return activePlayer == playerWhite ? playerBlack : playerWhite;
     }
-    
+
     public void changeBlackPlayer(){
     	if (playerBlack instanceof ComputerPlayer){
     		playerBlack = playerBlackHuman;

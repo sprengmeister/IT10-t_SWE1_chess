@@ -26,6 +26,7 @@ public class MenuDrawer {
 
 	private Label numberOfTurnsValue;
 	private Label activePlayerValue;
+	private Label wonNotificationValue;
 	
 	public MenuDrawer(GameController controller, ChessBoardViewModel viewModel, int initX, int initY){
 		this.controller = controller;
@@ -37,6 +38,11 @@ public class MenuDrawer {
 	public void update(Game model){
 		numberOfTurnsValue.setText(String.valueOf(model.getTurnList().size()));
 		activePlayerValue.setText(model.getActivePlayer().getColor() == PlayerColor.WHITE ? "Weiss" : "Schwarz");
+		if (viewModel.getPlayerWonColor() != null){
+			wonNotificationValue.setText(viewModel.getPlayerWonColor() == PlayerColor.WHITE ? "Weiss" : "Schwarz");
+		}else {
+			wonNotificationValue.setText("-");
+		}
 	}
 	
 	public void draw(Table window) {
@@ -71,18 +77,28 @@ public class MenuDrawer {
         activePlayerValue = new Label("Weiss", skin);
         activePlayerValue.setFontScale(0.95f);
         
-        window.add(startGameButton).left().expandX().padLeft(initX).padBottom(20);
+        Label wonNotificationLabel = new Label("Gewonnen:", skin);
+        wonNotificationValue = new Label("-", skin);
+        wonNotificationValue.setFontScale(0.95f);
+
+        window.padBottom(initY);
+        window.padLeft(initX);
+        window.add(startGameButton).left().expandX().padBottom(20);
         window.row();
-        window.add(addressLabel).left().padLeft(initX);
+        window.add(addressLabel).left();
         window.row();
-        window.add(enemyList).left().padLeft(initX).padBottom(20);
+        window.add(enemyList).left().padBottom(20);
         window.row();
-        window.add(activePlayerLabel).left().padLeft(initX);
+        window.add(activePlayerLabel).left();
         window.row();
-        window.add(activePlayerValue).left().padLeft(initX).padBottom(20);
+        window.add(activePlayerValue).left().padBottom(20);
         window.row();
-        window.add(numberOfTurnsLabel).left().padLeft(initX);
+        window.add(numberOfTurnsLabel).left();
         window.row();
-        window.add(numberOfTurnsValue).left().padLeft(initX).padBottom(initY);
+        window.add(numberOfTurnsValue).left().padBottom(20);
+        window.row();
+        window.add(wonNotificationLabel).left();
+        window.row();
+        window.add(wonNotificationValue).left().padBottom(20);
 	}
 }

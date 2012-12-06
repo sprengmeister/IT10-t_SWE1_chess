@@ -10,6 +10,7 @@ import model.ChessField;
 import model.ComputerPlayer;
 import model.Game;
 import model.Player;
+import model.PlayerColor;
 import model.Turn;
 import client.viewmodel.ChessBoardViewModel;
 
@@ -35,13 +36,21 @@ public class GameController {
         }
     }
     
-    public void doTurn(ChessField fromField, ChessField toField){        
-    	if(fromField.getPiece().getPossibleFields().contains(toField)){
+    public void doTurn(ChessField fromField, ChessField toField){    
+    	if(viewModel.getPlayerWonColor() == null && fromField.getPiece().getPossibleFields().contains(toField)){
     		game.getChessBoard().movePiece(fromField, toField);
     		game.changeActivePlayer();
-    		viewModel.reset();
+    		viewModel.resetRound();
     	}
-    	// Prüfe auf Schach, Schachmatt, etc.   
+    	//Schach?
+    	if (game.getChessBoard().isCheck()){
+    		
+    	}
+    	//Schachmatt?
+    	Player looser = game.getChessBoard().getPlayerInCheckMate();
+    	if (looser != null){
+    		viewModel.setPlayerWonColor(looser.getColor() == PlayerColor.WHITE ? PlayerColor.BLACK : PlayerColor.WHITE);
+    	}
     }
     
 	public void update() {
@@ -56,9 +65,9 @@ public class GameController {
 	}
 
     public void startNewGame(){
+    	viewModel.resetGame();
     	game.getChessBoard().initChessboard();
     	game.initialize();
-        viewModel.reset();
     }
     
     /**
