@@ -72,7 +72,7 @@ public class PossibleSituation implements Comparable<PossibleSituation> {
 		   				PossibleSituation possibleSituation = new PossibleSituation(this.game, cbAfterTurn, from, to);
 		   				possibleSituation.calcScore(hop);
 		   				//Abbruch-Bedingung, für mehr als 2 Hops, dauert der Vorgang zu lange
-		   				if (hop < 3)
+		   				if (hop < 2)
 		   					possibleSituation.findPossibleSituationChilds(hop+1);
 		   				possibleSituationChilds.add(possibleSituation);
 					}
