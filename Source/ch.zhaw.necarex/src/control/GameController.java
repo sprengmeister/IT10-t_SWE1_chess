@@ -16,17 +16,23 @@ import client.viewmodel.ChessBoardViewModel;
 
 /**
  * Kontrolliert den Ablauf des Schachspiels
- * @author florian
  */
 public class GameController {
     private Game game;
     private ChessBoardViewModel viewModel;
-    
+    /**
+     * Erzeugt einen GameController
+     * @param viewModel ViewModel 
+     */
     public GameController(ChessBoardViewModel viewModel){
         this.game = new Game();
         this.viewModel = viewModel;
     }
-    
+    /**
+     * Gibt alle möglichen Zielfelder zurück, auf dem die Figur auf dem Feld fahren kann. Steht auf dem Feld keine Figur, wird eine leere ArrayList zurückgegeben
+     * @param field Feld, von dem geprüft werden soll, was für möglichkeiten es gibt. 
+     * @return ArrayList mit allen möglichen ChessFields
+     */
     public ArrayList<ChessField> getPossibleFields(ChessField field){
     
         if(field.getPiece() != null){
@@ -35,16 +41,16 @@ public class GameController {
         	return new ArrayList<ChessField>();
         }
     }
-    
+    /**
+     * Führt einen Zug durch und prüft, ob die Partie beendet ist. 
+     * @param fromField Start-Feld
+     * @param toField Ziel-Feld
+     */
     public void doTurn(ChessField fromField, ChessField toField){    
     	if(viewModel.getPlayerWonColor() == null && fromField.getPiece().getPossibleFields().contains(toField)){
     		game.getChessBoard().movePiece(fromField, toField);
     		game.changeActivePlayer();
     		viewModel.resetRound();
-    	}
-    	//Schach?
-    	if (game.getChessBoard().isCheck()){
-    		
     	}
     	//Schachmatt?
     	Player looser = game.getChessBoard().getPlayerInCheckMate();
@@ -63,7 +69,9 @@ public class GameController {
     		game.changeBlackPlayer();
     	}
 	}
-
+	/**
+	 * Neues Spiel starten
+	 */
     public void startNewGame(){
     	viewModel.resetGame();
     	game.getChessBoard().initChessboard();
