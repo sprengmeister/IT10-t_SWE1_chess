@@ -4,13 +4,7 @@
  */
 package model;
 
-import model.pieces.BiShop;
-import model.pieces.King;
-import model.pieces.Knight;
-import model.pieces.Pawn;
-import model.pieces.Piece;
-import model.pieces.Queen;
-import model.pieces.Rook;
+import model.pieces.*;
 
 /**
  * Das ChessBoard kontrolliert die Schachfelder und macht die Anfangsaufstellung zu Beginn des Spiels. 
