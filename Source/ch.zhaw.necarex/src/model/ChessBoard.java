@@ -1,26 +1,29 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import model.pieces.*;
 
 /**
  * Das ChessBoard kontrolliert die Schachfelder und macht die Anfangsaufstellung zu Beginn des Spiels. 
- * @author florian
  */
 public class ChessBoard implements Cloneable{
     private ChessField[][] chessField;
     
     private Game game;
    
+    /**
+     * Konstruktor erstellt ein neues Schachfeld
+     * @param game Referenz auf die Klasse Game, die die Spieler, geschlagenen Figuren etc. verwaltet. 
+     */
     public ChessBoard(Game game){
         this.game = game;
-        //TODO: Init raus nehmen, um testability zu erhöhen
         this.initChessboard();        
     } 
-    
+    /**
+     * Gibt die Figur in der Startaufstellung für ein bestimmtes Feld zurück 
+     * @param col Spalte
+     * @param row Zeile
+     * @return Figur, die in der Startaufstellung auf diesem Feld steht. 
+     */
     private Piece getInitialPiece(int col, int row){
     	Player player;
         if(row < 3 ){
@@ -70,7 +73,9 @@ public class ChessBoard implements Cloneable{
         return null;
     }
     
-
+    /**
+     * Setzt das Schachfeld in die Startaufstellung. 
+     */
     public void initChessboard(){
         chessField = new ChessField[8][8];
         for(int col = 0;col<8;col++){
@@ -84,15 +89,30 @@ public class ChessBoard implements Cloneable{
         }
     }
 
+    /**
+     * Setzt das Schachfeld von ausserhalb. Kann so zum Beispiel in Testfällen benutzt werden um eine bestimmte Situation zu erzeugen. 
+     * @param chessField Zweidimensionales Array von Schachfeldern
+     */
     public void initChessboard(ChessField[][] chessField){
-    	//TODO: check dimension
         this.chessField = chessField;
     }
-    
+    /**
+     * Gibt ein Schachfeld zurück <br />
+     * Achtung: Spalten 0 bis 7, nicht 1 bis 8
+     * @param col Spalte
+     * @param row Zeile
+     * @throws ArrayOutOfBoundsException wenn eine Zeile / Spalte angegeben, dass nicht auf dem Schachfeld ist (zwischen 0 und 7)
+     * @return Schachfeld an der Position Spalte / Zeile
+     */
     public ChessField getField(int col, int row){
         return chessField[col][row];
     }
     
+    /**
+     * Bewegt eine Figur vom from-Feld zum to-Feld. Der Zug wird geloggt in der TurnList (Game). Falls die Figur geschlagen wird, wird auch das im Game geloggt. 
+     * @param from Alter Ort der Figur
+     * @param to Neuer Ort der Figur. 
+     */
     public void movePiece(ChessField from, ChessField to){
     	Turn turn = new Turn(from, to);
     	game.addToTurnList(turn);
@@ -100,9 +120,11 @@ public class ChessBoard implements Cloneable{
     	if(capturedPiece != null){
     		game.addToCapturedPieces(capturedPiece);
     	}
-    	//this.isCheckMate();
     }
-    
+    /**
+     * Prüft, ob es zur Zeit ein König im Schach steht. 
+     * @return true, wenn ein König im Schach steht. 
+     */
     public boolean isCheck(){
     	for(int col=0;col<8;col++){
     		for(int row = 0;row < 8; row++){
@@ -126,6 +148,7 @@ public class ChessBoard implements Cloneable{
     
     /**
      * Prüft ob ein Spieler Schachmatt ist.
+     * @return true, wenn der Spieler Schachmatt ist. 
      */
     private boolean isPlayerCheckMate(PlayerColor color){
     	boolean isCheckMate = true;
@@ -139,7 +162,10 @@ public class ChessBoard implements Cloneable{
 		}
     	return isCheckMate;
     }
-    
+    /**
+     * Klont das Schachbrett mit allen Schachfeldern und Figuren. 
+     * @return geklontes Schachbrett
+     */
     public ChessBoard clone(){
     	ChessBoard cb ; 
     	try {

@@ -11,12 +11,17 @@ package model;
 public class Player {
     private PlayerColor color;
     
+    /**
+     * Erstellt einen Spieler
+     * @param Weiss oder Schweiz (enum)
+     */
     public Player(PlayerColor color){
         this.color = color;
     }
 
     /**
-     * @return the color
+     * Gibt die Farbe des Spielers
+     * @return Farbe des Spielers
      */
     public PlayerColor getColor() {
         return color;

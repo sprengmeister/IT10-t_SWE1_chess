@@ -1,14 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import model.pieces.*;
 
 /**
  * Auf einem Schachfeld (ChessField), das auf einer Spalte und einer Zeile steht, kann eine Figur stehen. 
- * @author florian
  */
 public class ChessField implements Cloneable {
     private Piece piece;
@@ -25,9 +20,9 @@ public class ChessField implements Cloneable {
         this.row = row;
     }
     /**
-     * 
-     * @param newPiece
-     * @return 
+     * Setzt die übergebene Figur auf das Feld und gibt die alte Figur zurück
+     * @param newPiece Figur, die neu auf dem Feld stehen soll
+     * @return Figur, die vorher auf dem Feld stand (null, bei keiner Figur)
      */
     public Piece exchangePiece(Piece newPiece){
         Piece oldPiece = getPiece();
@@ -35,6 +30,11 @@ public class ChessField implements Cloneable {
         newPiece.setChessField(this);
         return oldPiece;
     }
+    /**
+     * Gibt die Figur zurück und entfernt sie vom aktuellen Feld. <br />
+     * Wird benötigt, wenn eine Figur von diesem Feld auf ein anderes Feld zieht. 
+     * @return Figur, die vorher auf dem Feld stand
+     */
     public Piece movePieceAway(){
     	Piece oldPiece = this.piece;
     	this.piece = null;
@@ -42,26 +42,34 @@ public class ChessField implements Cloneable {
     }
 
     /**
-     * @return the piece
+     * Gibt die Figur, die auf dem Feld steht zurück
+     * @return Figur die auf dem Feld steht
      */
     public Piece getPiece() {
         return piece;
     }
 
     /**
-     * @return the col
+     * Gibt die Spalte zurück, in der sich das Schachfeld befindet
+     * @return Spalte des Schachfelds
      */
     public int getCol() {
         return col;
     }
 
     /**
-     * @return the row
+     * Gibt die Zeile zurück, in der sich das Schachfeld befindet. 
+     * @return Zeile
      */
     public int getRow() {
         return row;
     }
     
+    /**
+     * Klont ein Schachfeld sowie, falls vorhanden, die Figur die darauf steht. 
+     * @param cb Referenz zum Schachbrett. Wird benötigt, da die Figur eine Referenz zum Schachbrett benötigt
+     * @return geklontes Schachfeld
+     */
     public ChessField clone(ChessBoard cb){
     	ChessField cf = null;
     	try {

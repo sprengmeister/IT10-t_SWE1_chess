@@ -1,24 +1,27 @@
 package model;
 
-import control.GameController;
 import model.ai.PossibleSituation;
 
 /**
  * Stellt einen Computerspieler dar. Benutzt für die Zugberechnung das Package model.ai
- * @author florian
  *
  */
 public class ComputerPlayer extends Player {
 
 	Game game;
-	
+	/**
+	 * Erzeugt einen Computerspieler
+	 * @param color Farbe des Spiels. 
+	 * @param game Referenz zum aktuellen Spiel
+	 */
 	public ComputerPlayer(PlayerColor color, Game game) {
 		super(color);
 		this.game = game; 
 	}
-	
-	
-	
+	/**
+	 * Lässt den besten Zug berechnen und gibt ihn zurück. 
+	 * @return Besten Zug
+	 */
 	public Turn getBestTurn(){
 		PossibleSituation actSituation = new PossibleSituation(game, game.getChessBoard());
 		actSituation.findPossibleSituationChilds(0);
@@ -29,9 +32,5 @@ public class ComputerPlayer extends Player {
 		Turn bestTurn = new Turn(fromField, toField);
 		return bestTurn;
 	}
-
-
-
-	
 
 }
