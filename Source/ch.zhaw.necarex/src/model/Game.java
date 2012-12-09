@@ -36,12 +36,15 @@ public class Game {
      */
     private ArrayList<Piece> capturedPieces;
     /**
+     * Liste aller vergangenen Züge
      */
     private ArrayList<Turn> turnList;
+   
     
     public ArrayList<Turn> getTurnList() {
 		return turnList;
 	}
+    /**
      * Erzeugt ein neues Spiel. Greift dabei auf die Methode initialize() zurück
      * @see initialize()
      */
@@ -67,19 +70,24 @@ public class Game {
     public void changeBlackPlayer(){
     	if (playerBlack instanceof ComputerPlayer){
     		playerBlack = playerBlackHuman;
+    	} else {
     		playerBlack = new ComputerPlayer(PlayerColor.BLACK, this);
     	}
+    }	
     /**
+     * Wechselt den aktiven Spieler
      * @return Der Spieler der nachher am Zug ist 
      */
     public Player changeActivePlayer(){
+    	if(activePlayer.equals(playerWhite)){
+    		activePlayer = playerBlack;
     	}else {
     		activePlayer = playerWhite;
     	}
     	return activePlayer;
+    }
 	
     /**
-     * @return the playerWhite
      * Gibt den weissen Spieler zurück
      * @return Weisser Spieler
      */
