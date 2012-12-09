@@ -2,59 +2,126 @@
   generalizations="true" realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
   <class id="1" corner="BOTTOM_RIGHT" language="java" name="model.ai.PossibleSituation" project="ch.zhaw.necarex" 
     file="/ch.zhaw.necarex/src/model/ai/PossibleSituation.java" binary="false">    
-    <position height="-1" width="-1" x="704" y="240"/>    
+    <position height="-1" width="-1" x="498" y="263"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="2" corner="BOTTOM_RIGHT" language="java" name="model.ai.PossibleSituationTree" project="ch.zhaw.necarex" 
-    file="/ch.zhaw.necarex/src/model/ai/PossibleSituationTree.java" binary="false">    
-    <position height="-1" width="-1" x="282" y="276"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
-    </display>  
-  </class>  
-  <class id="3" corner="BOTTOM_RIGHT" language="java" name="model.ChessBoard" project="ch.zhaw.necarex" 
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="model.ChessBoard" project="ch.zhaw.necarex" 
     file="/ch.zhaw.necarex/src/model/ChessBoard.java" binary="false">    
-    <position height="179" width="246" x="959" y="94"/>    
+    <position height="-1" width="-1" x="909" y="223"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <association id="4">    
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="model.ComputerPlayer" project="ch.zhaw.necarex" 
+    file="/ch.zhaw.necarex/src/model/ComputerPlayer.java" binary="false">    
+    <position height="-1" width="-1" x="114" y="137"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="model.pieces.Piece" project="ch.zhaw.necarex" 
+    file="/ch.zhaw.necarex/src/model/pieces/Piece.java" binary="false">    
+    <position height="-1" width="-1" x="1349" y="464"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="5" corner="BOTTOM_RIGHT" language="java" name="model.ChessField" project="ch.zhaw.necarex" 
+    file="/ch.zhaw.necarex/src/model/ChessField.java" binary="false">    
+    <position height="-1" width="-1" x="834" y="614"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <association id="6">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="7" name="piece">        
+        <position height="15" width="37" x="1035" y="590"/>      
+      </attribute>      
+      <multiplicity id="8" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="9">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="5" name="board">        
-        <position height="15" width="39" x="838" y="198"/>      
+      <attribute id="10" name="to">        
+        <position height="15" width="17" x="699" y="432"/>      
       </attribute>      
-      <multiplicity id="6" minimum="0" maximum="1"/>    
+      <multiplicity id="11" minimum="0" maximum="1">        
+        <position height="15" width="23" x="719" y="480"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="7">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="8" name="possibleSituations">        
-        <position height="15" width="107" x="411" y="238"/>      
+  <association id="12">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="13" name="possibleFields">        
+        <position height="15" width="89" x="992" y="542"/>      
       </attribute>      
-      <multiplicity id="9" minimum="0" maximum="1"/>    
+      <multiplicity id="14" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="10">    
-    <bendpoint x="323" y="373"/>    
-    <bendpoint x="461" y="368"/>    
-    <bendpoint x="381" y="304"/>    
+  <dependency id="15">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <association id="16">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="11" name="possibleSituationChilds">        
-        <position height="15" width="136" x="320" y="377"/>      
+      <attribute id="17" name="chessField">        
+        <position height="15" width="66" x="858" y="419"/>      
       </attribute>      
-      <multiplicity id="12" minimum="0" maximum="2147483647"/>    
+      <multiplicity id="18" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="19">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="20" name="chessBoard"/>      
+      <multiplicity id="21" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="22">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="23" name="board">        
+        <position height="15" width="39" x="699" y="218"/>      
+      </attribute>      
+      <multiplicity id="24" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="25">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="26" name="from">        
+        <position height="15" width="31" x="643" y="495"/>      
+      </attribute>      
+      <multiplicity id="27" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="28">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="29" name="chessField">        
+        <position height="15" width="66" x="972" y="516"/>      
+      </attribute>      
+      <multiplicity id="30" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
