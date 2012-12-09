@@ -11,7 +11,6 @@ import model.*;
 
 /**
  * Spielfigur Läufer, basiert auf Piece. Kennt die Gangart des Läufers und kann dessen mögliche Felder ausrechnen.
- * @author beni
  */
 public class BiShop extends Piece {
 
@@ -25,7 +24,6 @@ public class BiShop extends Piece {
         super.setPieceValue(30);
         //Index des zugehörigen Sprites setzen
         super.setSpriteIndex(new Point(4, player.getColor() == PlayerColor.WHITE ? 0 : 1));
-
     }
 
     /**
@@ -38,7 +36,11 @@ public class BiShop extends Piece {
     	this.checkTurnDiag();
         return this.checkDaringOwnKing(possibleFields);
     }
-    
+
+    /**
+     * Gibt eine Liste zurück aller Felder, die von der Figur bedroht 
+     * sind und zum Beispiel einen daraufstehenden gegnerischen König schachstellen
+     */
     @Override
     public ArrayList<ChessField> getDaringFields(){
     	possibleFields = new ArrayList<ChessField>();  	

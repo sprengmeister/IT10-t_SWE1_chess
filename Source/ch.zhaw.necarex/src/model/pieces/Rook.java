@@ -11,8 +11,7 @@ import model.*;
 
 /**
  * Spielfigur Turm, basiert auf Piece. Kennt die Gangart des Turms und kann dessen mögliche Felder ausrechnen.
- * @author beni
- */
+*/
 public class Rook extends Piece {
 
     /**
@@ -25,7 +24,6 @@ public class Rook extends Piece {
         super.setPieceValue(50);
         //Index des zugehörigen Sprites setzen
         super.setSpriteIndex(new Point(3, player.getColor() == PlayerColor.WHITE ? 0 : 1));
-
     }
 
     /**
@@ -41,7 +39,10 @@ public class Rook extends Piece {
  
     	return this.checkDaringOwnKing(possibleFields);
     }
-    
+    /**
+     * Gibt eine Liste zurück aller Felder, die von der Figur bedroht 
+     * sind und zum Beispiel einen daraufstehenden gegnerischen König schachstellen
+     */
     @Override
     public ArrayList<ChessField> getDaringFields(){
     	possibleFields = new ArrayList<ChessField>();
@@ -51,11 +52,5 @@ public class Rook extends Piece {
  
     	return possibleFields;
     }
-    
-    
-    
-    
-    
-    
        
 }

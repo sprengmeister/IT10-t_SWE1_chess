@@ -10,7 +10,6 @@ import model.*;
 
 /**
  * Spielfigur Dame, basiert auf Piece. Kennt die Gangart der Dame und kann ihre möglichen Felder ausrechnen.
- * @author beni
  */
 public class Queen extends Piece {
 
@@ -40,6 +39,10 @@ public class Queen extends Piece {
     	 	
         return this.checkDaringOwnKing(possibleFields);
     }
+    /**
+     * Gibt eine Liste zurück aller Felder, die von der Figur bedroht 
+     * sind und zum Beispiel einen daraufstehenden gegnerischen König schachstellen
+     */
     @Override
     public ArrayList<ChessField> getDaringFields(){
     	possibleFields = new ArrayList<ChessField>();   	

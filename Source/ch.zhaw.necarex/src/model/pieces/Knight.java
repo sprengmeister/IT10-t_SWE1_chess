@@ -11,7 +11,6 @@ import model.*;
 
 /**
  * Spielfigur Springer, basiert auf Piece. Kennt die Gangart des Springers und kann dessen mögliche Felder ausrechnen.
- * @author beni
  */
 public class Knight extends Piece {
 
@@ -36,13 +35,19 @@ public class Knight extends Piece {
     	getPossibleFieldsOfKnight();
         return this.checkDaringOwnKing(possibleFields);
     }
+    /**
+     * Gibt eine Liste zurück aller Felder, die von der Figur bedroht 
+     * sind und zum Beispiel einen daraufstehenden gegnerischen König schachstellen
+     */
     @Override
     public ArrayList<ChessField> getDaringFields(){
     	possibleFields = new ArrayList<ChessField>();  	
     	getPossibleFieldsOfKnight();
     	return possibleFields;
     }
-    
+    /**
+     * Kennt alle möglichen Felder des Springers und füllt die in der aktuell möglichen Felder in die possibleFields ab. 
+     */
     private void getPossibleFieldsOfKnight() {
     	//allFields[i] und allFields[i+1] sind zusammen eine Koordinate eines Spielfelds
     	Integer[] allFields = new Integer[16];

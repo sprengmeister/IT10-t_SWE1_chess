@@ -19,42 +19,37 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 
 /**
- *
- * @author florian
+ * Tests der Figuren
  */
-public class ModelTester {
+public class PieceTester {
     private static Game game;
     
-    public ModelTester() {
-    }
-    
+    /**
+     * Erstellt ein Game für die Tests
+     */
     @BeforeClass
     public static void setUpClass() {
         game = new Game();
     }
     
+    /**
+     * Löscht das Game, da die Tests abgeschlossen sind. 
+     */
     @AfterClass
     public static void tearDownClass() {
         game = null;
     }
     
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
-    @Test
+    /**
+     * Prüft, ob das Game erzeugt wurde. 
+     */
     public void initGameStart(){
         assertNotNull(game);
         
     }
+    /**
+     * Prüft, ob bei der Grundaufstellung die Bauern am richtigen Ort stehen. 
+     */
     @Test
     public void initGamePawn(){
         for(int col = 0;col<8;col++){
@@ -74,6 +69,9 @@ public class ModelTester {
             }            
         }        
     }
+    /**
+     * Prüft die Grundaufstellung der Springer
+     */
     @Test
     public void initGameKnight(){        
         if(!(game.getChessBoard().getField(1, 0).getPiece() instanceof Knight)){
@@ -101,6 +99,10 @@ public class ModelTester {
             Assert.fail("Die Figur auf Feld 6/7 muss schwarz sein");
         }
     }
+
+    /**
+     * Prüft die Grundaufstellung der Türme
+     */
     @Test
     public void initGameRook(){        
         if(!(game.getChessBoard().getField(0, 0).getPiece() instanceof Rook)){
@@ -128,6 +130,10 @@ public class ModelTester {
             Assert.fail("Die Figur auf Feld 7/7 muss schwarz sein");
         }
     }
+
+    /**
+     * Prüft die Zugmöglichkeiten (getPossibleFields) aus der Startposition aller Bauern
+     */
     @Test
     public void pawnsOnBaseLine(){
         for(int col = 0; col< 8 ;col++){
@@ -144,6 +150,9 @@ public class ModelTester {
             }
         }
     } 
+    /**
+     * Prüft die Zugmöglichkeiten (getPossibleFields) des Springers aus der Startposition
+     */
     @Test
     public void knightsOnBaseLine(){
     	Piece p = game.getChessBoard().getField(1, 0).getPiece();
@@ -168,6 +177,9 @@ public class ModelTester {
             Assert.fail("In der Grundstellung hat der Springer zwei Zugsmöglichkeiten.");
         }
     }   
+    /**
+     * Prüfung, dass Türme keine Zugsmöglichkeiten haben in der Grundposition
+     */
     @Test
     public void rooksOnBaseLine(){
     	Piece p = game.getChessBoard().getField(0, 0).getPiece();
@@ -180,6 +192,9 @@ public class ModelTester {
             Assert.fail("In der Grundstellung hat der Turm keine Zugsmöglichkeit.");
         }
     } 
+    /**
+     * Prüfung, dass Läufer keine Zugsmöglichkeiten haben in der Grundposition
+     */    
     @Test
     public void biShopsOnBaseLine(){
     	Piece p = game.getChessBoard().getField(2, 0).getPiece();
@@ -192,6 +207,9 @@ public class ModelTester {
             Assert.fail("In der Grundstellung hat der Läufer keine Zugsmöglichkeit.");
         }
     } 
+    /**
+     * Im ChessBoard hat es ein zweidiemensionales Array aller Felder. Zusätzlich weiss jedes Feld, auf welchem Feld es steht. Dies muss übereinstimmen. 
+     */
     @Test
     public void checkFieldColsAndRows(){
         for(int row = 0;row < 8 ;row++){
@@ -206,6 +224,23 @@ public class ModelTester {
             }
         }
     }
+    /**
+     * Verschiedene Bauernzüge und Kontrollen: 
+     * <ul> 
+     * <li>Zug des weissen Bauern B2 nach B4</li>
+     * <li><font color="green">Prüfung, ob auf B4 ein Bauer steht </font></li>
+     * <li><font color="green">Prüfung, ob auf B2 kein Bauer steht </font></li>
+     * <li><font color="green">Prüfung, ob sich in der Zugliste ein Zug befindet </font></li>
+     * <li><font color="green">Prüfungen, ob alle Attribute des Turn richtig erfasst sind</font></li>
+     * <li>Zug von C7 nach C5</li>
+     * <li><font color="green">Prüfung, ob auf C5 ein Bauer steht </font></li>
+     * <li><font color="green">Prüfung, ob auf C7 kein Bauer steht </font></li>
+ 	 * <li>Zug B4 x C5 (Schlagen des schwarzen Bauerns) </li>
+     * <li><font color="green">Prüfung, ob auf C5 ein weisser Bauer steht </font></li>
+     * <li><font color="green">Prüfung, im Turn das Attribut capturedPieces korrekt gesetzt ist. </font></li>
+     * <li><font color="green">In den capturedPieces der Klasse game ist der schwarze Bauer drin</font></li>
+     * </ul>
+     */
     @Test
     public void movePawns(){
     	
@@ -264,6 +299,9 @@ public class ModelTester {
     		Assert.fail("In der Liste der geschlagenen Figuren fehlt der schwarze Bauer. ");
     	}
     }
+    /**
+     * Verschiedene Züge mit dem Springer und Kontrollen.
+     */
     @Test
     public void moveKnights(){
     	
@@ -327,6 +365,9 @@ public class ModelTester {
     		Assert.fail("In der Liste der geschlagenen Figuren fehlt der schwarze Springer. ");
     	}
     }
+    /**
+     * Verschiedene Züge mit dem Turm und Kontrolle danach. 
+     */
     @Test
     public void moveRooks(){
     	

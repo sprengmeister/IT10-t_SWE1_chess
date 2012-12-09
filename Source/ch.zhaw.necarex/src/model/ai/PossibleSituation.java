@@ -9,12 +9,10 @@ import model.ChessField;
 import model.Game;
 import model.Player;
 import model.PlayerColor;
-import model.pieces.King;
 import model.pieces.Piece;
 
 /**
  * Stellt eine mögliche Schachsituation dar. Diese Klasse nimmt die Bewertung der Schachsituation vor. 
- * @author florian
  *
  */
 public class PossibleSituation implements Comparable<PossibleSituation> {
@@ -28,12 +26,24 @@ public class PossibleSituation implements Comparable<PossibleSituation> {
 	
 	private Game game;
 
+	/**
+	 * Erzeugt die erste PossibleSituation. Es ist noch kein Zug gemacht werden - somit entspricht die Situation der Berechnungsgrundlage. Deshalb werden keine Felder from und to übergeben
+	 * @param game aktuelles Spiel
+	 * @param board aktueller Stand auf dem Board
+	 */
 	public PossibleSituation(Game game, ChessBoard board){
 		this.board = board;
 		this.game = game;
 		
 		possibleSituationChilds = new ArrayList<PossibleSituation>();
 	}
+	/**
+	 * Erzeugt eine neue PossibleSituation, die nach einem Zug (from,to) entstanden ist vom parent-Node der Liste possibleSituationChilds.
+	 * @param game aktuelles Spiel
+	 * @param board möglicher Stand nach dem Zug
+	 * @param from Zug der zu dieser Situation geführt hat: Start-Feld
+	 * @param to Zug der zu dieser Situation geführt hat: Ziel-Feld
+	 */
 	public PossibleSituation(Game game, ChessBoard board, ChessField from, ChessField to){
 		this.from = from;
 		this.to = to;
@@ -41,7 +51,11 @@ public class PossibleSituation implements Comparable<PossibleSituation> {
 		this.board = board;
 		this.possibleSituationChilds = new ArrayList<PossibleSituation>();
 	}
-	
+	/**
+	 * Berechnet die Bewertung einer Situation mittels der Summe der Figurenwerte (Piece.getPieceValue()).
+	 * <brr />Anwendung des Min/Max Algorithmus: Eigene Figuren werden positiv gewertet, gegnerische Figuren negativ. 
+	 * @param hop Rekursionstiefe
+	 */
 	public void calcScore(int hop) {
 		ChessField field;
 		Piece piece;
@@ -57,7 +71,10 @@ public class PossibleSituation implements Comparable<PossibleSituation> {
 			}
 		}
 	}
-	
+	/**
+	 * Findet alle möglichen Situationen, die auf die aktuelle Situation finden können, und fügt diese in die Liste possibleSituationChilds ein. 
+	 * @param hop Rekursionstiefe
+	 */
 	public void findPossibleSituationChilds(int hop){
 	   	for(int col=0;col<8;col++){
 	   		for(int row = 0;row < 8; row++){
@@ -83,11 +100,19 @@ public class PossibleSituation implements Comparable<PossibleSituation> {
 	   		}
 	   	}
 	}
-	
+	/**
+	 * Gibt den aktiven Spieler im aktuellen Rekursionschritt zurück
+	 * @param hop Rekursionstiefe
+	 * @return Aktiver Spieler
+	 */
 	private Player getActivePlayer(int hop){
 		return hop%2==0 ? game.getActivePlayer() : game.getInactivePlayer();
 	}
-	
+	/**
+	 * Der Baum wird rekursiv traversiert und die beste Situation herausgeholt. Gleichwertige Situationen (= Gleiche Bewertungen/Scores) werden zufällig ausgewählt. 
+	 * @param i Rekursionstiefe 
+	 * @return
+	 */
 	public PossibleSituation getBestSituation(int i){
 		for (PossibleSituation posSit : possibleSituationChilds) {
 			PossibleSituation bestChildSituation = posSit.getBestSituation(i+1);
@@ -116,19 +141,40 @@ public class PossibleSituation implements Comparable<PossibleSituation> {
 		}
 		return null;
 	}
+	/**
+	 * Gibt das Start-Feld des in diesem Objekt ausprobierten Zugs zurück
+	 * @return Start-Feld
+	 */
 	public ChessField getFrom() {
 		return from;
 	}
+	/**
+	 * Gibt das Ziel-Feld des in diesem Objekt ausprobierten Zugs zurück
+	 * @return
+	 */
 	public ChessField getTo() {
 		return to;
 	}
+	/**
+	 * Gibt die Bewertung der aktuellen Situation zurück
+	 * @return Bewertung der aktuellen Situation 
+	 */
 	public int getScore(){
 		return score;
 	}
+	/**
+	 * Setzt die Bewertung
+	 * @param score zu setzende Bewertung
+	 */
 	public void setScore(int score){
 		this.score = score;
 	}
 
+	/**
+	 * Vergleicht die Bewertung dieser Situation mit der übergebenen. So kann die Methode Collection.sort() verwendet werden. 
+	 * @param situation zu vergleichende Situation
+	 * @return 1: der Score der übergebenen Situation ist grösser, <br /> -1: der Score der Situation dieses Objekts ist grösser, <br/> ansonsten 0
+	 */
 	@Override
 	public int compareTo(PossibleSituation situation) {
 		if (situation.getScore() > this.getScore()) return 1;

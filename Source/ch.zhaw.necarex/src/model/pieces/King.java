@@ -11,7 +11,6 @@ import model.*;
 
 /**
  * Spielfigur König, basiert auf Piece. Kennt die Gangart des Königs und kann dessen mögliche Felder ausrechnen.
- * @author beni
  */
 public class King extends Piece {
 
@@ -83,13 +82,4 @@ public class King extends Piece {
 
         return possibleFields;   	
     }
-    
-    
-    public boolean isCheck(){
-    	return false;
-    }
-    
-    public boolean isCheckMate(){
-    	return false;
-    }    
 }

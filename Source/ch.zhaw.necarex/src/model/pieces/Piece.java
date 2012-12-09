@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.pieces;
 
 import java.awt.Point;
@@ -13,7 +9,6 @@ import model.Player;
 
 /**
  * Die Klasse Piece (abstrakt) beschreibt alles, was alle Schachfiguren gemeinsam haben. Alle Schachfiguren gehören einem Owner, stehen auf einem Schachfeld.Jede Schachfigur muss eine Methode implementieren, die die möglichen Felder zurück gibt.  
- * @author florian
  */
 public abstract class Piece implements Cloneable {
     private Player owner;
@@ -23,64 +18,30 @@ public abstract class Piece implements Cloneable {
     protected ArrayList<ChessField> possibleFields;
     protected int pieceValue;
 
-	public Piece(Player owner, ChessBoard chessBoard){
+	/**
+	 * Setzt Referenzen zum Owner der Figur und zum Schachbrett
+	 * @param owner Spieler (weiss/schwarz), dem die Figur gehört
+	 * @param chessBoard Referenz zum Schachbrett
+	 */
+    public Piece(Player owner, ChessBoard chessBoard){
         this.owner = owner;
         this.chessBoard = chessBoard;
     }
-    
+    /**
+     * Abstrakte Methode, die alle Felder zurück gibt, auf welche die Figur aktuell ziehen kann.<br />
+     * Achtung: Ein Zug, nachdem der eigene König sich in einer Schachsituation befindet ist nicht zulässig! 
+     * @return Liste aller Felder, auf die eine Figur ziehen kann. 
+     */
     public abstract ArrayList<ChessField> getPossibleFields();
     
     /**
      * Gibt eine Liste zurück aller Felder, die von der Figur bedroht 
-     * sind und zum Beispiel einen daraufstehenden König schachstellen
-     * @return
+     * sind und zum Beispiel einen daraufstehenden gegnerischen König schachstellen
+     * @return Liste aller Felder, die von der Figur bedroht werden. 
      */
     public abstract ArrayList<ChessField> getDaringFields();
 
-    /**
-     * @return the chessField
-     */
-    public ChessField getChessField() {
-    	return chessField;
-    }
 
-    /**
-     * @param chessField the chessField to set
-     */
-    public void setChessField(ChessField chessField) {
-        this.chessField = chessField;
-    }
-
-    /**
-     * @return the owner
-     */
-    public Player getOwner() {
-        return owner;
-    }
-
-    /**
-     * @return the chessBoard
-     */
-    public ChessBoard getChessBoard() {
-    	return chessBoard;
-    }
-    
-    public int getPieceValue(){
-    	return pieceValue;
-    }
-    
-    protected void setPieceValue(int pieceValue){
-    	this.pieceValue = pieceValue;
-    }
-    
-    public Point getSpriteIndex() {
-		return spriteIndex;
-	}
-
-	protected void setSpriteIndex(Point spriteIndex) {
-		this.spriteIndex = spriteIndex;
-	}
-	
 	/**
 	 * Prüft die Zugliste, ob ein Zug den eigenen König in eine Schachsituation bringt und entfernt entsprechende Züge.  
 	 * @param possibleFields 
@@ -117,7 +78,10 @@ public abstract class Piece implements Cloneable {
 		return possibleFields;
 	}
 	
-	
+	/**
+	 * Prüft, ob die Figur den gegnerischen König bedroht
+	 * @return true: Figur bedroht den gegnerischen König, ansonsten false
+	 */
 	public boolean daresOpponentKing(){
 		ArrayList<ChessField> reachableFieldList = this.getDaringFields();
 		for (ChessField chessField : reachableFieldList) {
@@ -131,6 +95,12 @@ public abstract class Piece implements Cloneable {
 		}
 		return false;
 	}
+	/**
+	 * Klont die aktuelle Figur
+	 * @param chessField geklontes Schachfeld, auf dem die geklonte Figur zu stehen kommt
+	 * @param chessBoard geklontes Schachbrett, auf dem die geklonte Figur steht. 
+	 * @return
+	 */
     public Piece clone(ChessField chessField, ChessBoard chessBoard){
     	try {
 			Piece p = (Piece) super.clone();
@@ -146,12 +116,16 @@ public abstract class Piece implements Cloneable {
     /**
      * Wenn es sich bei der Figur auf dem Feld um eine eigene Figur handelt, kann dieses Feld nicht erreicht werden
      * Handelt es sich um eine gegnerische Figur, kann diese geschlagen werden. 
+     * @param targetField zu prüfendes Feld
      */
-    protected void checkForPieceCapture(ArrayList<ChessField> possibleFields, ChessField targetField){
+    protected void checkForPieceCapture(ChessField targetField){
     	if (targetField.getPiece().getOwner() != this.getChessField().getPiece().getOwner()) {
     		possibleFields.add(targetField);
 		}
     }
+    /**
+     * Methode, die von einzelnen Figuren verwendet werden kann. Prüft, welche Felder in der Spalte von einer Figur erreichbar sind / sie erreichen kann und fügt die möglichen Felder der Liste possibleFields hinzu. 
+     */
     protected void checkTurnColumn(){
     	boolean goFurther = true;
     	int col = (this.getChessField().getCol()+1);
@@ -165,7 +139,11 @@ public abstract class Piece implements Cloneable {
     		goFurther = this.addToPossibleFieldList(col, this.getChessField().getRow());
     		col--;
     	}
-    }    
+    } 
+    /**
+     * Methode, die von einzelnen Figuren verwendet werden kann. Prüft, welche Felder in der Zeile von einer Figur erreichbar sind / sie erreichen kann und fügt die möglichen Felder der Liste possibleFields hinzu. 
+     */
+   
     protected void checkTurnRow(){
     	
     	boolean goFurther = true;
@@ -182,6 +160,9 @@ public abstract class Piece implements Cloneable {
     	}
 
    }   
+    /**
+     * Methode, die von einzelnen Figuren verwendet werden kann. Prüft, welche Felder in den Diagonalen von einer Figur erreichbar sind / sie erreichen kann und fügt die möglichen Felder der Liste possibleFields hinzu. 
+     */
     protected void checkTurnDiag(){
     	
     	int row = this.getChessField().getRow()+1;
@@ -221,15 +202,82 @@ public abstract class Piece implements Cloneable {
     	}    	
     	
      }
-    
+    /**
+     * Prüft ob ein Feld zur Liste hinzugefügt werden kann (keine eigene Figur steht darauf). Gibt false zurück, falls die Figur nicht mehr weiter fahren kann
+     * @param col
+     * @param row
+     * @return true: das Feld wurde eingefügt, die Figur. Es wurde keine Figur geschlagen. <br /> false: die Figur ist auf eine andere Figur gestossen - falls es eine gegnerische ist, wurde diese geschlagen
+     */
     private boolean addToPossibleFieldList(int col, int row){   	
     	ChessField targetField = this.getChessBoard().getField(col, row);	
 		if (targetField.getPiece() == null) {	
 			possibleFields.add(targetField);
 			return true;
 		} else {
-			checkForPieceCapture(possibleFields, targetField);
+			checkForPieceCapture(targetField);
 			return false; 
 		}    			
     } 
+    /**
+     * Gibt das Schachfeld zurück, auf dem die Figur steht
+     * @return Schachfeld
+     */
+    public ChessField getChessField() {
+    	return chessField;
+    }
+
+    /**
+     * Setzt das Schachfeld auf dem die Figur steht
+     * @param chessField Schachfeld, auf dem die Figur neu steht
+     */
+    public void setChessField(ChessField chessField) {
+        this.chessField = chessField;
+    }
+
+    /**
+     * Gibt den Spieler zurück, dem die Figur gehört
+     * @return Spieler dem die Figur gehört
+     */
+    public Player getOwner() {
+        return owner;
+    }
+
+    /**
+     * Gibt das aktuelle Schachbrett zurück
+     * @return Schachbrett
+     */
+    public ChessBoard getChessBoard() {
+    	return chessBoard;
+    }
+    
+    /**
+     * Gibt den Wert der Figur zurück. <br/>
+     * Wird benötigt zur Bewertung der Schachsituation durch den Computer. 
+     * @return Figurenwert 
+     */
+    public int getPieceValue(){
+    	return pieceValue;
+    }
+    /**
+     * Setzt den Wert einer Figur
+     * Kann verwendet werden, um aufgrund einer Schachsituation der Wert einer Figur zu verändern
+     * @param pieceValue
+     */
+    protected void setPieceValue(int pieceValue){
+    	this.pieceValue = pieceValue;
+    }
+    /**
+     * Position des Bildes der Schachfigur auf dem Sprite-Bild
+     * @return Index der Position auf dem Bild
+     */
+    public Point getSpriteIndex() {
+		return spriteIndex;
+	}
+    /**
+     * Setzt die Position des Bildes der Schachfigur auf dem Sprite-Bild
+     * @param spriteIndex neuer Index der Position des Bildes
+     */
+	protected void setSpriteIndex(Point spriteIndex) {
+		this.spriteIndex = spriteIndex;
+	}
 }

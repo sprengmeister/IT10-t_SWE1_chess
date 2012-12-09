@@ -14,8 +14,7 @@ import model.PlayerColor;
 
 /**
  * Spielfigur Bauer, basiert auf Piece. Kennt die Gangart des Bauerns und kann dessen mögliche Felder ausrechnen.
- * @author florian
- */
+*/
 public class Pawn extends Piece {
     
     private int direction;
@@ -41,24 +40,21 @@ public class Pawn extends Piece {
     public ArrayList<ChessField> getPossibleFields() {
     	possibleFields = new ArrayList<ChessField>();
     
-
-        
-        
         this.addPossiblePawnTurn();
         this.addPossiblePawnDoubleTurn();
         this.addPossiblePawnCaptures();
         
         // TODO Schlagen en passant
         // Schwierigkeit: Abhängigkeit von 2 Zügen, es kann nur en passant geschlagen werden, 
-        //wenn weisser Bauer e2 - e4 gezogen hat und schwarz im direkt folgenden Zug d4 x e3 schlägt.              
-
+        //wenn weisser Bauer e2 - e4 gezogen hat und schwarz im direkt folgenden Zug d4 x e3 schlägt.  
+        // Muss mit Game.getTurnList() gelöst werden. 
         //this.checkSchlagenEnPassant();
-
-        //TODO prüfen ob mit diesem Zug eine Schachsituation ausgelöst wurde
-        
         return this.checkDaringOwnKing(possibleFields);
     }
-    
+    /**
+     * Gibt eine Liste zurück aller Felder, die von der Figur bedroht 
+     * sind und zum Beispiel einen daraufstehenden gegnerischen König schachstellen
+     */
     @Override
     public ArrayList<ChessField> getDaringFields(){
 		possibleFields = new ArrayList<ChessField>();		
@@ -119,6 +115,10 @@ public class Pawn extends Piece {
             }
         }
     }
+    /**
+     * Prüft, ob eine Figur direkt vor dem Bauern (in Laufrichtung) steht
+     * @return true, wenn eine Figur direkt vor dem Bauern steht. ansonsten false
+     */
     private boolean checkNoFigureInFrontOfPawn(){
     	return  this.getChessBoard().getField(this.getChessField().getCol(), (this.getChessField().getRow() + direction * 1 )).getPiece() == null;
     }
