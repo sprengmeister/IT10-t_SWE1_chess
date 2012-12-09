@@ -59,6 +59,9 @@ public class GameController {
     	}
     }
     
+    /**
+     * Updated die Model Daten, initiiert Aktionen anhand der Daten (z.B. Computerspieler triggern).
+     */
 	public void update() {
     	if(game.getActivePlayer() instanceof ComputerPlayer){	
     		Turn computerTurn = ((ComputerPlayer)game.getActivePlayer()).getBestTurn();

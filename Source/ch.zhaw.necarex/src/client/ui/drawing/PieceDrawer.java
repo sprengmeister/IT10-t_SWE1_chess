@@ -21,6 +21,11 @@ public class PieceDrawer {
 	private int initX;
 	private int initY;
 	
+	/**
+	 * Initialisiert den Drawer. 
+	 * @param initX Initiale X-Koordinate.
+	 * @param initY Initiale Y-Koordinate.
+	 */
 	public PieceDrawer(int initX, int initY){
 		this.texture = new Texture(Gdx.files.internal("assets/sprites/piecesWide.png"));
 		this.initX = initX;
@@ -28,7 +33,7 @@ public class PieceDrawer {
 	}
 	
     /**
-     * Zeichnet die Figur
+     * Zeichnet die Figur.
      * @param p Figur die gezeichnet werden soll.
      */
 	public void draw(SpriteBatch spriteBatch, Piece p){

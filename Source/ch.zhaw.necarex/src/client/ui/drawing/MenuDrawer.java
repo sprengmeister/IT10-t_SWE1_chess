@@ -15,6 +15,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import control.GameController;
 
+/**
+ * Zeichnet das Menu und stellt die Spielinformationen dar.
+ * @author Sebastian
+ */
 public class MenuDrawer {
 	
 	private Skin skin = new Skin( Gdx.files.internal("assets/skin/uiskin.json" ));
@@ -28,6 +32,13 @@ public class MenuDrawer {
 	private Label activePlayerValue;
 	private Label wonNotificationValue;
 	
+	/**
+	 * Initialisiert den Drawer.
+	 * @param controller Kontroller der über Aktionen informiert wird.
+	 * @param viewModel Model mit den View-relevanten Daten.
+	 * @param initX Initiale X-Koordinate.
+	 * @param initY Initiale Y-Koordinate.
+	 */
 	public MenuDrawer(GameController controller, ChessBoardViewModel viewModel, int initX, int initY){
 		this.controller = controller;
 		this.initX = initX;
@@ -35,6 +46,10 @@ public class MenuDrawer {
 		this.viewModel = viewModel;
 	}
 	
+	/**
+	 * Updated die Spielinformationen.
+	 * @param model Model mit den relevanten Daten.
+	 */
 	public void update(Game model){
 		numberOfTurnsValue.setText(String.valueOf(model.getTurnList().size()));
 		activePlayerValue.setText(model.getActivePlayer().getColor() == PlayerColor.WHITE ? "Weiss" : "Schwarz");
@@ -45,6 +60,10 @@ public class MenuDrawer {
 		}
 	}
 	
+	/**
+	 * Zeichnet die Controls und Labels.
+	 * @param window Bereich in den gezeichnet wird.
+	 */
 	public void draw(Table window) {
         TextButton startGameButton = new TextButton("Neues Spiel", skin);
         startGameButton.addListener(new EventListener()

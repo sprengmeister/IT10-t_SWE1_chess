@@ -17,6 +17,7 @@ public class NecarexDesktop {
 	public static final int WINDOW_WIDTH = 600;
 	
 	/**
+	 * Einstiegsmethode
 	 * @param args Startparameter
 	 */
 	public static void main(String[] args) {

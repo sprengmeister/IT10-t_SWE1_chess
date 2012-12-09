@@ -22,6 +22,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 import control.GameController;
 
+/**
+ * Game Screen - der Screen der das Game "in Aktion" darstellt.
+ * @author Sebastian
+ */
 public class GameScreen implements Screen {
 
 	private BoardDrawer boardDrawer;
@@ -35,6 +39,11 @@ public class GameScreen implements Screen {
 	private GameController controller;
 	private ChessBoardViewModel viewModel;
 	
+	/**
+	 * Initialisiert den GameScreen.
+	 * @param controller Controller, der über Aktionen informiert wird.
+	 * @param viewModel ViewModel mit den für die View relevanten Daten.
+	 */
 	public GameScreen(GameController controller, ChessBoardViewModel viewModel){
 		this.spriteBatch = new SpriteBatch();
 		this.game = controller.getGame();
@@ -42,21 +51,31 @@ public class GameScreen implements Screen {
 		this.viewModel = viewModel;
 	}
 	
+	/**
+	 * Gibt die Ressourcen frei.
+	 */
 	@Override
 	public void dispose() {
 		boardDrawer.dispose();
 	}
 
+	/**
+	 * Wird momentan nicht verwendet.
+	 */
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
 	}
 
+	/**
+	 * Wird momentan nicht verwendet.
+	 */
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
 	}
 
+	/**
+	 * Führ das Zeichnen aus.
+	 */
 	@Override
 	public void render(float delta) {
 		//Model/KI nachführen
@@ -135,17 +154,25 @@ public class GameScreen implements Screen {
 		}
 	}
 
+	/**
+	 * Führt einen Resize durch.
+	 */
 	@Override
 	public void resize(int width, int height) {
         stage.setViewport( width, height, true );
         stage.clear();
 	}
 
+	/**
+	 * Wird momentan nicht verwendet.
+	 */
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
 	}
 
+	/**
+	 * Zeigt den Screen initial.
+	 */
 	@Override
 	public void show() {
 		stage = new Stage(Gdx.graphics.getWidth(),Gdx.graphics.getHeight(), false);

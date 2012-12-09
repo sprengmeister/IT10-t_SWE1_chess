@@ -26,38 +26,49 @@ public class NecarexGame extends Game {
 		this.viewModel = viewModel;
 	}
 	
+	/**
+	 * Initialisiert alle Ressourcen.
+	 */
 	@Override
 	public void create() {
 		gameScreen = new GameScreen(controller, viewModel);
 		setScreen(gameScreen);
 	}
 
+	/**
+	 * Räumt alle verwendeten Ressourcen wieder auf.
+	 */
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		gameScreen.dispose();
 	}
 
+	/**
+	 * Pausiert das Spiel - Wird momentan nicht verwendet.
+	 */
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
-		
 	}
 
+	/**
+	 * Zeichnet die Oberfläche
+	 */
 	@Override
 	public void render() {
 		super.render();
 	}
 
+	/**
+	 * Resized die Oberfläche - wird momentan nicht verwendet.
+	 */
 	@Override
 	public void resize(int arg0, int arg1) {
-		// TODO Auto-generated method stub
-		
 	}
 
+	/**
+	 * Beendet Pausierung - wird momentan nicht verwendet.
+	 */
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
-		
 	}
-
 }

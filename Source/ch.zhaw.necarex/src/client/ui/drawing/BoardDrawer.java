@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Disposable;
 
 /**
- * Der BoardDrawer übernimmt alle Zeichnungsaufgaben bezogen auf das Schachbrett.
+ * Der BoardDrawer übernimmt alle Zeichnungsaufgaben des Schachbretts.
  * @author sprengmeister
  */
 public class BoardDrawer implements Disposable {
@@ -31,6 +31,11 @@ public class BoardDrawer implements Disposable {
 	
 	private ChessBoardViewModel viewModel;
 	
+	/**
+	 * Initialisiert Drawer.
+	 * @param window Bereich in den gezeichnet wird.
+	 * @param viewModel Daten zur View.
+	 */
 	public BoardDrawer(Table window, ChessBoardViewModel viewModel){		
 		this.initX = window.getX();
 		this.initY = window.getY();
@@ -38,7 +43,7 @@ public class BoardDrawer implements Disposable {
 	}
 
 	/**
-     * Zeichnet das Schachfeld
+     * Zeichnet das Schachbrett
      */
 	public void draw(SpriteBatch spriteBatch){
 		//SpriteBatch für die Schriften starten
@@ -107,6 +112,9 @@ public class BoardDrawer implements Disposable {
 		return false;
 	}
 
+	/**
+	 * Gibt die Ressourcen frei.
+	 */
 	@Override
 	public void dispose() {
 		renderer.dispose();
