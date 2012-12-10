@@ -135,9 +135,13 @@ public class PossibleSituation implements Comparable<PossibleSituation> {
 				Collections.sort(possibleSituationChilds, reversedComparator);
 			}
 			return possibleSituationChilds.get(0);
-		} else if (i <= MAX_HOPS && getActivePlayer(i).getColor()!=PlayerColor.BLACK){
+		} else if (i <= MAX_HOPS){
 			//Schachmatt
-			this.score += 99999;
+			if (getActivePlayer(i).getColor()!=PlayerColor.BLACK){
+				this.score += 99999;
+			} else {
+				this.score -= 99999;
+			}
 		}
 		return null;
 	}
