@@ -26,11 +26,15 @@ public class ComputerPlayer extends Player {
 		PossibleSituation actSituation = new PossibleSituation(game, game.getChessBoard());
 		actSituation.findPossibleSituationChilds(0);
 		PossibleSituation bestSituation = actSituation.getBestSituation(0);
+		if (bestSituation != null && bestSituation.getFrom() != null && bestSituation.getTo() != null){
+			ChessField fromField = game.getChessBoard().getField(bestSituation.getFrom().getCol(), bestSituation.getFrom().getRow());
+			ChessField toField = game.getChessBoard().getField(bestSituation.getTo().getCol(), bestSituation.getTo().getRow()); 
+			Turn bestTurn = new Turn(fromField, toField);
+			return bestTurn;
+		} else {
+			return null;
+		}
 		
-		ChessField fromField = game.getChessBoard().getField(bestSituation.getFrom().getCol(), bestSituation.getFrom().getRow());
-		ChessField toField = game.getChessBoard().getField(bestSituation.getTo().getCol(), bestSituation.getTo().getRow()); 
-		Turn bestTurn = new Turn(fromField, toField);
-		return bestTurn;
 	}
 
 }

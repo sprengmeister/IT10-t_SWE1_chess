@@ -65,7 +65,8 @@ public class GameController {
 	public void update() {
     	if(game.getActivePlayer() instanceof ComputerPlayer){	
     		Turn computerTurn = ((ComputerPlayer)game.getActivePlayer()).getBestTurn();
-    		doTurn(computerTurn.getFromField(), computerTurn.getToField());
+    		if (computerTurn != null)
+    			doTurn(computerTurn.getFromField(), computerTurn.getToField());
     	}
     	if ((game.getPlayerBlack() instanceof ComputerPlayer && !viewModel.isArtificalIntelligenceEnabled())
     			|| (!(game.getPlayerBlack() instanceof ComputerPlayer) && viewModel.isArtificalIntelligenceEnabled())){
